@@ -10,31 +10,42 @@
 </head>
 <body>
   <header>
-    <!-- NAVBAR BOOTSTRAP-->
-    <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+    <!-- NAVBAR BOOTSTRAP -->
+    <nav class="navbar navbar-dark bg-transparent blur-navbar fixed-top" aria-label="Navbar con blur">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">VEYOR</a>
-        <button class="navbar-toggler collapsed" type="futton" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/imagenes/logo_navbar.png" alt="Logo VEYOR" width="140" height="70">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="navbarsExample01">
-          <ul class="navbar-nav me-auto mb-2">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./pages/comprar.html">Comprar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./pages/vender.html">Vender</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./pages/alquilar.html">Alquilar</a>
-            </li>
-          </ul>
-        </div>
       </div>
     </nav>
+    <div class="offcanvas offcanvas-end bg-black text-white" tabindex="-1" id="offcanvasNavbarDark"
+      aria-labelledby="offcanvasNavbarDarkLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarDarkLabel">Menú</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+          aria-label="Cerrar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="./pages/comprar.html">Comprar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="./pages/vender.html">Vender</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="./pages/alquilar.html">Alquilar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </header>
   <main class="pagina-index">
     <div class="contenido-index">
@@ -67,25 +78,35 @@
   </main>  
   <div class="container">
     <!-- FOOTER BOOTSTRAP -->
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <img src="./assets/imagenes/logo_veyor.png" alt="Logo VEYOR" width="40" class="me-2">
-        <span class="mb-3 mb-md-0 text-body-secondary">© 2025 VEYOR</span>
+    <footer class="py-5" >
+      <div class="row">
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Contacto</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Dirección: Av. Colón 1234, Córdoba, Argentina</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Teléfono: +54 351 123 4567</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Email: contacto@veyor.com</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Horarios: Lun a Vie de 9 a 18 hs</a></li>
+          </ul>
+        </div>
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+        <p>© 2025 VEYOR. Todos los derechos reservados.</p>
+        <ul class="list-unstyled d-flex">
+          <li class="ms-3">
+            <a class="link-body-emphasis" href="https://www.instagram.com" aria-label="Instagram" target="_blank">
+              <img src="./assets/imagenes/logo_instagram.svg" alt="Instagram" width="24">
+            </a>
+          </li>
+          <li class="ms-3">
+            <a class="link-body-emphasis" href="https://www.facebook.com" aria-label="Facebook" target="_blank">
+              <img src="./assets/imagenes/logo_facebook.svg" alt="Facebook" width="24">
+            </a>
+          </li>          
+        </ul>
       </div>
-      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3">
-          <a class="text-body-secondary" href="https://www.instagram.com" target="_blank" aria-label="Instagram">
-            <img src="./assets/imagenes/logo_instagram.svg" alt="Instagram" width="24">
-          </a>
-        </li>
-        <li class="ms-3">
-          <a class="text-body-secondary" href="https://www.facebook.com" target="_blank" aria-label="Facebook">
-            <img src="./assets/imagenes/logo_facebook.svg" alt="Facebook" width="24">
-          </a>
-        </li>
-      </ul>
     </footer>
 </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
