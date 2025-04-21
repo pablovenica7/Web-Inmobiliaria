@@ -1,3 +1,12 @@
+/* NAVBAR */
+.blur-navbar {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1040;
+}
+
 /* INDEX */
 .pagina-index {
   height: 100vh;
@@ -75,87 +84,108 @@
 }
 
 /* VENDER */
-
-.vender-contenedor {
+.formulario-vender {
   display: flex;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #000;
+  padding: 40px 20px;
+  padding-top: 120px;
 }
 
-.formulario {
-  width: 35%;
-  padding: 40px;
-  background-color: #fff;
+.contenedor-formulario {
+  display: flex;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  max-width: 1000px;
+  width: 100%;
+}
+
+.lado-ilustracion {
+  flex: 1;
+  background: #e4c4fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.lado-ilustracion img {
+  max-width: 100%;
+  height: auto;
+}
+
+.lado-formulario {
+  flex: 1;
+  padding: 40px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.formulario h2 {
-  font-size: 1.3rem;
+.lado-formulario h2 {
   margin-bottom: 10px;
+  font-size: 28px;
+  color: #333;
 }
 
-.formulario p {
-  font-size: 0.95rem;
-  margin-bottom: 20px;
+.lado-formulario p.subtitulo {
+  color: #666;
+  margin-bottom: 30px;
 }
 
-.formulario form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.formulario input,
-.formulario select,
-.formulario textarea {
+.lado-formulario input,
+.lado-formulario select,
+.lado-formulario textarea {
+  width: 100%;
+  margin-bottom: 15px;
   padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1rem;
 }
 
-.formulario textarea {
-  resize: none;
-  height: 100px;
-}
-
-.formulario .contador {
-  font-size: 0.8rem;
-  color: #888;
-  text-align: right;
-}
-
-.formulario button {
-  padding: 12px;
-  background-color: orange;
+.btn-enviar {
+  background: #e74c3c;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s;
 }
 
-.formulario button:hover {
-  background-color: darkorange;
+.btn-enviar:hover {
+  background: #c0392b;
 }
 
-.formulario small {
-  font-size: 0.75rem;
-  color: #777;
+.recupero,
+.registro-link {
+  text-align: right;
+  font-size: 0.9rem;
   margin-top: 10px;
 }
 
-.formulario a {
-  color: #333;
-  text-decoration: underline;
+.redes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
 }
 
-.imagen-lateral {
-  width: 65%;
-  background-image: url('../assets/imagenes/vender.jpg');
-  background-size: cover;
-  background-position: center;
+.redes img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
+
+.redes img:hover {
+  transform: scale(1.1);
+}
+
 
