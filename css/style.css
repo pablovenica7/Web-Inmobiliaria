@@ -83,6 +83,62 @@
   transition: background-color 0.3s;
 }
 
+/* COMPRAR */
+.comprar-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #333;
+  background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
+  padding: 40px 20px;
+  padding-top: 120px;
+}
+
+.busqueda-card {
+  background-color: #f7f8fc;
+  border-radius: 30px;
+  border: 2px solid #ddd;
+  padding: 20px 30px;
+}
+
+.grid-busqueda {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.input-busqueda {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.input-busqueda:hover {
+  border: 1px solid orange;
+}
+
+.filtro-btn {
+  height: 100%;
+  font-size: 0.9rem;
+  border-radius: 12px;
+}
+
+.imagen-propiedad img {
+  width: 180px;
+  height: auto;
+  object-fit: cover;
+}
+
+.catalogo-card {
+  border: 2px solid #ccc;
+}
+
+.catalogo-card:hover {
+  border: 2px solid orange;
+}
+
 /* VENDER */
 .formulario-vender {
   display: flex;
@@ -132,6 +188,12 @@
   font-size: 1rem;
 }
 
+.lado-formulario input:hover,
+.lado-formulario select:hover,
+.lado-formulario textarea:hover {
+  border: 1px solid orange;
+}
+
 .btn-enviar {
   background: orange;
   color: white;
@@ -144,48 +206,4 @@
 
 .btn-enviar:hover {
   background: #ffa726;
-}
-
-/* COMPRAR */
-.comprar-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #333;
-  background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
-  padding: 40px 20px;
-  padding-top: 120px;
-}
-
-.busqueda-card {
-  background-color: #f7f8fc;
-  border-radius: 30px;
-  border: 2px solid #ddd;
-  padding: 20px 30px;
-}
-
-.grid-busqueda {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-}
-
-.input-busqueda {
-  padding: 10px 12px;
-  font-size: 0.95rem;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-}
-
-.filtro-btn {
-  height: 100%;
-  font-size: 0.9rem;
-  border-radius: 12px;
-}
-
-.imagen-propiedad img {
-  width: 180px;
-  height: auto;
-  object-fit: cover;
 }
