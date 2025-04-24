@@ -47,12 +47,68 @@
       </div>
     </div>
   </header>
-  <main class="pagina-principal">
+  <main class="comprar-main">
+    <div class="container py-5 mt-5">
+      <div class="row justify-content-center">
+        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
+  
+          <!-- Imagen de la propiedad -->
+          <div class="imagen-propiedad">
+            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+          </div>
+  
+          <!-- Información -->
+          <div class="info-propiedad text-dark flex-grow-1">
+            <h3 class="fw-bold mb-1">$83.500 <small class="text-muted">USD</small></h3>
+            <p class="mb-1">Av. Hipolito Yrigoyen 300</p>
+  
+            <!-- Íconos -->
+            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales
+              </li>
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos
+              </li>
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes
+              </li>
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño
+              </li>
+            </ul>
+  
+            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
+            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+  
+            <!-- Asesor -->
+            <div class="d-flex align-items-center mt-3">
+              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+              <div>
+                <strong class="d-block">Pablo Venica</strong>
+                <small class="text-muted">VEYOR Inmobiliaria</small>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
+  
   <div class="container">
     <!-- FOOTER BOOTSTRAP -->
     <footer class="py-5">
       <div class="row">
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Categorias</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="../index.html" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Comprar</a></li>
+            <li class="nav-item mb-2"><a href="../pages/vender.html" class="nav-link p-0 text-body-secondary">Vender</a></li>
+            <li class="nav-item mb-2"><a href="../pages/alquilar.html" class="nav-link p-0 text-body-secondary">Alquilar</a></li>
+          </ul>
+        </div>
         <div class="col-6 col-md-2 mb-3">
           <h5>Contacto</h5>
           <ul class="nav flex-column">
@@ -62,7 +118,7 @@
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Horarios: Lun a Vie de 9 a 18 hs</a></li>
           </ul>
         </div>
-      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      </div><div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
         <p>© 2025 VEYOR. Todos los derechos reservados.</p>
         <ul class="list-unstyled d-flex">
           <li class="ms-3">
@@ -74,7 +130,7 @@
             <a class="link-body-emphasis" href="https://www.facebook.com" aria-label="Facebook" target="_blank">
               <img src="../assets/imagenes/logo_facebook.svg" alt="Facebook" width="24">
             </a>
-          </li>          
+          </li>
         </ul>
       </div>
     </footer>
