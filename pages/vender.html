@@ -49,41 +49,32 @@
   </header>
   <main class="formulario-vender">
     <div class="contenedor-formulario">
-      <!-- Columna izquierda: Imagen ilustrativa -->
       <div class="lado-ilustracion">
-        <img src="../assets/imagenes/ilustracion_formulario.png" alt="Ilustración VEYOR">
+        <img src="../assets/imagenes/img_vender.png" alt="Ilustración VEYOR">
       </div>
-  
-      <!-- Columna derecha: Formulario -->
       <div class="lado-formulario">
-        <p class="registro-link">¿No tenés cuenta? <a href="#">Registrate</a></p>
-        <h2>¡Hola de nuevo!</h2>
-        <p class="subtitulo">Completá los datos para vender tu propiedad</p>
-  
+        <h2>Vendé tu propiedad</h2>
+        <p class="subtitulo">Completá el formulario y un asesor de VEYOR se pondrá en contacto con vos para avanzar con el proceso de venta.</p>
         <form>
-          <input type="text" placeholder="Nombre y apellido">
-          <input type="email" placeholder="Email">
-          <input type="tel" placeholder="Teléfono">
-          <input type="text" placeholder="Localidad / provincia">
+          <input type="text" placeholder="Nombre y apellido" required>
+          <input type="email" placeholder="Email" required>
+          <input type="tel" placeholder="Teléfono" required>
+          <input type="text" placeholder="Localidad / provincia" required>
           <select>
             <option disabled selected>Tipo de propiedad</option>
             <option>Casa</option>
             <option>Departamento</option>
             <option>PH</option>
+            <option>Terrenos y lotes</option>
+            <option>Cochera</option>
+            <option>Local</option>
+            <option>Oficina</option>
+            <option>Galpón</option>
+            <option>Deposito</option>
+            <option>Campo</option>
           </select>
-          <textarea placeholder="Comentarios (opcional)" rows="3"></textarea>
-  
+          <textarea placeholder="Comentarios" rows="3" required></textarea>
           <button type="submit" class="btn-enviar">Enviar</button>
-  
-          <p class="recupero">¿Olvidaste tus datos? <a href="#">Recuperar</a></p>
-  
-          <div class="alternativas">
-            <p>O ingresá con:</p>
-            <div class="redes">
-              <img src="../assets/imagenes/google-icon.png" alt="Google">
-              <img src="../assets/imagenes/apple-icon.png" alt="Apple">
-              <img src="../assets/imagenes/facebook-icon.png" alt="Facebook">
-            </div>
           </div>
         </form>
       </div>
@@ -94,6 +85,15 @@
     <footer class="py-5">
       <div class="row">
         <div class="col-6 col-md-2 mb-3">
+          <h5>Categorias</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="../index.html" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="../pages/comprar.html" class="nav-link p-0 text-body-secondary">Comprar</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Vender</a></li>
+            <li class="nav-item mb-2"><a href="../pages/alquilar.html" class="nav-link p-0 text-body-secondary">Alquilar</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-3">
           <h5>Contacto</h5>
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Dirección: Av. Colón 1234, Córdoba, Argentina</a></li>
@@ -102,7 +102,7 @@
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Horarios: Lun a Vie de 9 a 18 hs</a></li>
           </ul>
         </div>
-      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      </div><div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
         <p>© 2025 VEYOR. Todos los derechos reservados.</p>
         <ul class="list-unstyled d-flex">
           <li class="ms-3">
@@ -114,7 +114,7 @@
             <a class="link-body-emphasis" href="https://www.facebook.com" aria-label="Facebook" target="_blank">
               <img src="../assets/imagenes/logo_facebook.svg" alt="Facebook" width="24">
             </a>
-          </li>          
+          </li>
         </ul>
       </div>
     </footer>
