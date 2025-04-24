@@ -158,6 +158,32 @@
   padding-top: 120px;
 }
 
+.busqueda-card {
+  background-color: #f7f8fc;
+  border-radius: 30px;
+  border: 2px solid #ddd;
+  padding: 20px 30px;
+}
+
+.grid-busqueda {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.input-busqueda {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.filtro-btn {
+  height: 100%;
+  font-size: 0.9rem;
+  border-radius: 12px;
+}
+
 .imagen-propiedad img {
   width: 180px;
   height: auto;
