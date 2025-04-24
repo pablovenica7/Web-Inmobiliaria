@@ -47,9 +47,72 @@
       </div>
     </div>
   </header>
-  <main class="pagina-principal">
-    <div class="contenido-principal">
-
+  <main class="alquilar-main">
+    <div class="container py-5 mt-5">
+      <div class="busqueda-card mb-5">
+        <div class="grid-busqueda">
+          <input type="text" placeholder="¿Dónde querés mudarte?" class="input-busqueda">
+          <select class="input-busqueda">
+            <option disabled selected>Tipo de propiedad</option>
+            <option>Casa</option>
+            <option>Departamento</option>
+            <option>PH</option>
+            <option>Terrenos y lotes</option>
+            <option>Cochera</option>
+            <option>Local</option>
+            <option>Oficina</option>
+            <option>Galpón</option>
+            <option>Deposito</option>
+            <option>Campo</option>
+          </select>
+          <select class="input-busqueda">
+            <option selected>Comprar</option>
+            <option>Vender</option>
+            <option>Alquilar</option>
+          </select>
+          <select class="input-busqueda">
+            <option selected>Precio</option>
+          </select>
+          <button class="btn btn-outline-dark d-flex align-items-center justify-content-center filtro-btn">
+            <img src="../assets/imagenes/icono_filtrar.png" alt="Filtros" width="18" class="me-1">
+            <strong>Filtros (0)</strong>
+          </button>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
+          <div class="imagen-propiedad">
+            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+          </div>
+          <div class="info-propiedad text-dark flex-grow-1">
+            <h3 class="fw-bold mb-1">$550 USD <small class="text-muted" style="font-size: 0.8rem;">+ 100 USD expensas</small></h3>            
+            <p class="mb-1">Av. Hipolito Yrigoyen 300</p>
+            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales
+              </li>
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos
+              </li>
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes
+              </li>
+              <li class="list-inline-item d-flex align-items-center">
+                <img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño
+              </li>
+            </ul>
+            <p class="mb-2 fw-medium">ALQUILER DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
+            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+            <div class="d-flex align-items-center mt-3">
+              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+              <div>
+                <strong class="d-block">Pablo Venica</strong>
+                <small class="text-muted">VEYOR Inmobiliaria</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <div class="container">
