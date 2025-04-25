@@ -133,6 +133,9 @@
 
 .catalogo-card {
   border: 2px solid #ccc;
+  border-radius: 20px;
+  transition: border 0.3s ease;
+  margin-bottom: 24px;
 }
 
 .catalogo-card:hover {
