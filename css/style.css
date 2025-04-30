@@ -83,6 +83,44 @@
   transition: background-color 0.3s;
 }
 
+/* FILTROS */
+.modal-filtros {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-contenido {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header,
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.modal-footer {
+  border-top: 1px solid #eee;
+  margin-top: 15px;
+}
+
 /* COMPRAR */
 .comprar-main {
   display: flex;
@@ -145,59 +183,70 @@
 /* VENDER */
 .formulario-vender {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   background-color: #0d0d0f;
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
-  padding: 99px 0 0px; 
+  padding: 40px 20px;
+  padding-top: 120px;
 }
 
-.contenedor-formulario {
+.contenedor-formulario-vender {
   display: flex;
-}
-
-.lado-ilustracion {
-  flex: 1;
   background: white;
-}
-
-.lado-ilustracion img {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  max-width: 1000px;
   width: 100%;
-  height: 100%;
 }
 
-.lado-formulario {
+.lado-ilustracion-vender {
   flex: 1;
-  padding: 60px;
-  background-color: white;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-.lado-formulario h2 {
+.lado-ilustracion-vender img {
+  max-width: 100%;
+  height: auto;
+}
+
+.lado-formulario-vender {
+  flex: 1;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lado-formulario-vender h2 {
   margin-bottom: 10px;
   font-size: 28px;
+  color: #333;
 }
 
-.lado-formulario p.subtitulo {
+.lado-formulario-vender .subtitulo {
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
-.lado-formulario input,
-.lado-formulario select,
-.lado-formulario textarea {
+.lado-formulario-vender input,
+.lado-formulario-vender select,
+.lado-formulario-vender textarea {
   width: 100%;
-  margin-bottom: 15px;
   padding: 12px;
+  margin-bottom: 15px;
+  font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 12px;
-  font-size: 1rem;
 }
 
-.lado-formulario input:hover,
-.lado-formulario select:hover,
-.lado-formulario textarea:hover {
-  border: 1px solid orange;
-}
-
-.btn-enviar {
+.boton-vender {
   background: orange;
   color: white;
   border: none;
@@ -205,11 +254,10 @@
   padding: 12px;
   font-size: 1rem;
   cursor: pointer;
-  width: 100%;
 }
 
-.btn-enviar:hover {
-  background: #ffa726;
+.boton-vender:hover {
+  background: darkorange;
 }
 
 /* ALQUILAR */
@@ -222,4 +270,83 @@
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
   padding: 40px 20px;
   padding-top: 120px;
+}
+
+/* CONTACTO */
+.formulario-contacto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0d0d0f;
+  background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
+  padding: 40px 20px;
+  padding-top: 120px;
+}
+
+.contenedor-formulario-contacto {
+  display: flex;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  max-width: 1000px;
+  width: 100%;
+}
+
+.lado-ilustracion-contacto {
+  flex: 1;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.lado-ilustracion-contacto img {
+  max-width: 100%;
+  height: auto;
+}
+
+.lado-formulario-contacto {
+  flex: 1;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lado-formulario-contacto h2 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  color: #333;
+}
+
+.lado-formulario-contacto .subtitulo {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.lado-formulario-contacto input,
+.lado-formulario-contacto textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+
+.boton-contacto {
+  background: orange;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.boton-contacto:hover {
+  background: darkorange;
 }
