@@ -43,43 +43,46 @@
           <li class="nav-item">
             <a class="nav-link text-white" href="../pages/alquilar.html">Alquilar</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="../pages/contacto.html">Contacto</a>
+          </li>
         </ul>
       </div>
     </div>
   </header>
   <main class="formulario-vender">
-    <div class="contenedor-formulario">
-      <div class="lado-ilustracion">
+    <div class="contenedor-formulario-vender">
+  
+      <!-- Imagen lateral con fondo naranja -->
+      <div class="lado-ilustracion-vender">
         <img src="../assets/imagenes/img_vender.png" alt="Ilustración VEYOR">
       </div>
-      <div class="lado-formulario">
+  
+      <!-- Formulario para vender propiedad -->
+      <div class="lado-formulario-vender">
         <h2>Vendé tu propiedad</h2>
         <p class="subtitulo">Completá el formulario y un asesor de VEYOR se pondrá en contacto con vos para avanzar con el proceso de venta.</p>
+  
         <form>
           <input type="text" placeholder="Nombre y apellido" required>
           <input type="email" placeholder="Email" required>
           <input type="tel" placeholder="Teléfono" required>
           <input type="text" placeholder="Localidad / provincia" required>
-          <select>
+          <select required>
             <option disabled selected>Tipo de propiedad</option>
             <option>Casa</option>
             <option>Departamento</option>
             <option>PH</option>
-            <option>Terrenos y lotes</option>
-            <option>Cochera</option>
-            <option>Local</option>
-            <option>Oficina</option>
+            <option>Terreno</option>
             <option>Galpón</option>
-            <option>Deposito</option>
             <option>Campo</option>
           </select>
-          <textarea placeholder="Comentarios" rows="3" required></textarea>
-          <button type="submit" class="btn-enviar">Enviar</button>
-          </div>
+          <textarea placeholder="Comentarios (opcional)" rows="4"></textarea>
+          <button type="submit" class="boton-vender">Enviar</button>
         </form>
       </div>
     </div>
-  </main>
+  </main>  
   <div class="container">
     <!-- FOOTER BOOTSTRAP -->
     <footer class="py-5">
@@ -91,6 +94,7 @@
             <li class="nav-item mb-2"><a href="../pages/comprar.html" class="nav-link p-0 text-body-secondary">Comprar</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Vender</a></li>
             <li class="nav-item mb-2"><a href="../pages/alquilar.html" class="nav-link p-0 text-body-secondary">Alquilar</a></li>
+            <li class="nav-item mb-2"><a href="../pages/contacto.html" class="nav-link p-0 text-body-secondary">Contacto</a></li>
           </ul>
         </div>
         <div class="col-6 col-md-2 mb-3">
