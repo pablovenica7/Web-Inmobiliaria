@@ -16,41 +16,28 @@
         <a class="navbar-brand" href="../index.html">
           <img src="../assets/imagenes/logo_navbar.png" alt="Logo VEYOR" width="140" height="70">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
     </nav>
-    <div class="offcanvas offcanvas-end bg-black text-white" tabindex="-1" id="offcanvasNavbarDark"
-      aria-labelledby="offcanvasNavbarDarkLabel">
+    <div class="offcanvas offcanvas-end bg-black text-white" tabindex="-1" id="offcanvasNavbarDark" aria-labelledby="offcanvasNavbarDarkLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarDarkLabel">Menú</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-          aria-label="Cerrar"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link active text-white" aria-current="page" href="../index.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../pages/comprar.html">Comprar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../pages/vender.html">Vender</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Alquilar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../pages/contacto.html">Contacto</a>
-          </li>
+          <li class="nav-item"><a class="nav-link active text-white" href="../index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="../pages/comprar.html">Comprar</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="../pages/vender.html">Vender</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#">Alquilar</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="../pages/contacto.html">Contacto</a></li>
         </ul>
       </div>
     </div>
   </header>
-  <main class="alquilar-main">
+  <main class="comprar-main">
     <div class="container py-5 mt-5">
       <div class="busqueda-card mb-5">
         <div class="grid-busqueda">
@@ -76,159 +63,289 @@
           <select class="input-busqueda">
             <option selected>Precio</option>
           </select>
-          <button class="btn btn-outline-dark d-flex align-items-center justify-content-center filtro-btn">
+          <button id="abrirFiltros" class="btn btn-outline-dark filtro-btn">
             <img src="../assets/imagenes/icono_filtrar.png" alt="Filtros" width="18" class="me-1">
             <strong>Filtros (0)</strong>
           </button>
         </div>
       </div>
+      <div id="modalFiltros" class="modal-filtros">
+        <div class="modal-contenido">
+          <div class="modal-header">
+            <h5 class="modal-title">Filtros</h5>
+            <button id="cerrarFiltros" class="btn-close" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Operación</label>
+              <div class="btn-group w-100 flex-wrap" role="group">
+                <button type="button" class="btn btn-outline-primary active">Comprar</button>
+                <button type="button" class="btn btn-outline-primary">Alquilar</button>
+                <button type="button" class="btn btn-outline-primary">Alquiler temporal</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Ubicación</label>
+              <input type="text" class="form-control" placeholder="¿Dónde querés mudarte?">
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Tipo de propiedad</label>
+              <select class="form-select">
+                <option selected>Tipo de propiedad</option>
+                <option>Casa</option>
+                <option>Departamento</option>
+                <option>PH</option>
+                <option>Terreno</option>
+                <option>Oficina</option>
+                <option>Local</option>
+                <option>Galpón</option>
+                <option>Campo</option>
+              </select>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Ambientes</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">1</button>
+                <button class="btn btn-outline-secondary">2</button>
+                <button class="btn btn-outline-secondary">3</button>
+                <button class="btn btn-outline-secondary">4</button>
+                <button class="btn btn-outline-secondary">5</button>
+                <button class="btn btn-outline-secondary">+6</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Dormitorios</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">1</button>
+                <button class="btn btn-outline-secondary">2</button>
+                <button class="btn btn-outline-secondary">3</button>
+                <button class="btn btn-outline-secondary">4</button>
+                <button class="btn btn-outline-secondary">+5</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Baños</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">1</button>
+                <button class="btn btn-outline-secondary">2</button>
+                <button class="btn btn-outline-secondary">3</button>
+                <button class="btn btn-outline-secondary">+4</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Cocheras</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">1</button>
+                <button class="btn btn-outline-secondary">2</button>
+                <button class="btn btn-outline-secondary">3</button>
+                <button class="btn btn-outline-secondary">+4</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Superficie total (m²)</label>
+              <div class="d-flex gap-2">
+                <input type="number" class="form-control" placeholder="Desde">
+                <input type="number" class="form-control" placeholder="Hasta">
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Superficie cubierta (m²)</label>
+              <div class="d-flex gap-2">
+                <input type="number" class="form-control" placeholder="Desde">
+                <input type="number" class="form-control" placeholder="Hasta">
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Expensas</label>
+              <div class="d-flex gap-2 align-items-center">
+                <select class="form-select" style="width: 90px;">
+                  <option>ARS</option>
+                  <option>USD</option>
+                </select>
+                <input type="number" class="form-control" placeholder="Desde">
+                <input type="number" class="form-control" placeholder="Hasta">
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Antigüedad</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">Hasta 5 años</button>
+                <button class="btn btn-outline-secondary">5 - 10 años</button>
+                <button class="btn btn-outline-secondary">10 - 20 años</button>
+                <button class="btn btn-outline-secondary">20 - 50 años</button>
+                <button class="btn btn-outline-secondary">+50 años</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Apto crédito</label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="aptoCreditoSwitch">
+                <label class="form-check-label" for="aptoCreditoSwitch">Sí</label>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Etiquetas destacadas</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-primary">A estrenar</button>
+                <button class="btn btn-outline-primary">En pozo</button>
+                <button class="btn btn-outline-primary">Reciclado</button>
+                <button class="btn btn-outline-primary">Oportunidad</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary" id="cerrarFiltros2">Cancelar</button>
+            <button class="btn btn-primary">Aplicar filtros</button>
+          </div>
+        </div>
+      </div>
       <div class="row justify-content-center">
         <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
-          <div class="imagen-propiedad">
-            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
-          </div>
-          <div class="info-propiedad text-dark flex-grow-1">
-            <h3 class="fw-bold mb-1">$84.500 <small class="text-muted" style="font-size: 0.8rem;">USD + 100 USD expensas</small></h3>
-            <p class="mb-1">Calle Falsa 100</p>
-            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
-            </ul>
-            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
-            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-              <div><strong class="d-block">Pablo Venica</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-            </div>
+        <div class="imagen-propiedad">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$83.500 USD</h3>
+          <p class="mb-1">Av. Colón 1450</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. COLÓN 1450</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">Gonzalo Fernández</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
           </div>
         </div>
-        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
-          <div class="imagen-propiedad">
-            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
-          </div>
-          <div class="info-propiedad text-dark flex-grow-1">
-            <h3 class="fw-bold mb-1">$85.500 <small class="text-muted" style="font-size: 0.8rem;">USD + 100 USD expensas</small></h3>
-            <p class="mb-1">Calle Falsa 200</p>
-            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
-            </ul>
-            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
-            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-              <div><strong class="d-block">Pablo Venica</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-            </div>
-          </div>
         </div>
         <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
-          <div class="imagen-propiedad">
-            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
-          </div>
-          <div class="info-propiedad text-dark flex-grow-1">
-            <h3 class="fw-bold mb-1">$86.500 <small class="text-muted" style="font-size: 0.8rem;">USD + 100 USD expensas</small></h3>
-            <p class="mb-1">Calle Falsa 300</p>
-            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
-            </ul>
-            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
-            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-              <div><strong class="d-block">Pablo Venica</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-            </div>
+        <div class="imagen-propiedad">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$85.500 USD</h3>
+          <p class="mb-1">Bv. San Juan 750</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN BV. SAN JUAN 750</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">María Belén López</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
           </div>
         </div>
-        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
-          <div class="imagen-propiedad">
-            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
-          </div>
-          <div class="info-propiedad text-dark flex-grow-1">
-            <h3 class="fw-bold mb-1">$86.500 <small class="text-muted" style="font-size: 0.8rem;">USD + 100 USD expensas</small></h3>
-            <p class="mb-1">Calle Falsa 300</p>
-            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
-            </ul>
-            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
-            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-              <div><strong class="d-block">Pablo Venica</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-            </div>
-          </div>
         </div>
         <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
-          <div class="imagen-propiedad">
-            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
-          </div>
-          <div class="info-propiedad text-dark flex-grow-1">
-            <h3 class="fw-bold mb-1">$86.500 <small class="text-muted" style="font-size: 0.8rem;">USD + 100 USD expensas</small></h3>
-            <p class="mb-1">Calle Falsa 300</p>
-            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
-            </ul>
-            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
-            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-              <div><strong class="d-block">Pablo Venica</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-            </div>
+        <div class="imagen-propiedad">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$86.500 USD</small></h3>
+          <p class="mb-1">Calle Belgrano 400</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN CALLE BELGRANO 400</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">Lucas Romero</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
           </div>
         </div>
-        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
-          <div class="imagen-propiedad">
-            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
-          </div>
-          <div class="info-propiedad text-dark flex-grow-1">
-            <h3 class="fw-bold mb-1">$86.500 <small class="text-muted" style="font-size: 0.8rem;">USD + 100 USD expensas</small></h3>
-            <p class="mb-1">Calle Falsa 300</p>
-            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
-            </ul>
-            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
-            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-              <div><strong class="d-block">Pablo Venica</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-            </div>
-          </div>
         </div>
         <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
-          <div class="imagen-propiedad">
-            <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        <div class="imagen-propiedad">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$86.500 USD</h3>
+          <p class="mb-1">Av. Rafael Núñez 4500</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. RAFAEL NÚÑEZ 4500</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">Sofía García</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
           </div>
-          <div class="info-propiedad text-dark flex-grow-1">
-            <h3 class="fw-bold mb-1">$86.500 <small class="text-muted" style="font-size: 0.8rem;">USD + 100 USD expensas</small></h3>
-            <p class="mb-1">Calle Falsa 300</p>
-            <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
-              <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
-            </ul>
-            <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. HIPOLITO YRIGOYEN</p>
-            <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-              <div><strong class="d-block">Pablo Venica</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-            </div>
+        </div>
+        </div>
+        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
+        <div class="imagen-propiedad">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$86.500 USD</h3>
+          <p class="mb-1">Calle Félix Paz 1250</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN CALLE FÉLIX PAZ 1250</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">Matías Herrera</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
           </div>
+        </div>
+        </div>
+        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
+        <div class="imagen-propiedad">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$86.500 USD</h3>
+          <p class="mb-1">Calle 27 de Abril 1360</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN CALLE 27 DE ABRIL 1360</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">Camila Torres</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
+          </div>
+        </div>
+        </div>
+        <div class="col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card">
+        <div class="imagen-propiedad">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$86.500</h3>
+          <p class="mb-1">Av. Richieri 2800</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> 78 m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> 75 m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> 4 ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> 1 baño</li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA DEPARTAMENTO EN AV. RICHERI 2800</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">Facundo Díaz</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
+          </div>
+        </div>
         </div>
         </div>
       </div>
@@ -239,7 +356,7 @@
     <footer class="py-5">
       <div class="row">
         <div class="col-6 col-md-2 mb-3">
-          <h5>Categorias</h5>
+          <h5>Categorías</h5>
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="../index.html" class="nav-link p-0 text-body-secondary">Home</a></li>
             <li class="nav-item mb-2"><a href="../pages/comprar.html" class="nav-link p-0 text-body-secondary">Comprar</a></li>
@@ -257,7 +374,8 @@
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Horarios: Lun a Vie de 9 a 18 hs</a></li>
           </ul>
         </div>
-      </div><div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      </div>
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
         <p>© 2025 VEYOR. Todos los derechos reservados.</p>
         <ul class="list-unstyled d-flex">
           <li class="ms-3">
@@ -273,7 +391,7 @@
         </ul>
       </div>
     </footer>
-</div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
