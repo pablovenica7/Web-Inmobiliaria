@@ -84,41 +84,115 @@
 }
 
 /* FILTROS */
-.modal-filtros {
-  display: none;
+#modalFiltros {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.modal-contenido {
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  width: 90%;
-  max-width: 800px;
-  max-height: 90vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 850px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  z-index: 1050;
+  display: none;
+  flex-direction: column;
   overflow-y: auto;
+  max-height: 90vh;
+  border: 1px solid #e0e0e0;
 }
 
-.modal-header,
-.modal-footer {
+#modalFiltros .modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #f9f9f9;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+#modalFiltros .btn-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+#modalFiltros .btn-close:hover {
+  opacity: 1;
+}
+
+#modalFiltros .modal-body {
+  padding: 30px;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.filtro-bloque {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtro-bloque label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.filtro-bloque input,
+.filtro-bloque select,
+.filtro-bloque textarea {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: border-color 0.2s;
+}
+
+.filtro-bloque input:focus,
+.filtro-bloque select:focus {
+  border-color: orange;
+  outline: none;
+}
+
+.filtro-bloque .d-flex {
+  gap: 10px;
+}
+
+#modalFiltros .modal-footer {
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 15px;
 }
 
-.modal-footer {
-  border-top: 1px solid #eee;
-  margin-top: 15px;
+#modalFiltros .modal-footer .btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+#modalFiltros .modal-footer .btn-outline-secondary {
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+#modalFiltros .modal-footer .btn-outline-secondary:hover {
+  background-color: #f0f0f0;
+}
+
+#modalFiltros .modal-footer .btn-primary {
+  background-color: orange;
+  color: white;
+  border: none;
+}
+
+#modalFiltros .modal-footer .btn-primary:hover {
+  background-color: #e67e22;
 }
 
 /* COMPRAR */
@@ -182,10 +256,6 @@
 
 /* VENDER */
 .formulario-vender {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background-color: #0d0d0f;
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
   padding: 40px 20px;
@@ -197,9 +267,6 @@
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  max-width: 1000px;
-  width: 100%;
 }
 
 .lado-ilustracion-vender {
@@ -207,27 +274,22 @@
   background-color: orange;
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 20px;
 }
 
 .lado-ilustracion-vender img {
   max-width: 100%;
-  height: auto;
 }
 
 .lado-formulario-vender {
   flex: 1;
   padding: 40px 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .lado-formulario-vender h2 {
   margin-bottom: 10px;
   font-size: 28px;
-  color: #333;
+  color: black;
 }
 
 .lado-formulario-vender .subtitulo {
@@ -248,10 +310,11 @@
 
 .boton-vender {
   background: orange;
-  color: white;
+  color: black;
   border: none;
   border-radius: 12px;
   padding: 12px;
+  width: 100%;
   font-size: 1rem;
   cursor: pointer;
 }
@@ -276,8 +339,6 @@
 .formulario-contacto {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background-color: #0d0d0f;
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
   padding: 40px 20px;
@@ -289,23 +350,16 @@
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  max-width: 1000px;
-  width: 100%;
 }
 
 .lado-ilustracion-contacto {
   flex: 1;
   background-color: orange;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 20px;
 }
 
 .lado-ilustracion-contacto img {
   max-width: 100%;
-  height: auto;
 }
 
 .lado-formulario-contacto {
@@ -319,7 +373,7 @@
 .lado-formulario-contacto h2 {
   margin-bottom: 10px;
   font-size: 28px;
-  color: #333;
+  color: black;
 }
 
 .lado-formulario-contacto .subtitulo {
@@ -339,10 +393,11 @@
 
 .boton-contacto {
   background: orange;
-  color: white;
+  color: black;
   border: none;
   border-radius: 12px;
   padding: 12px;
+  width: 100%;
   font-size: 1rem;
   cursor: pointer;
 }
