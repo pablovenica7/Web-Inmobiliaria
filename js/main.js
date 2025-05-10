@@ -1,16 +1,35 @@
-// Abrir el modal de filtros al hacer clic en el botón
-document.getElementById('abrirFiltros').addEventListener('click', () => {
-  document.getElementById('modalFiltros').style.display = 'flex';
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const abrirBtn = document.getElementById("abrirFiltros");
+  const modal = document.getElementById("modalFiltros");
+  const cerrarBtn1 = document.getElementById("cerrarFiltros");
+  const cerrarBtn2 = document.getElementById("cerrarFiltros2");
 
-// Cerrar el modal al hacer clic en el botón "Cancelar" del pie del modal
-document.getElementById('cerrarFiltros2').addEventListener('click', () => {
-  document.getElementById('modalFiltros').style.display = 'none';
-});
+  if (abrirBtn && modal && cerrarBtn1 && cerrarBtn2) {
+    abrirBtn.addEventListener("click", () => {
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
 
-// Cerrar el modal si se presiona la tecla ESC
-document.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape') {
-    document.getElementById('modalFiltros').style.display = 'none';
+    const cerrarModal = () => {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+    };
+
+    cerrarBtn1.addEventListener("click", cerrarModal);
+    cerrarBtn2.addEventListener("click", cerrarModal);
+
+    // Cerrar al hacer click fuera del modal
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        cerrarModal();
+      }
+    });
+
+    // Cerrar con Escape
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        cerrarModal();
+      }
+    });
   }
 });
