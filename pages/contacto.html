@@ -59,13 +59,21 @@
       <div class="lado-formulario-contacto">
         <h2>¿Tenés alguna duda?</h2>
         <p class="subtitulo">Completá el formulario y un asesor de VEYOR se pondrá en contacto con vos.</p>
-        <form>
-          <input type="text" placeholder="Nombre y apellido" required>
-          <input type="email" placeholder="Email" required>
-          <input type="tel" placeholder="Teléfono (opcional)">
-          <textarea placeholder="Escribí tu consulta aquí..." rows="4" required></textarea>
+        <form class="form-contacto" novalidate>
+          <div class="form-group">
+            <input type="text" placeholder="Nombre y apellido" name="nombre" minlength="2" required>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Email" name="email" required>
+          </div>
+          <div class="form-group">
+            <input type="tel" placeholder="Teléfono" name="telefono" min="0" required>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Escribí tu consulta aquí..." name="consulta" rows="4" maxlength="500" required></textarea>
+          </div>
           <button type="submit" class="boton-contacto">Enviar mensaje</button>
-        </form>
+        </form>        
       </div>
     </div>
   </main>
@@ -78,9 +86,9 @@
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="../index.html" class="nav-link p-0 text-body-secondary">Home</a></li>
             <li class="nav-item mb-2"><a href="../pages/comprar.html" class="nav-link p-0 text-body-secondary">Comprar</a></li>
-            <li class="nav-item mb-2"><a href="../pages/vender.html" class="nav-link p-0 text-body-secondary">Vender</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Vender</a></li>
             <li class="nav-item mb-2"><a href="../pages/alquilar.html" class="nav-link p-0 text-body-secondary">Alquilar</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Contacto</a></li>
+            <li class="nav-item mb-2"><a href="../pages/contacto.html" class="nav-link p-0 text-body-secondary">Contacto</a></li>
           </ul>
         </div>
         <div class="col-6 col-md-2 mb-3">
