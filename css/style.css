@@ -323,6 +323,39 @@
   background: darkorange;
 }
 
+/* === VALIDACIÓN FORMULARIO VENDER === */
+.campo-vender {
+  margin-bottom: 10px;
+}
+
+.campo-vender input,
+.campo-vender select,
+.campo-vender textarea {
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+}
+
+.campo-vender input:focus,
+.campo-vender select:focus,
+.campo-vender textarea:focus {
+  outline: none;
+}
+
+.campo-vender input:focus:invalid,
+.campo-vender select:focus:invalid,
+.campo-vender textarea:focus:invalid {
+  border: 2px solid red;
+  background-image: url('../assets/imagenes/icono_error.png');
+}
+
+.campo-vender input:valid,
+.campo-vender select:valid,
+.campo-vender textarea:valid {
+  border: 2px solid green;
+  background-image: url('../assets/imagenes/icono_check.png');
+}
+
 /* ALQUILAR */
 .alquilar-main {
   display: flex;
