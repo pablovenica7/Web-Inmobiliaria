@@ -83,7 +83,7 @@
   transition: background-color 0.3s;
 }
 
-/* FILTROS */
+/* FILTROS (REVISAR)*/ 
 #modalFiltros {
   position: fixed;
   top: 50%;
@@ -404,4 +404,33 @@
 
 .boton-contacto:hover {
   background: darkorange;
+}
+
+.campo-contacto {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.campo-contacto input,
+.campo-contacto textarea {
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+}
+
+.campo-contacto input:focus,
+.campo-contacto textarea:focus {
+  outline: none;
+}
+
+.campo-contacto input:focus:invalid,
+.campo-contacto textarea:focus:invalid {
+  border: 2px solid red;
+  background-image: url('../assets/imagenes/icono_error.png');
+}
+
+.campo-contacto input:valid,
+.campo-contacto textarea:valid {
+  border: 2px solid green;
+  background-image: url('../assets/imagenes/icono_check.png');
 }
