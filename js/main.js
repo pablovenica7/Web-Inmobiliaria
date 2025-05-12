@@ -62,3 +62,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// SweetAlert para el formulario de Vender
+document.addEventListener("DOMContentLoaded", () => {
+  const formVender = document.getElementById("form-vender");
+
+  if (formVender) {
+    formVender.addEventListener("submit", (e) => {
+      if (!formVender.checkValidity()) {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'error',
+          title: 'Formulario incompleto',
+          text: 'Por favor completá todos los campos correctamente antes de enviar.',
+          confirmButtonColor: 'orange'
+        });
+      } else {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'success',
+          title: 'Solicitud enviada',
+          text: 'Gracias por confiar en VEYOR. Te contactaremos pronto.',
+          confirmButtonColor: 'green'
+        }).then(() => {
+          formVender.reset();
+        });
+      }
+    });
+  }
+});
+
