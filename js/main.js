@@ -41,12 +41,22 @@ document.addEventListener("DOMContentLoaded", () => {
   if (formulario) {
     formulario.addEventListener("submit", (e) => {
       if (!formulario.checkValidity()) {
-        e.preventDefault(); // Detiene el envío
+        e.preventDefault(); // Evita envío si no es válido
         Swal.fire({
           icon: 'error',
           title: 'Formulario incompleto',
           text: 'Por favor completá todos los campos correctamente antes de enviar.',
           confirmButtonColor: 'orange'
+        });
+      } else {
+        e.preventDefault(); // Evita envío real (si estás en fase de desarrollo)
+        Swal.fire({
+          icon: 'success',
+          title: 'Mensaje enviado',
+          text: 'Gracias por contactarnos. Te responderemos a la brevedad.',
+          confirmButtonColor: 'green'
+        }).then(() => {
+          formulario.reset(); // Limpia el formulario después del mensaje
         });
       }
     });
