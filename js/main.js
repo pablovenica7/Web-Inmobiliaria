@@ -33,3 +33,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// SweetAlert para el formulario de contacto
+document.addEventListener("DOMContentLoaded", () => {
+  const formulario = document.getElementById("form-contacto");
+
+  if (formulario) {
+    formulario.addEventListener("submit", (e) => {
+      if (!formulario.checkValidity()) {
+        e.preventDefault(); // Detiene el envío
+        Swal.fire({
+          icon: 'error',
+          title: 'Formulario incompleto',
+          text: 'Por favor completá todos los campos correctamente antes de enviar.',
+          confirmButtonColor: 'orange'
+        });
+      }
+    });
+  }
+});
