@@ -93,11 +93,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Contador de caracteres para el textarea
-const textarea = document.getElementById("comentario");
-const contador = document.getElementById("contador-comentario");
+const textarea = document.getElementById("comentario-contacto");
+const contador = document.getElementById("contador-comentario-contacto");
 
 if (textarea && contador) {
   textarea.addEventListener("input", () => {
     contador.textContent = `${textarea.value.length}/500`;
+  });
+}
+
+// Contador de caracteres para el textarea de Vender
+const textareaVender = document.getElementById("comentario-vender");
+const contadorVender = document.getElementById("contador-comentario-vender");
+
+if (textareaVender && contadorVender) {
+  textareaVender.addEventListener("input", () => {
+    contadorVender.textContent = `${textareaVender.value.length}/500`;
   });
 }
