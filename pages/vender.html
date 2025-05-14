@@ -70,10 +70,6 @@
             <input type="tel" name="vender_telefono" placeholder="Teléfono" required pattern="[0-9]{10,}">
           </div>
           <div class="campo-vender">
-            <textarea id="comentario-vender" name="vender_comentarios" placeholder="Comentarios" rows="4" minlength="2" maxlength="500" required></textarea>
-            <div id="contador-comentario-vender" class="contador-vender">0/500</div>
-          </div>
-          <div class="campo-vender">
             <select name="vender_tipo" required>
               <option disabled selected>Tipo de propiedad</option>
               <option>Casa</option>
@@ -85,7 +81,8 @@
             </select>
           </div>
           <div class="campo-vender">
-            <textarea name="vender_comentarios" placeholder="Comentarios" rows="4" minlength="2" maxlength="500" required></textarea>
+            <textarea id="comentario-vender" name="vender_comentarios" placeholder="Comentarios" rows="4" minlength="2" maxlength="500" required></textarea>
+            <div id="contador-comentario-vender" class="contador-vender">0/500</div>
           </div>
           <p class="aviso">Al enviar el formulario, estas aceptando los <a href="../pages/terminos.html">términos y condiciones</a> y la <a href="../pages/privacidad.html">politica de privacidad</a> de VEYOR.</p>
           <button type="submit" class="boton-vender">Enviar</button>
