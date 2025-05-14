@@ -467,6 +467,11 @@
   border: 2px solid green;
   background-image: url('../assets/imagenes/icono_check.png');
 }
+.contador {
+  font-size: 0.85rem;
+  color: #999;
+  text-align: left;
+}
 
 /* TÉRMINOS Y CONDICIONES*/
 .pagina-legales {
