@@ -70,7 +70,8 @@
             <input type="tel" name="vender_telefono" placeholder="Teléfono" required pattern="[0-9]{10,}">
           </div>
           <div class="campo-vender">
-            <input type="text" name="vender_localidad" placeholder="Localidad / provincia" required pattern=".{2,}">
+            <textarea id="comentario-vender" name="vender_comentarios" placeholder="Comentarios" rows="4" minlength="2" maxlength="500" required></textarea>
+            <div id="contador-comentario-vender" class="contador-vender">0/500</div>
           </div>
           <div class="campo-vender">
             <select name="vender_tipo" required>
