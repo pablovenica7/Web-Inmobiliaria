@@ -323,7 +323,6 @@
   background: darkorange;
 }
 
-/* === VALIDACIÓN FORMULARIO VENDER === */
 .campo-vender {
   margin-bottom: 10px;
 }
@@ -354,6 +353,12 @@
 .campo-vender textarea:valid {
   border: 2px solid green;
   background-image: url('../assets/imagenes/icono_check.png');
+}
+
+.contador-vender {
+  font-size: 0.85rem;
+  color: #999;
+  text-align: left;
 }
 
 /* ALQUILAR */
@@ -467,7 +472,7 @@
   border: 2px solid green;
   background-image: url('../assets/imagenes/icono_check.png');
 }
-.contador {
+.contador-contacto {
   font-size: 0.85rem;
   color: #999;
   text-align: left;
