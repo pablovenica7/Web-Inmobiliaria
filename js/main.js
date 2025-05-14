@@ -92,3 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// Contador de caracteres para el textarea
+const textarea = document.getElementById("comentario");
+const contador = document.getElementById("contador-comentario");
+
+if (textarea && contador) {
+  textarea.addEventListener("input", () => {
+    contador.textContent = `${textarea.value.length}/500`;
+  });
+}
