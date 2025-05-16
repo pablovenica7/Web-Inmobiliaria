@@ -61,16 +61,20 @@
         <p class="subtitulo">Completá el formulario y un asesor de VEYOR se pondrá en contacto con vos.</p>
         <form id="form-contacto" class="form-contacto" novalidate>
           <div class="campo-contacto">
-            <input type="text" name="contacto_nombre" placeholder="Nombre y apellido" required pattern=".{2,}">
+            <input type="text" name="contacto_nombre" id="contacto_nombre" placeholder=" " required pattern=".{2,}">
+            <label for="contacto_nombre">Nombre y apellido</label>
           </div>
           <div class="campo-contacto">
-            <input type="email" name="contacto_email" placeholder="Email" required pattern="[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}">
+            <input type="email" name="contacto_email" id="contacto_email" placeholder=" " required pattern="[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}">
+            <label for="contacto_email">Email</label>
           </div>
           <div class="campo-contacto">
-            <input type="tel" name="contacto_telefono" placeholder="Teléfono" required pattern="[0-9]{10,}">
+            <input type="tel" name="contacto_telefono" id="contacto_telefono" placeholder=" " required pattern="[0-9]{10,}">
+            <label for="contacto_telefono">Teléfono</label>
           </div>
           <div class="campo-contacto">
-            <textarea id="comentario-contacto" name="contacto_consulta" placeholder="Escribí tu consulta aquí..." rows="4" maxlength="500" required></textarea>
+            <textarea id="comentario-contacto" name="contacto_consulta" placeholder=" " rows="4" maxlength="500" required></textarea>
+            <label for="comentario-contacto">Escribí tu consulta aquí...</label>
             <div id="contador-comentario-contacto" class="contador-contacto">0/500</div>
           </div>
           <button type="submit" class="boton-contacto">Enviar mensaje</button>
