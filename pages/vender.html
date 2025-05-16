@@ -61,17 +61,24 @@
         <p class="subtitulo">Completá el formulario y un asesor de VEYOR se pondrá en contacto con vos para avanzar con el proceso de venta.</p>
         <form id="form-vender" novalidate>
           <div class="campo-vender">
-            <input type="text" name="vender_nombre" placeholder="Nombre y apellido" required pattern=".{2,}">
+            <input id="vender_nombre" type="text" name="vender_nombre" placeholder=" " required pattern=".{2,}">
+            <label for="vender_nombre">Nombre y apellido</label>
           </div>
           <div class="campo-vender">
-            <input type="email" name="vender_email" placeholder="Email" required pattern="[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}">
+            <input id="vender_email" type="email" name="vender_email" placeholder=" " required pattern="[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}">
+            <label for="vender_email">Email</label>
           </div>
           <div class="campo-vender">
-            <input type="tel" name="vender_telefono" placeholder="Teléfono" required pattern="[0-9]{10,}">
+            <input id="vender_telefono" type="tel" name="vender_telefono" placeholder=" " required pattern="[0-9]{10,}">
+            <label for="vender_telefono">Teléfono</label>
           </div>
           <div class="campo-vender">
-            <select name="vender_tipo" required>
-              <option disabled selected>Tipo de propiedad</option>
+            <input id="vender_localidad" type="text" name="vender_localidad" placeholder=" " required pattern=".{2,}">
+            <label for="vender_localidad">Localidad / provincia</label>
+          </div>
+          <div class="campo-vender">
+            <select id="vender_tipo" name="vender_tipo" required>
+              <option value="" disabled selected></option>
               <option>Casa</option>
               <option>Departamento</option>
               <option>PH</option>
@@ -79,9 +86,11 @@
               <option>Galpón</option>
               <option>Campo</option>
             </select>
+            <label for="vender_tipo">Tipo de propiedad</label>
           </div>
           <div class="campo-vender">
-            <textarea id="comentario-vender" name="vender_comentarios" placeholder="Comentarios" rows="4" minlength="2" maxlength="500" required></textarea>
+            <textarea id="comentario-vender" name="vender_comentarios" placeholder=" " rows="4" minlength="2" maxlength="500" required></textarea>
+            <label for="comentario-vender">Comentarios</label>
             <div id="contador-comentario-vender" class="contador-vender">0/500</div>
           </div>
           <p class="aviso">Al enviar el formulario, estas aceptando los <a href="../pages/terminos.html">términos y condiciones</a> y la <a href="../pages/privacidad.html">politica de privacidad</a> de VEYOR.</p>
