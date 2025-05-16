@@ -375,8 +375,6 @@
 
 /* CONTACTO */
 .formulario-contacto {
-  display: flex;
-  justify-content: center;
   background-color: #0d0d0f;
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
   padding: 40px 20px;
@@ -419,41 +417,18 @@
   margin-bottom: 25px;
 }
 
-.lado-formulario-contacto input,
-.lado-formulario-contacto textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-}
-
-.boton-contacto {
-  background: orange;
-  color: black;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  width: 100%;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.boton-contacto:hover {
-  background: darkorange;
-}
-
 .campo-contacto {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .campo-contacto input,
 .campo-contacto textarea {
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 20px;
+  width: 100%;
+  padding: 16px 12px 12px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
 }
 
 .campo-contacto input:focus,
@@ -465,17 +440,62 @@
 .campo-contacto textarea:focus:invalid {
   border: 2px solid red;
   background-image: url('../assets/imagenes/icono_error.png');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
 }
 
 .campo-contacto input:valid,
 .campo-contacto textarea:valid {
   border: 2px solid green;
   background-image: url('../assets/imagenes/icono_check.png');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
 }
+
+.campo-contacto label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: #999;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+  background: white;
+  padding: 0 4px;
+}
+
+.campo-contacto input:focus + label,
+.campo-contacto input:not(:placeholder-shown) + label,
+.campo-contacto textarea:focus + label,
+.campo-contacto textarea:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: #999;
+}
+
 .contador-contacto {
   font-size: 0.85rem;
   color: #999;
   text-align: left;
+}
+
+.boton-contacto {
+  background: orange;
+  color: black;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  width: 100%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.boton-contacto:hover {
+  background: darkorange;
 }
 
 /* TÉRMINOS Y CONDICIONES*/
