@@ -121,17 +121,59 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(res => res.json())
     .then(data => {
       propiedades = data;
-      renderizarPropiedades(propiedades);
     })
     .catch(error => {
       console.error("Error cargando propiedades:", error);
-      contenedor.innerHTML = "<p class='text-white'>Error al cargar propiedades.</p>";
     });
 
   if (filtroTipo) {
     filtroTipo.addEventListener("change", () => {
       const tipoSeleccionado = filtroTipo.value;
       const filtradas = propiedades.filter(p => p.tipo === tipoSeleccionado);
+
+      // Eliminar solo las tarjetas dinámicas anteriores
+      document.querySelectorAll(".catalogo-card.dinamica").forEach(e => e.remove());
+
       renderizarPropiedades(filtradas);
     });
   }
+
+  function renderizarPropiedades(lista) {
+    lista.forEach(prop => {
+      const card = document.createElement("div");
+      card.className = "col-12 bg-white rounded-4 shadow p-3 mb-3 catalogo-card dinamica";
+
+      card.innerHTML = `
+        <div class="imagen-propiedad">
+          <img src="${prop.imagen}" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$${prop.precio.toLocaleString()} USD</h3>
+          <p class="mb-1">${prop.ubicacion}</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_regla.png" width="20" class="me-1"> ${prop.superficie} m² totales
+            </li>
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_casa.png" width="20" class="me-1"> ${prop.cubierta} m² cubiertos
+            </li>
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_cama.png" width="20" class="me-1"> ${prop.ambientes} ambientes
+            </li>
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_toilette.png" width="20" class="me-1"> ${prop.banos} baño
+            </li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA ${prop.tipo.toUpperCase()} EN ${prop.ubicacion.toUpperCase()}</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">${prop.asesor}</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
+          </div>
+        </div>
+      `;
+
+      contenedor.appendChild(card);
+    });
+  }
+});
