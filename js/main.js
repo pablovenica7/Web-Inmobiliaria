@@ -111,3 +111,66 @@ if (textareaVender && contadorVender) {
     contadorVender.textContent = `${textareaVender.value.length}/500`;
   });
 }
+
+//Filtro de búsqueda
+document.addEventListener("DOMContentLoaded", () => {
+  const contenedor = document.getElementById("contenedor-propiedades");
+  const filtroTipo = document.getElementById("filtro-tipo");
+  let propiedades = [];
+
+  // Cargar propiedades desde JSON
+  fetch("../bd/propiedades.json")
+    .then(res => res.json())
+    .then(data => {
+      propiedades = data;
+      renderizarPropiedades(propiedades);
+    })
+    .catch(err => {
+      console.error("Error al cargar propiedades:", err);
+      contenedor.innerHTML = "<p class='text-white'>No se pudieron cargar las propiedades.</p>";
+    });
+
+  // Filtrar por tipo
+  if (filtroTipo) {
+    filtroTipo.addEventListener("change", () => {
+      const tipoSeleccionado = filtroTipo.value;
+      const filtradas = propiedades.filter(p => p.tipo === tipoSeleccionado);
+      renderizarPropiedades(filtradas);
+    });
+  }
+
+  // Función para renderizar propiedades en el DOM
+  function renderizarPropiedades(lista) {
+    contenedor.innerHTML = "";
+
+    if (lista.length === 0) {
+      contenedor.innerHTML = "<p class='text-white'>No se encontraron propiedades.</p>";
+      return;
+    }
+
+    lista.forEach(prop => {
+      const card = document.createElement("div");
+      card.className = "col-12 bg-white rounded-4 shadow p-3 mb-3";
+
+      card.innerHTML = `
+        <div class="d-flex flex-column flex-md-row align-items-start gap-4">
+          <img src="${prop.imagen}" alt="Propiedad" class="img-fluid rounded" style="width: 300px;">
+          <div>
+            <h4 class="fw-bold mb-2">$${formatearPrecio(prop.precio)} USD</h4>
+            <p>${prop.ubicacion}</p>
+            <p>${prop.tipo} - ${prop.ambientes} ambientes - ${prop.dormitorios} dormitorios - ${prop.banos} baño(s)</p>
+            <p>Superficie total: ${prop.superficie} m² | Cubierta: ${prop.cubierta} m²</p>
+            <small class="text-muted">Asesor: ${prop.asesor}</small>
+          </div>
+        </div>
+      `;
+
+      contenedor.appendChild(card);
+    });
+  }
+
+  function formatearPrecio(valor) {
+    return valor.toLocaleString("es-AR");
+  }
+});
+
