@@ -126,26 +126,25 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error cargando propiedades:", error);
     });
 
-  if (filtroTipo) {
-    filtroTipo.addEventListener("change", () => {
-      const tipoSeleccionado = filtroTipo.value;
-      const filtradas = propiedades.filter(p => p.tipo === tipoSeleccionado);
+  filtroTipo?.addEventListener("change", () => {
+    const tipoSeleccionado = filtroTipo.value;
 
-      // Eliminar solo las tarjetas dinámicas anteriores
-      document.querySelectorAll(".catalogo-card.dinamica").forEach(e => e.remove());
+    // Eliminar tarjetas dinámicas anteriores
+    document.querySelectorAll(".catalogo-card.dinamica").forEach(el => el.remove());
 
-      renderizarPropiedades(filtradas);
-    });
-  }
+    // Filtrar por tipo y agregar al DOM
+    const filtradas = propiedades.filter(p => p.tipo === tipoSeleccionado);
+    renderizarPropiedades(filtradas);
+  });
 
   function renderizarPropiedades(lista) {
     lista.forEach(prop => {
       const card = document.createElement("div");
-      card.className = "col-12 bg-white rounded-4 shadow p-3 mb-3 catalogo-card dinamica";
+      card.className = "col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card dinamica";
 
       card.innerHTML = `
         <div class="imagen-propiedad">
-          <img src="${prop.imagen}" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+          <img src="../assets/imagenes/img_propiedad1.png" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
         </div>
         <div class="info-propiedad text-dark flex-grow-1">
           <h3 class="fw-bold mb-1">$${prop.precio.toLocaleString()} USD</h3>
