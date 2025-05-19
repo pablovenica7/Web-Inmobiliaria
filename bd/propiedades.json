@@ -9,7 +9,6 @@
     "banos": 1,
     "superficie": 78,
     "cubierta": 75,
-    "imagen": "../assets/imagenes/img_propiedad1.png",
     "asesor": "Gonzalo Fernández"
   },
   {
@@ -34,7 +33,6 @@
     "banos": 1,
     "superficie": 78,
     "cubierta": 75,
-    "imagen": "../assets/imagenes/img_propiedad1.png",
     "asesor": "Lucas Romero"
   },
   {
@@ -47,7 +45,6 @@
     "banos": 1,
     "superficie": 78,
     "cubierta": 75,
-    "imagen": "../assets/imagenes/img_propiedad1.png",
     "asesor": "Sofía García"
   },
   {
@@ -60,7 +57,6 @@
     "banos": 1,
     "superficie": 70,
     "cubierta": 65,
-    "imagen": "../assets/imagenes/img_propiedad1.png",
     "asesor": "Matías Herrera"
   },
   {
@@ -73,7 +69,6 @@
     "banos": 1,
     "superficie": 80,
     "cubierta": 75,
-    "imagen": "../assets/imagenes/img_propiedad1.png",
     "asesor": "Camila Torres"
   },
   {
@@ -86,7 +81,6 @@
     "banos": 1,
     "superficie": 78,
     "cubierta": 75,
-    "imagen": "../assets/imagenes/img_propiedad1.png",
     "asesor": "Facundo Díaz"
   }
 ]
