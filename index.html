@@ -27,11 +27,10 @@
       aria-labelledby="offcanvasNavbarDarkLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarDarkLabel">Menú</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-          aria-label="Cerrar"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
       </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <div class="offcanvas-body d-flex flex-column">
+        <ul class="navbar-nav pe-3">
           <li class="nav-item">
             <a class="nav-link active text-white" aria-current="page" href="#">Inicio</a>
           </li>
@@ -48,6 +47,19 @@
             <a class="nav-link text-white" href="./pages/contacto.html">Contacto</a>
           </li>
         </ul>
+        <div class="mt-auto pt-4 d-flex justify-content-start align-items-center">
+          <div class="dropdown">
+            <button class="btn btn-outline-light d-flex align-items-center dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="./assets/imagenes/icono_user.png" alt="User" width="24" class="me-2">
+              Usuario
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="./pages/login.html">Login</a></li>
+              <li><a class="dropdown-item" href="./page/signup.html">Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </header>
