@@ -112,25 +112,22 @@ if (textareaVender && contadorVender) {
   });
 }
 
-//Filtro de búsqueda
 document.addEventListener("DOMContentLoaded", () => {
   const contenedor = document.getElementById("contenedor-propiedades");
   const filtroTipo = document.getElementById("filtro-tipo");
   let propiedades = [];
 
-  // Cargar propiedades desde JSON
   fetch("../bd/propiedades.json")
     .then(res => res.json())
     .then(data => {
       propiedades = data;
       renderizarPropiedades(propiedades);
     })
-    .catch(err => {
-      console.error("Error al cargar propiedades:", err);
-      contenedor.innerHTML = "<p class='text-white'>No se pudieron cargar las propiedades.</p>";
+    .catch(error => {
+      console.error("Error cargando propiedades:", error);
+      contenedor.innerHTML = "<p class='text-white'>Error al cargar propiedades.</p>";
     });
 
-  // Filtrar por tipo
   if (filtroTipo) {
     filtroTipo.addEventListener("change", () => {
       const tipoSeleccionado = filtroTipo.value;
@@ -139,10 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Función para renderizar propiedades en el DOM
   function renderizarPropiedades(lista) {
     contenedor.innerHTML = "";
-
     if (lista.length === 0) {
       contenedor.innerHTML = "<p class='text-white'>No se encontraron propiedades.</p>";
       return;
@@ -150,27 +145,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     lista.forEach(prop => {
       const card = document.createElement("div");
-      card.className = "col-12 bg-white rounded-4 shadow p-3 mb-3";
+      card.className = "col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card";
 
       card.innerHTML = `
-        <div class="d-flex flex-column flex-md-row align-items-start gap-4">
-          <img src="${prop.imagen}" alt="Propiedad" class="img-fluid rounded" style="width: 300px;">
-          <div>
-            <h4 class="fw-bold mb-2">$${formatearPrecio(prop.precio)} USD</h4>
-            <p>${prop.ubicacion}</p>
-            <p>${prop.tipo} - ${prop.ambientes} ambientes - ${prop.dormitorios} dormitorios - ${prop.banos} baño(s)</p>
-            <p>Superficie total: ${prop.superficie} m² | Cubierta: ${prop.cubierta} m²</p>
-            <small class="text-muted">Asesor: ${prop.asesor}</small>
+        <div class="imagen-propiedad">
+          <img src="${prop.imagen}" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$${prop.precio.toLocaleString()} USD</h3>
+          <p class="mb-1">${prop.ubicacion}</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_regla.png" alt="m² totales" width="20" class="me-1"> ${prop.superficie} m² totales
+            </li>
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_casa.png" alt="Cubiertos" width="20" class="me-1"> ${prop.cubierta} m² cubiertos
+            </li>
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_cama.png" alt="Ambientes" width="20" class="me-1"> ${prop.ambientes} ambientes
+            </li>
+            <li class="list-inline-item d-flex align-items-center">
+              <img src="../assets/imagenes/icono_toilette.png" alt="Baño" width="20" class="me-1"> ${prop.banos} baño
+            </li>
+          </ul>
+          <p class="mb-2 fw-medium">VENTA ${prop.tipo.toUpperCase()} EN ${prop.ubicacion.toUpperCase()}</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">${prop.asesor}</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
           </div>
         </div>
       `;
-
       contenedor.appendChild(card);
     });
   }
-
-  function formatearPrecio(valor) {
-    return valor.toLocaleString("es-AR");
-  }
 });
-
