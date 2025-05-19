@@ -112,6 +112,7 @@ if (textareaVender && contadorVender) {
   });
 }
 
+// FILTRO
 document.addEventListener("DOMContentLoaded", () => {
   const contenedor = document.getElementById("contenedor-propiedades");
   const filtroTipo = document.getElementById("filtro-tipo");
