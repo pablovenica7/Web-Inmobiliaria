@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "ubicacion": "Av. Colón 1450",
+    "tipo": "Departamento",
+    "precio": 83500,
+    "ambientes": 4,
+    "dormitorios": 2,
+    "banos": 1,
+    "superficie": 78,
+    "cubierta": 75,
+    "asesor": "Gonzalo Fernández"
+  },
+  {
+    "id": 2,
+    "ubicacion": "Bv. San Juan 750",
+    "tipo": "Casa",
+    "precio": 120000,
+    "ambientes": 5,
+    "dormitorios": 3,
+    "banos": 2,
+    "superficie": 120,
+    "cubierta": 110,
+    "asesor": "María Belén López"
+  },
+  {
+    "id": 3,
+    "ubicacion": "Calle Belgrano 400",
+    "tipo": "Departamento",
+    "precio": 86500,
+    "ambientes": 4,
+    "dormitorios": 2,
+    "banos": 1,
+    "superficie": 78,
+    "cubierta": 75,
+    "asesor": "Lucas Romero"
+  },
+  {
+    "id": 4,
+    "ubicacion": "Av. Rafael Núñez 4500",
+    "tipo": "Casa",
+    "precio": 86500,
+    "ambientes": 4,
+    "dormitorios": 2,
+    "banos": 1,
+    "superficie": 78,
+    "cubierta": 75,
+    "asesor": "Sofía García"
+  },
+  {
+    "id": 5,
+    "ubicacion": "Calle Félix Paz 1250",
+    "tipo": "PH",
+    "precio": 89000,
+    "ambientes": 3,
+    "dormitorios": 2,
+    "banos": 1,
+    "superficie": 70,
+    "cubierta": 65,
+    "asesor": "Matías Herrera"
+  },
+  {
+    "id": 6,
+    "ubicacion": "Calle 27 de Abril 1360",
+    "tipo": "Departamento",
+    "precio": 91000,
+    "ambientes": 4,
+    "dormitorios": 2,
+    "banos": 1,
+    "superficie": 80,
+    "cubierta": 75,
+    "asesor": "Camila Torres"
+  },
+  {
+    "id": 7,
+    "ubicacion": "Av. Richieri 2800",
+    "tipo": "Departamento",
+    "precio": 87000,
+    "ambientes": 4,
+    "dormitorios": 2,
+    "banos": 1,
+    "superficie": 78,
+    "cubierta": 75,
+    "asesor": "Facundo Díaz"
+  }
+]
