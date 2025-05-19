@@ -7,6 +7,11 @@
   border: 2px solid white;
 }
 
+.btn-outline-light:hover {
+  background-color: #444;
+  color: #fff;
+}
+
 /* INDEX */
 .pagina-index {
   height: 100vh;
@@ -197,14 +202,9 @@
 
 /* COMPRAR */
 .comprar-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background-color: #333;
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
-  padding: 40px 20px;
-  padding-top: 120px;
+  padding-top: 30px;
 }
 
 .busqueda-card {
@@ -271,14 +271,11 @@
 
 .lado-ilustracion-vender {
   flex: 1;
-  background-color: orange;
-  display: flex;
-  align-items: center;
-  padding: 20px;
 }
 
 .lado-ilustracion-vender img {
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .lado-formulario-vender {
@@ -389,14 +386,9 @@
 
 /* ALQUILAR */
 .alquilar-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background-color: #333;
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
-  padding: 40px 20px;
-  padding-top: 120px;
+  padding-top: 30px;
 }
 
 /* CONTACTO */
@@ -524,7 +516,7 @@
   background: darkorange;
 }
 
-/* TÉRMINOS Y CONDICIONES*/
+/* TÉRMINOS Y CONDICIONES - POLITICAS DE PRIVACIDAD*/
 .pagina-legales {
   background-color: #333;
   background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
@@ -558,4 +550,107 @@
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 12px;
+}
+
+/* LOGIN (REVISAR)*/
+.formulario-login {
+  background-color: #333;
+  background-image: radial-gradient(ellipse at top center, rgba(28, 30, 38, 0.6), #0b0c10 85%);
+  padding: 40px 20px;
+  padding-top: 140px;
+  min-height: 100vh;
+}
+
+.contenedor-formulario-login {
+  display: flex;
+  max-width: 950px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.lado-ilustracion-login {
+  flex: 1;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lado-ilustracion-login img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lado-formulario-login {
+  flex: 1;
+  padding: 3rem;
+  background-color: #ffffff;
+}
+
+.lado-formulario-login h2 {
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.lado-formulario-login .subtitulo {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.campo-login {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.campo-login input {
+  width: 100%;
+  padding: 12px 12px 12px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  transition: border 0.3s;
+  background-color: #f9f9f9;
+}
+
+.campo-login label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  color: #999;
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.campo-login input:focus + label,
+.campo-login input:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 10px;
+  background-color: #fff;
+  padding: 0 6px;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.boton-login {
+  background-color: #ff6600;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.boton-login:hover {
+  background-color: #e65c00;
 }
