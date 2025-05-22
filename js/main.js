@@ -252,3 +252,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+//Filtro de Precio
+const btnPrecio = document.getElementById("btnPrecio");
+const popover = document.getElementById("precioPopover");
+const aplicarPrecio = document.getElementById("aplicarPrecio");
+const precioDesde = document.getElementById("precioDesde");
+const precioHasta = document.getElementById("precioHasta");
+
+if (btnPrecio && popover) {
+  btnPrecio.addEventListener("click", () => {
+    // Alternar visibilidad
+    popover.style.display = popover.style.display === "block" ? "none" : "block";
+  });
+
+  // Cerrar si se hace click fuera
+  document.addEventListener("click", (e) => {
+    if (!popover.contains(e.target) && e.target !== btnPrecio) {
+      popover.style.display = "none";
+    }
+  });
+}
+
+if (aplicarPrecio) {
+  aplicarPrecio.addEventListener("click", () => {
+    const desde = parseFloat(precioDesde.value);
+    const hasta = parseFloat(precioHasta.value);
+
+    let resultado = propiedades;
+
+    if (!isNaN(desde)) {
+      resultado = resultado.filter(p => p.precio >= desde);
+    }
+
+    if (!isNaN(hasta)) {
+      resultado = resultado.filter(p => p.precio <= hasta);
+    }
+
+    // Renderizar propiedades filtradas
+    renderizarPropiedades(resultado);
+    popover.style.display = "none";
+
+    // Actualizar texto del botón con rango aplicado
+    if (!isNaN(desde) || !isNaN(hasta)) {
+      let texto = "USD:";
+      if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
+      texto += " -";
+      if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
+      btnPrecio.textContent = texto;
+    } else {
+      btnPrecio.textContent = "Precio";
+    }
+  });
+}
+
