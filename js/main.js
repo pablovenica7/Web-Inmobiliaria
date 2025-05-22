@@ -284,25 +284,57 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//Filtro Tipo de Propiedades
-document.addEventListener("DOMContentLoaded", () => {
-  const contenedor = document.getElementById("contenedor-propiedades");
-  const filtroTipo = document.getElementById("filtroTipo");
+fetch("../bd/propiedades.json")
+  .then(res => res.json())
+  .then(data => {
+    propiedades = data;
+    renderizarPropiedades(propiedades);
 
-  // Cargar las propiedades desde el JSON
-  fetch("../bd/propiedades.json")
-    .then(res => res.json())
-    .then(data => {
-      propiedades = data;
-      renderizarPropiedades(propiedades);
-    });
+    // Filtro tipo
+    if (filtroTipo) {
+      filtroTipo.addEventListener("change", () => {
+        aplicarFiltrosCombinados();
+      });
+    }
 
-  // Aplicar filtro por tipo
-  if (filtroTipo) {
-    filtroTipo.addEventListener("change", () => {
-      const tipo = filtroTipo.value;
-      const filtradas = propiedades.filter(p => p.tipo === tipo);
-      renderizarPropiedades(filtradas);
-    });
-  }
-});
+    // Filtro precio
+    if (aplicarPrecio) {
+      aplicarPrecio.addEventListener("click", () => {
+        popover.style.display = "none";
+        aplicarFiltrosCombinados();
+      });
+    }
+
+    function aplicarFiltrosCombinados() {
+      const tipo = filtroTipo?.value;
+      const desde = parseFloat(precioDesde.value);
+      const hasta = parseFloat(precioHasta.value);
+
+      let resultado = propiedades;
+
+      if (tipo && tipo !== "Tipo de propiedad") {
+        resultado = resultado.filter(p => p.tipo === tipo);
+      }
+
+      if (!isNaN(desde)) {
+        resultado = resultado.filter(p => p.precio >= desde);
+      }
+
+      if (!isNaN(hasta)) {
+        resultado = resultado.filter(p => p.precio <= hasta);
+      }
+
+      renderizarPropiedades(resultado);
+
+      // Actualizar texto del botón
+      if (!isNaN(desde) || !isNaN(hasta)) {
+        let texto = "USD:";
+        if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
+        texto += " -";
+        if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
+        btnPrecio.textContent = texto;
+      } else {
+        btnPrecio.textContent = "Precio";
+      }
+    }
+  });
