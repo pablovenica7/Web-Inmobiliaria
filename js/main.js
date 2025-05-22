@@ -306,3 +306,13 @@ if (aplicarPrecio) {
   });
 }
 
+function bloquearNegativos(input) {
+  input.addEventListener("input", () => {
+    if (parseFloat(input.value) < 0) {
+      input.value = "";
+    }
+  });
+}
+
+bloquearNegativos(document.getElementById("precioDesde"));
+bloquearNegativos(document.getElementById("precioHasta"));
