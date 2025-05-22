@@ -194,13 +194,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//FILTRO PROPIEDADES
 document.addEventListener("DOMContentLoaded", () => {
   const contenedor = document.getElementById("contenedor-propiedades");
   const filtroTipo = document.getElementById("filtroTipo");
 
   let propiedades = [];
 
+  // Cargar las propiedades desde el JSON
   fetch("../bd/propiedades.json")
     .then(res => res.json())
     .then(data => {
@@ -208,6 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarPropiedades(propiedades);
     });
 
+  // Aplicar filtro por tipo
   if (filtroTipo) {
     filtroTipo.addEventListener("change", () => {
       const tipo = filtroTipo.value;
@@ -216,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Función para renderizar tarjetas
   function renderizarPropiedades(lista) {
     contenedor.innerHTML = "";
 
@@ -244,8 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
+
       contenedor.appendChild(div);
     });
   }
 });
-
