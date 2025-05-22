@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "tipo": "Departamento",
+    "precio": 83500,
+    "direccion": "Av. Colón 1450",
+    "m2_totales": 78,
+    "m2_cubiertos": 75,
+    "ambientes": 4,
+    "baños": 1,
+    "asesor": "Gonzalo Fernández",
+    "imagen": "../assets/imagenes/img_propiedad1.png"
+  },
+  {
+    "id": 2,
+    "tipo": "Departamento",
+    "precio": 86500,
+    "direccion": "Calle Belgrano 400",
+    "m2_totales": 78,
+    "m2_cubiertos": 75,
+    "ambientes": 4,
+    "baños": 1,
+    "asesor": "Lucas Romero",
+    "imagen": "../assets/imagenes/img_propiedad1.png"
+  },
+  {
+    "id": 3,
+    "tipo": "Casa",
+    "precio": 120000,
+    "direccion": "Bv. San Juan 750",
+    "m2_totales": 120,
+    "m2_cubiertos": 100,
+    "ambientes": 5,
+    "baños": 2,
+    "asesor": "María Belén López",
+    "imagen": "../assets/imagenes/img_propiedad1.png"
+  },
+  {
+    "id": 4,
+    "tipo": "Casa",
+    "precio": 110000,
+    "direccion": "Av. Rafael Núñez 4500",
+    "m2_totales": 110,
+    "m2_cubiertos": 95,
+    "ambientes": 4,
+    "baños": 2,
+    "asesor": "Sofía García",
+    "imagen": "../assets/imagenes/img_propiedad1.png"
+  },
+  {
+    "id": 5,
+    "tipo": "Departamento",
+    "precio": 89000,
+    "direccion": "Calle Félix Paz 1250",
+    "m2_totales": 80,
+    "m2_cubiertos": 75,
+    "ambientes": 3,
+    "baños": 1,
+    "asesor": "Matías Herrera",
+    "imagen": "../assets/imagenes/img_propiedad1.png"
+  },
+  {
+    "id": 6,
+    "tipo": "Casa",
+    "precio": 105000,
+    "direccion": "Calle 27 de Abril 1360",
+    "m2_totales": 130,
+    "m2_cubiertos": 110,
+    "ambientes": 5,
+    "baños": 2,
+    "asesor": "Camila Torres",
+    "imagen": "../assets/imagenes/img_propiedad1.png"
+  },
+  {
+    "id": 7,
+    "tipo": "Departamento",
+    "precio": 88000,
+    "direccion": "Av. Richieri 2800",
+    "m2_totales": 76,
+    "m2_cubiertos": 72,
+    "ambientes": 3,
+    "baños": 1,
+    "asesor": "Facundo Díaz",
+    "imagen": "../assets/imagenes/img_propiedad1.png"
+  }
+]
