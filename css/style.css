@@ -261,6 +261,17 @@
   width: 260px;
 }
 
+.filtro-input::-webkit-outer-spin-button,
+.filtro-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.filtro-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 /* VENDER */
 .formulario-vender {
   background-color: #0d0d0f;
