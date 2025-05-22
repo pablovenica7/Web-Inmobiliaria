@@ -1,3 +1,93 @@
+let propiedades = [];
+
+function renderizarPropiedades(lista) {
+  const contenedor = document.getElementById("contenedor-propiedades");
+  contenedor.innerHTML = "";
+
+  lista.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card";
+
+    div.innerHTML = `
+      <div class="imagen-propiedad">
+        <img src="${p.imagen}" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+      </div>
+      <div class="info-propiedad text-dark flex-grow-1">
+        <h3 class="fw-bold mb-1">$${p.precio.toLocaleString()} USD</h3>
+        <p class="mb-1">${p.direccion}</p>
+        <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" width="20" class="me-1"> ${p.m2_totales} m² totales</li>
+          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" width="20" class="me-1"> ${p.m2_cubiertos} m² cubiertos</li>
+          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" width="20" class="me-1"> ${p.ambientes} ambientes</li>
+          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" width="20" class="me-1"> ${p.baños} baño/s</li>
+        </ul>
+        <p class="mb-2 fw-medium">${p.tipo.toUpperCase()} EN ${p.direccion}</p>
+        <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+        <div class="d-flex align-items-center mt-3">
+          <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+          <div><strong class="d-block">${p.asesor}</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
+        </div>
+      </div>
+    `;
+
+    contenedor.appendChild(div);
+  });
+}
+
+const btnPrecio = document.getElementById("btnPrecio");
+const popover = document.getElementById("precioPopover");
+const aplicarPrecio = document.getElementById("aplicarPrecio");
+const precioDesde = document.getElementById("precioDesde");
+const precioHasta = document.getElementById("precioHasta");
+
+if (btnPrecio && popover) {
+  btnPrecio.addEventListener("click", () => {
+    popover.style.display = popover.style.display === "block" ? "none" : "block";
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!popover.contains(e.target) && e.target !== btnPrecio) {
+      popover.style.display = "none";
+    }
+  });
+}
+
+if (aplicarPrecio) {
+  aplicarPrecio.addEventListener("click", () => {
+    const desde = parseFloat(precioDesde.value);
+    const hasta = parseFloat(precioHasta.value);
+
+    let resultado = propiedades;
+
+    if (!isNaN(desde)) resultado = resultado.filter(p => p.precio >= desde);
+    if (!isNaN(hasta)) resultado = resultado.filter(p => p.precio <= hasta);
+
+    renderizarPropiedades(resultado);
+    popover.style.display = "none";
+
+    if (!isNaN(desde) || !isNaN(hasta)) {
+      let texto = "USD:";
+      if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
+      texto += " -";
+      if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
+      btnPrecio.textContent = texto;
+    } else {
+      btnPrecio.textContent = "Precio";
+    }
+  });
+}
+
+function bloquearNegativos(input) {
+  input.addEventListener("input", () => {
+    if (parseFloat(input.value) < 0) {
+      input.value = "";
+    }
+  });
+}
+
+bloquearNegativos(precioDesde);
+bloquearNegativos(precioHasta);
+
 document.addEventListener("DOMContentLoaded", () => {
   const abrirBtn = document.getElementById("abrirFiltros");
   const modal = document.getElementById("modalFiltros");
@@ -199,8 +289,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const contenedor = document.getElementById("contenedor-propiedades");
   const filtroTipo = document.getElementById("filtroTipo");
 
-  let propiedades = [];
-
   // Cargar las propiedades desde el JSON
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -217,102 +305,4 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarPropiedades(filtradas);
     });
   }
-
-  // Función para renderizar tarjetas
-  function renderizarPropiedades(lista) {
-    contenedor.innerHTML = "";
-
-    lista.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card";
-
-      div.innerHTML = `
-        <div class="imagen-propiedad">
-          <img src="${p.imagen}" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
-        </div>
-        <div class="info-propiedad text-dark flex-grow-1">
-          <h3 class="fw-bold mb-1">$${p.precio.toLocaleString()} USD</h3>
-          <p class="mb-1">${p.direccion}</p>
-          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" width="20" class="me-1"> ${p.m2_totales} m² totales</li>
-            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" width="20" class="me-1"> ${p.m2_cubiertos} m² cubiertos</li>
-            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" width="20" class="me-1"> ${p.ambientes} ambientes</li>
-            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" width="20" class="me-1"> ${p.baños} baño/s</li>
-          </ul>
-          <p class="mb-2 fw-medium">${p.tipo.toUpperCase()} EN ${p.direccion}</p>
-          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-          <div class="d-flex align-items-center mt-3">
-            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-            <div><strong class="d-block">${p.asesor}</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
-          </div>
-        </div>
-      `;
-
-      contenedor.appendChild(div);
-    });
-  }
 });
-
-//Filtro de Precio
-const btnPrecio = document.getElementById("btnPrecio");
-const popover = document.getElementById("precioPopover");
-const aplicarPrecio = document.getElementById("aplicarPrecio");
-const precioDesde = document.getElementById("precioDesde");
-const precioHasta = document.getElementById("precioHasta");
-
-if (btnPrecio && popover) {
-  btnPrecio.addEventListener("click", () => {
-    // Alternar visibilidad
-    popover.style.display = popover.style.display === "block" ? "none" : "block";
-  });
-
-  // Cerrar si se hace click fuera
-  document.addEventListener("click", (e) => {
-    if (!popover.contains(e.target) && e.target !== btnPrecio) {
-      popover.style.display = "none";
-    }
-  });
-}
-
-if (aplicarPrecio) {
-  aplicarPrecio.addEventListener("click", () => {
-    const desde = parseFloat(precioDesde.value);
-    const hasta = parseFloat(precioHasta.value);
-
-    let resultado = propiedades;
-
-    if (!isNaN(desde)) {
-      resultado = resultado.filter(p => p.precio >= desde);
-    }
-
-    if (!isNaN(hasta)) {
-      resultado = resultado.filter(p => p.precio <= hasta);
-    }
-
-    // Renderizar propiedades filtradas
-    renderizarPropiedades(resultado);
-    popover.style.display = "none";
-
-    // Actualizar texto del botón con rango aplicado
-    if (!isNaN(desde) || !isNaN(hasta)) {
-      let texto = "USD:";
-      if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
-      texto += " -";
-      if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
-      btnPrecio.textContent = texto;
-    } else {
-      btnPrecio.textContent = "Precio";
-    }
-  });
-}
-
-function bloquearNegativos(input) {
-  input.addEventListener("input", () => {
-    if (parseFloat(input.value) < 0) {
-      input.value = "";
-    }
-  });
-}
-
-bloquearNegativos(document.getElementById("precioDesde"));
-bloquearNegativos(document.getElementById("precioHasta"));
