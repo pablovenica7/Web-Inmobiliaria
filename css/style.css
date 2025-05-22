@@ -618,3 +618,20 @@
 .boton-login:hover {
   background-color: darkorange;
 }
+
+.campo-login input:focus:invalid {
+  border: 2px solid red;
+  background-image: url('../assets/imagenes/icono_error.png');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+}
+
+.campo-login input:valid {
+  border: 2px solid green;
+  background-image: url('../assets/imagenes/icono_check.png');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+}
+
