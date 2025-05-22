@@ -194,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//Filtro Tipo de Propiedades
 document.addEventListener("DOMContentLoaded", () => {
   const contenedor = document.getElementById("contenedor-propiedades");
   const filtroTipo = document.getElementById("filtroTipo");
