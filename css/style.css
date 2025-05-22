@@ -580,7 +580,6 @@
   border: 1px solid #ccc;
   border-radius: 12px;
   outline: none;
-  transition: border 0.3s;
 }
 
 .campo-login label {
