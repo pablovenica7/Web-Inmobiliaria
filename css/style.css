@@ -634,3 +634,16 @@
   background-size: 20px;
 }
 
+.campo-login .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 42px;
+  transform: translateY(-50%);
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.campo-login .toggle-password:hover {
+  opacity: 1;
+}
