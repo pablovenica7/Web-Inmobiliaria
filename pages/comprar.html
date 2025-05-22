@@ -96,9 +96,23 @@
             <option>Comprar</option>
             <option>Alquilar</option>
           </select>
-          <select class="input-busqueda">
-            <option selected>Precio</option>
-          </select>
+          <div class="filtro-precio-wrapper position-relative d-inline-block">
+            <div id="btnPrecio" class="filtro-precio input-busqueda">Precio</div>
+            <div id="precioPopover" class="precio-popover shadow p-3">
+              <div class="mb-3">
+                <label class="form-label fw-bold d-block text-center mb-2">Precio</label>
+                <div class="d-flex justify-content-between mb-2">
+                  <label class="form-label small">Desde</label>
+                  <label class="form-label small">Hasta</label>
+                </div>
+                <div class="d-flex gap-2 mb-3">
+                  <input type="number" id="precioDesde" class="form-control" placeholder="USD" min="0">
+                  <input type="number" id="precioHasta" class="form-control" placeholder="USD" min="0">
+                </div>
+              </div>
+              <button id="aplicarPrecio" class="btn btn-primary btn-sm w-100 fw-bold">Aplicar filtro</button>
+            </div>
+          </div>
           <button id="abrirFiltros" class="btn btn-outline-dark filtro-btn">
             <img src="../assets/imagenes/icono_filtrar.png" alt="Filtros" width="18" class="me-1">
             <strong>Filtros (0)</strong>
