@@ -111,3 +111,86 @@ if (textareaVender && contadorVender) {
     contadorVender.textContent = `${textareaVender.value.length}/500`;
   });
 }
+
+// SweetAlert para el formulario de Login
+document.addEventListener("DOMContentLoaded", () => {
+  const formLogin = document.getElementById("form-login");
+
+  if (formLogin) {
+    formLogin.addEventListener("submit", (e) => {
+      if (!formLogin.checkValidity()) {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'error',
+          title: 'Formulario incompleto',
+          text: 'Completá los campos correctamente.',
+          confirmButtonColor: 'orange'
+        });
+      } else {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'success',
+          title: 'Inicio de sesión exitoso',
+          text: 'Bienvenido a VEYOR.',
+          confirmButtonColor: 'green'
+        }).then(() => {
+          formLogin.reset();
+        });
+      }
+    });
+  }
+});
+
+// SweetAlert para el formulario de Signup
+document.addEventListener("DOMContentLoaded", () => {
+  const formSignup = document.getElementById("form-signup");
+
+  if (formSignup) {
+    formSignup.addEventListener("submit", (e) => {
+      const pass1 = document.getElementById("signup-password");
+      const pass2 = document.getElementById("signup-confirm");
+
+      if (!formSignup.checkValidity() || pass1.value !== pass2.value) {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en el registro',
+          text: pass1.value !== pass2.value
+            ? 'Las contraseñas no coinciden.'
+            : 'Completá todos los campos correctamente.',
+          confirmButtonColor: 'orange'
+        });
+      } else {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso',
+          text: 'Tu cuenta ha sido creada correctamente.',
+          confirmButtonColor: 'green'
+        }).then(() => {
+          formSignup.reset();
+        });
+      }
+    });
+  }
+});
+
+// Mostrar/ocultar contraseña en el formulario de Login
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleIcons = document.querySelectorAll(".toggle-password");
+
+  toggleIcons.forEach(icon => {
+    icon.addEventListener("click", () => {
+      const inputId = icon.dataset.target;
+      const input = document.getElementById(inputId);
+      if (input) {
+        const isPassword = input.type === "password";
+        input.type = isPassword ? "text" : "password";
+        icon.src = isPassword
+          ? "../assets/imagenes/icono_ojo_cerrado.svg"
+          : "../assets/imagenes/icono_ojo.svg";
+      }
+    });
+  });
+});
+
