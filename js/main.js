@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Contador de caracteres para el textarea
+// Contador de caracteres para el textarea de Contacto
 const textarea = document.getElementById("comentario-contacto");
 const contador = document.getElementById("contador-comentario-contacto");
 
@@ -193,4 +193,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
