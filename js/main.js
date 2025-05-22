@@ -193,3 +193,59 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+//FILTRO PROPIEDADES
+document.addEventListener("DOMContentLoaded", () => {
+  const contenedor = document.getElementById("contenedor-propiedades");
+  const filtroTipo = document.getElementById("filtroTipo");
+
+  let propiedades = [];
+
+  fetch("../bd/propiedades.json")
+    .then(res => res.json())
+    .then(data => {
+      propiedades = data;
+      renderizarPropiedades(propiedades);
+    });
+
+  if (filtroTipo) {
+    filtroTipo.addEventListener("change", () => {
+      const tipo = filtroTipo.value;
+      const filtradas = propiedades.filter(p => p.tipo === tipo);
+      renderizarPropiedades(filtradas);
+    });
+  }
+
+  function renderizarPropiedades(lista) {
+    contenedor.innerHTML = "";
+
+    lista.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card";
+
+      div.innerHTML = `
+        <div class="imagen-propiedad">
+          <img src="${p.imagen}" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+        </div>
+        <div class="info-propiedad text-dark flex-grow-1">
+          <h3 class="fw-bold mb-1">$${p.precio.toLocaleString()} USD</h3>
+          <p class="mb-1">${p.direccion}</p>
+          <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" width="20" class="me-1"> ${p.m2_totales} m² totales</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" width="20" class="me-1"> ${p.m2_cubiertos} m² cubiertos</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" width="20" class="me-1"> ${p.ambientes} ambientes</li>
+            <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" width="20" class="me-1"> ${p.baños} baño/s</li>
+          </ul>
+          <p class="mb-2 fw-medium">${p.tipo.toUpperCase()} EN ${p.direccion}</p>
+          <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
+            <div><strong class="d-block">${p.asesor}</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
+          </div>
+        </div>
+      `;
+      contenedor.appendChild(div);
+    });
+  }
+});
+
