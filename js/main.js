@@ -1,5 +1,7 @@
+// Variable global donde se guardan todas las propiedades del JSON
 let propiedades = [];
 
+//Función que recibe una lista de propiedades y las renderiza dinámicamente dentro del contenedor principal del catálogo
 function renderizarPropiedades(lista) {
   const contenedor = document.getElementById("contenedor-propiedades");
   contenedor.innerHTML = "";
@@ -34,6 +36,7 @@ function renderizarPropiedades(lista) {
   });
 }
 
+// Controla el filtro de precio: abre/cierra el popover, aplica el rango seleccionado, actualiza el botón y bloquea números negativos.
 const btnPrecio = document.getElementById("btnPrecio");
 const popover = document.getElementById("precioPopover");
 const aplicarPrecio = document.getElementById("aplicarPrecio");
@@ -88,6 +91,7 @@ function bloquearNegativos(input) {
 bloquearNegativos(precioDesde);
 bloquearNegativos(precioHasta);
 
+// Espera a que el HTML esté cargado para activar la apertura y cierre del modal de filtros.
 document.addEventListener("DOMContentLoaded", () => {
   const abrirBtn = document.getElementById("abrirFiltros");
   const modal = document.getElementById("modalFiltros");
@@ -290,7 +294,7 @@ fetch("../bd/propiedades.json")
     propiedades = data;
     renderizarPropiedades(propiedades);
 
-    // Filtro tipo
+    // Filtro tipo de propiedad
     if (filtroTipo) {
       filtroTipo.addEventListener("change", () => {
         aplicarFiltrosCombinados();
