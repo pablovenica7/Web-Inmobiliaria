@@ -71,13 +71,15 @@
     <div class="lado-formulario-login">
       <h2>Iniciar Sesión</h2>
       <p class="subtitulo">Accedé a tu cuenta VEYOR</p>
-      <form id="form-login" action="#" method="post">
+      <form id="form-login" action="#" method="post" novalidate>
         <div class="campo-login">
-          <input type="email" name="login_email" id="login-email" required placeholder=" ">
+          <input type="email" name="login_email" id="login-email" required placeholder=" "
+            pattern="[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}">
           <label for="login-email">Email</label>
         </div>
         <div class="campo-login">
-          <input type="password" name="login_password" id="login-password" required placeholder=" ">
+          <input type="password" name="login_password" id="login-password" required placeholder=" "
+            pattern=".{6,}">
           <label for="login-password">Contraseña</label>
         </div>
         <button type="submit" class="boton-login">Ingresar</button>
