@@ -1,11 +1,26 @@
-// SweetAlert para el formulario de contacto
 document.addEventListener("DOMContentLoaded", () => {
-  const formulario = document.getElementById("form-contacto");
+  // Mostrar/Ocultar contraseña
+  const toggleIcons = document.querySelectorAll(".toggle-password");
+  toggleIcons.forEach(icon => {
+    icon.addEventListener("click", () => {
+      const inputId = icon.dataset.target;
+      const input = document.getElementById(inputId);
+      if (input) {
+        const isPassword = input.type === "password";
+        input.type = isPassword ? "text" : "password";
+        icon.src = isPassword
+          ? "../assets/imagenes/icono_ojo_cerrado.svg"
+          : "../assets/imagenes/icono_ojo.svg";
+      }
+    });
+  });
 
-  if (formulario) {
-    formulario.addEventListener("submit", (e) => {
-      if (!formulario.checkValidity()) {
-        e.preventDefault(); // Evita envío si no es válido
+  // SweetAlert - Contacto
+  const formContacto = document.getElementById("form-contacto");
+  if (formContacto) {
+    formContacto.addEventListener("submit", (e) => {
+      if (!formContacto.checkValidity()) {
+        e.preventDefault();
         Swal.fire({
           icon: 'error',
           title: 'Formulario incompleto',
@@ -13,24 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
           confirmButtonColor: 'orange'
         });
       } else {
-        e.preventDefault(); // Evita envío real (si estás en fase de desarrollo)
+        e.preventDefault();
         Swal.fire({
           icon: 'success',
           title: 'Mensaje enviado',
           text: 'Gracias por contactarnos. Te responderemos a la brevedad.',
           confirmButtonColor: 'green'
         }).then(() => {
-          formulario.reset(); // Limpia el formulario después del mensaje
+          formContacto.reset();
         });
       }
     });
   }
-});
 
-// SweetAlert para el formulario de Vender
-document.addEventListener("DOMContentLoaded", () => {
+  // SweetAlert - Vender
   const formVender = document.getElementById("form-vender");
-
   if (formVender) {
     formVender.addEventListener("submit", (e) => {
       if (!formVender.checkValidity()) {
@@ -54,12 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
 
-// SweetAlert para el formulario de Login
-document.addEventListener("DOMContentLoaded", () => {
+  // SweetAlert - Login
   const formLogin = document.getElementById("form-login");
-
   if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
       if (!formLogin.checkValidity()) {
@@ -83,12 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
 
-// SweetAlert para el formulario de Signup
-document.addEventListener("DOMContentLoaded", () => {
+  // SweetAlert - Signup
   const formSignup = document.getElementById("form-signup");
-
   if (formSignup) {
     formSignup.addEventListener("submit", (e) => {
       const pass1 = document.getElementById("signup-password");
@@ -117,25 +123,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
 
-// Mostrar/ocultar contraseña en el formulario de Login
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleIcons = document.querySelectorAll(".toggle-password");
-
-  toggleIcons.forEach(icon => {
-    icon.addEventListener("click", () => {
-      const inputId = icon.dataset.target;
-      const input = document.getElementById(inputId);
-      if (input) {
-        const isPassword = input.type === "password";
-        input.type = isPassword ? "text" : "password";
-        icon.src = isPassword
-          ? "../assets/imagenes/icono_ojo_cerrado.svg"
-          : "../assets/imagenes/icono_ojo.svg";
-      }
+  // Contadores de caracteres
+  const textarea = document.getElementById("comentario-contacto");
+  const contador = document.getElementById("contador-comentario-contacto");
+  if (textarea && contador) {
+    textarea.addEventListener("input", () => {
+      contador.textContent = `${textarea.value.length}/500`;
     });
-  });
+  }
+
+  const textareaVender = document.getElementById("comentario-vender");
+  const contadorVender = document.getElementById("contador-comentario-vender");
+  if (textareaVender && contadorVender) {
+    textareaVender.addEventListener("input", () => {
+      contadorVender.textContent = `${textareaVender.value.length}/500`;
+    });
+  }
 });
 
 // Variable global donde se guardan todas las propiedades del JSON
@@ -322,23 +326,3 @@ fetch("../bd/propiedades.json")
       }
     }
   });
-
-document.addEventListener("DOMContentLoaded", () => {
-  const textarea = document.getElementById("comentario-contacto");
-  const contador = document.getElementById("contador-comentario-contacto");
-
-  if (textarea && contador) {
-    textarea.addEventListener("input", () => {
-      contador.textContent = `${textarea.value.length}/500`;
-    });
-  }
-
-  const textareaVender = document.getElementById("comentario-vender");
-  const contadorVender = document.getElementById("contador-comentario-vender");
-
-  if (textareaVender && contadorVender) {
-    textareaVender.addEventListener("input", () => {
-      contadorVender.textContent = `${textareaVender.value.length}/500`;
-    });
-  }
-});
