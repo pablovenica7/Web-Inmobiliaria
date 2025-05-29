@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* BODY */
-body {
-  font-family: 'Montserrat', sans-serif;
-}
-
 /* NAVBAR */
 .blur-navbar {
   backdrop-filter: blur(10px);
@@ -17,6 +12,11 @@ body {
 .btn-outline-light:hover {
   background-color: #444;
   color: #fff;
+}
+
+/* BODY */
+body {
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* INDEX */
