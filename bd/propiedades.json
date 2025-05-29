@@ -9,7 +9,7 @@
     "ambientes": 4,
     "baños": 1,
     "asesor": "Gonzalo Fernández",
-    "imagen": "../assets/imagenes/img_propiedad1.png"
+    "imagen": "../assets/imagenes/img_propiedad2.png"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "ambientes": 4,
     "baños": 1,
     "asesor": "Lucas Romero",
-    "imagen": "../assets/imagenes/img_propiedad1.png"
+    "imagen": "../assets/imagenes/img_propiedad2.png"
   },
   {
     "id": 3,
@@ -57,7 +57,7 @@
     "ambientes": 3,
     "baños": 1,
     "asesor": "Matías Herrera",
-    "imagen": "../assets/imagenes/img_propiedad1.png"
+    "imagen": "../assets/imagenes/img_propiedad2.png"
   },
   {
     "id": 6,
@@ -81,6 +81,6 @@
     "ambientes": 3,
     "baños": 1,
     "asesor": "Facundo Díaz",
-    "imagen": "../assets/imagenes/img_propiedad1.png"
+    "imagen": "../assets/imagenes/img_propiedad2.png"
   }
 ]
