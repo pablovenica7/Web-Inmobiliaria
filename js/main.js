@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Contacto
+  // Sweetalert Contacto
   const formContacto = document.getElementById("form-contacto");
   if (formContacto) {
     formContacto.addEventListener("submit", (e) => {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Vender
+  // Sweetalert Vender
   const formVender = document.getElementById("form-vender");
   if (formVender) {
     formVender.addEventListener("submit", (e) => {
@@ -67,82 +67,141 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Login
+  // Simulación de registro
+  const formSignup = document.getElementById("form-signup");
+  if (formSignup) {
+    formSignup.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById("signup-nombre").value.trim();
+      const email = document.getElementById("signup-email").value.trim();
+      const pass1 = document.getElementById("signup-password").value;
+      const pass2 = document.getElementById("signup-confirm").value;
+      const checkbox = document.getElementById("acepta-terminos");
+
+      if (
+        nombre === "" ||
+        email === "" ||
+        pass1 === "" ||
+        pass2 === "" ||
+        !checkbox.checked ||
+        pass1 !== pass2
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en el registro',
+          text: 'Por favor completá todos los campos correctamente antes de registrarte.',
+          confirmButtonColor: 'orange'
+        });
+        return;
+      }
+
+      const nuevoUsuario = {
+        id: Date.now(),
+        nombre,
+        email,
+        password: pass1,
+        favoritos: []
+      };
+
+      localStorage.setItem("usuarioActivo", JSON.stringify(nuevoUsuario));
+      actualizarNavbar();
+
+      Swal.fire({
+        icon: "success",
+        title: "Registro exitoso",
+        text: `Bienvenido, ${nombre.split(" ")[0]}`,
+        confirmButtonColor: "orange",
+      }).then(() => {
+        window.location.href = "../index.html";
+      });
+    });
+  }
+
+  // Simulación login con usuario falso
   const formLogin = document.getElementById("form-login");
   if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
-      if (!formLogin.checkValidity()) {
-        e.preventDefault();
+      e.preventDefault();
+
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value;
+
+      if (!email || !password) {
         Swal.fire({
           icon: 'error',
           title: 'Formulario incompleto',
-          text: 'Completá los campos correctamente.',
+          text: 'Por favor completá todos los campos correctamente antes de iniciar sesión.',
           confirmButtonColor: 'orange'
         });
-      } else {
-        e.preventDefault();
+        return;
+      }
+
+      if (
+        email === "pablo.venica@example.com" &&
+        password === "123456"
+      ) {
+        const usuarioFalso = {
+          id: 1,
+          nombre: "Pablo Venica",
+          email,
+          password,
+          favoritos: []
+        };
+
+        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioFalso));
+        actualizarNavbar();
         Swal.fire({
           icon: 'success',
           title: 'Inicio de sesión exitoso',
           text: 'Bienvenido a VEYOR.',
           confirmButtonColor: 'green'
         }).then(() => {
-          formLogin.reset();
-        });
-      }
-    });
-  }
-
-  // Simulación de registro con usuario falso
-  const usuarioFalso = {
-    id: 1,
-    nombre: "Pablo Venica",
-    email: "pablo.venica@example.com",
-    password: "123456",
-    favoritos: []
-  };
-
-  const formSignup = document.getElementById("form-signup");
-  if (formSignup) {
-    formSignup.addEventListener("submit", (e) => {
-      const pass1 = document.getElementById("signup-password");
-      const pass2 = document.getElementById("signup-confirm");
-
-      if (!formSignup.checkValidity() || pass1.value !== pass2.value) {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'error',
-          title: 'Error en el registro',
-          text: pass1.value !== pass2.value
-            ? 'Las contraseñas no coinciden.'
-            : 'Completá todos los campos correctamente.',
-          confirmButtonColor: 'orange'
-        });
-      } else {
-        e.preventDefault();
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioFalso));
-        actualizarNavbar();
-        Swal.fire({
-          icon: "success",
-          title: "Registro exitoso",
-          text: `¡Bienvenido, ${usuarioFalso.nombre.split(" ")[0]}!`,
-          confirmButtonColor: "orange",
-        }).then(() => {
           window.location.href = "../index.html";
         });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Credenciales incorrectas',
+          text: 'El email o la contraseña no coinciden con el usuario válido.',
+          confirmButtonColor: 'orange'
+        });
       }
     });
   }
 
-  // Contadores 
-  const textarea = document.getElementById("comentario-contacto");
-  const contador = document.getElementById("contador-comentario-contacto");
-  if (textarea && contador) {
-    textarea.addEventListener("input", () => {
-      contador.textContent = `${textarea.value.length}/500`;
-    });
+  // Navbar dinámico
+  actualizarNavbar();
+
+  function actualizarNavbar() {
+    const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
+    const userBtn = document.querySelector(".btn.dropdown-toggle");
+    const dropdown = document.querySelector(".dropdown-menu");
+
+    if (userData) {
+      if (userBtn) {
+        userBtn.innerHTML = `<img src="../assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
+      }
+
+      if (dropdown) {
+        dropdown.innerHTML = `
+          <li><a class="dropdown-item" href="../pages/favoritos.html">Favoritos</a></li>
+          <li><a class="dropdown-item" href="#" id="signoutBtn">Sign Out</a></li>
+        `;
+        document.getElementById("signoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("usuarioActivo");
+          location.reload();
+        });
+      }
+
+      const btnLogin = document.querySelector("#btn-login");
+      const btnSignup = document.querySelector("#btn-signup");
+      if (btnLogin) btnLogin.style.display = "none";
+      if (btnSignup) btnSignup.style.display = "none";
+    }
   }
 
+  // Contador de caracteres en textarea de contacto
   const textareaVender = document.getElementById("comentario-vender");
   const contadorVender = document.getElementById("contador-comentario-vender");
   if (textareaVender && contadorVender) {
@@ -178,37 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") cerrarModal();
     });
-  }
-
-  // Navbar dinámico
-  actualizarNavbar();
-
-  function actualizarNavbar() {
-    const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
-    const userBtn = document.querySelector(".btn.dropdown-toggle");
-    const dropdown = document.querySelector(".dropdown-menu");
-
-    if (userData) {
-      if (userBtn) {
-        userBtn.innerHTML = `<img src="../assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
-      }
-
-      if (dropdown) {
-        dropdown.innerHTML = `
-          <li><a class="dropdown-item" href="../pages/favoritos.html">Favoritos</a></li>
-          <li><a class="dropdown-item" href="#" id="signoutBtn">Sign Out</a></li>
-        `;
-        document.getElementById("signoutBtn").addEventListener("click", () => {
-          localStorage.removeItem("usuarioActivo");
-          location.reload();
-        });
-      }
-
-      const btnLogin = document.querySelector("#btn-login");
-      const btnSignup = document.querySelector("#btn-signup");
-      if (btnLogin) btnLogin.style.display = "none";
-      if (btnSignup) btnSignup.style.display = "none";
-    }
   }
 });
 
