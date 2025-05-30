@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (userData) {
       if (userBtn) {
-        userBtn.innerHTML = `<img src="../assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
+        userBtn.innerHTML = `<img src="./assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
       }
 
       if (dropdown) {
