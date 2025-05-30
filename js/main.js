@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // SweetAlert - Contacto
+  // Contacto
   const formContacto = document.getElementById("form-contacto");
   if (formContacto) {
     formContacto.addEventListener("submit", (e) => {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // SweetAlert - Vender
+  // Vender
   const formVender = document.getElementById("form-vender");
   if (formVender) {
     formVender.addEventListener("submit", (e) => {
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // SweetAlert - Login
+  // Login
   const formLogin = document.getElementById("form-login");
   if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
@@ -93,7 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // SweetAlert - Signup
+  // Simulación de registro con usuario falso
+  const usuarioFalso = {
+    id: 1,
+    nombre: "Pablo Venica",
+    email: "pablo.venica@example.com",
+    password: "123456",
+    favoritos: []
+  };
+
   const formSignup = document.getElementById("form-signup");
   if (formSignup) {
     formSignup.addEventListener("submit", (e) => {
@@ -112,19 +120,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       } else {
         e.preventDefault();
+        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioFalso));
+        actualizarNavbar();
         Swal.fire({
-          icon: 'success',
-          title: 'Registro exitoso',
-          text: 'Tu cuenta ha sido creada correctamente.',
-          confirmButtonColor: 'green'
+          icon: "success",
+          title: "Registro exitoso",
+          text: `¡Bienvenido, ${usuarioFalso.nombre.split(" ")[0]}!`,
+          confirmButtonColor: "orange",
         }).then(() => {
-          formSignup.reset();
+          window.location.href = "../index.html";
         });
       }
     });
   }
 
-  // Contadores de caracteres
+  // Contadores 
   const textarea = document.getElementById("comentario-contacto");
   const contador = document.getElementById("contador-comentario-contacto");
   if (textarea && contador) {
@@ -141,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Modal filtros
   const abrirBtn = document.getElementById("abrirFiltros");
   const modal = document.getElementById("modalFiltros");
   const cerrarBtn1 = document.getElementById("cerrarFiltros");
@@ -160,19 +171,44 @@ document.addEventListener("DOMContentLoaded", () => {
     cerrarBtn1.addEventListener("click", cerrarModal);
     cerrarBtn2.addEventListener("click", cerrarModal);
 
-    // Cerrar al hacer click fuera del modal
     window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        cerrarModal();
-      }
+      if (e.target === modal) cerrarModal();
     });
 
-    // Cerrar con Escape
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        cerrarModal();
-      }
+      if (e.key === "Escape") cerrarModal();
     });
+  }
+
+  // Navbar dinámico
+  actualizarNavbar();
+
+  function actualizarNavbar() {
+    const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
+    const userBtn = document.querySelector(".btn.dropdown-toggle");
+    const dropdown = document.querySelector(".dropdown-menu");
+
+    if (userData) {
+      if (userBtn) {
+        userBtn.innerHTML = `<img src="../assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
+      }
+
+      if (dropdown) {
+        dropdown.innerHTML = `
+          <li><a class="dropdown-item" href="../pages/favoritos.html">Favoritos</a></li>
+          <li><a class="dropdown-item" href="#" id="signoutBtn">Sign Out</a></li>
+        `;
+        document.getElementById("signoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("usuarioActivo");
+          location.reload();
+        });
+      }
+
+      const btnLogin = document.querySelector("#btn-login");
+      const btnSignup = document.querySelector("#btn-signup");
+      if (btnLogin) btnLogin.style.display = "none";
+      if (btnSignup) btnSignup.style.display = "none";
+    }
   }
 });
 
