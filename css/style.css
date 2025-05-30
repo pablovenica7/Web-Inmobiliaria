@@ -681,3 +681,79 @@ body {
 .campo-login .toggle-password:hover {
   opacity: 1;
 }
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .contenedor-formulario-vender,
+  .contenedor-formulario-contacto,
+  .contenedor-formulario-login {
+    flex-direction: column;
+  }
+
+  .lado-ilustracion-vender,
+  .lado-ilustracion-contacto,
+  .lado-ilustracion-login {
+    height: 250px;
+  }
+
+  .lado-ilustracion-vender img,
+  .lado-ilustracion-contacto img,
+  .lado-ilustracion-login img {
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .lado-formulario-vender,
+  .lado-formulario-contacto,
+  .lado-formulario-login {
+    padding: 20px;
+  }
+
+  .formulario-login,
+  .formulario-contacto,
+  .formulario-vender {
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .contenido-index h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .opciones {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .opciones button {
+    width: 90%;
+  }
+
+  .buscador {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buscador input,
+  .buscador select {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+
+  .boton-buscar {
+    width: 90%;
+  }
+
+  .grid-busqueda {
+    grid-template-columns: 1fr;
+  }
+
+  .contenido-legales {
+    padding: 20px;
+  }
+}
+
