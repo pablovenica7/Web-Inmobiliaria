@@ -336,8 +336,12 @@ bloquearNegativos(precioHasta);
 fetch("../bd/propiedades.json")
   .then(res => res.json())
   .then(data => {
-    propiedades = data;
-    renderizarPropiedades(propiedades);
+    console.log("Propiedades cargadas:", data);
+    renderizarPropiedades(data);
+  })
+  .catch(error => {
+    console.error("Error al cargar propiedades:", error);
+  });
 
     // Filtro tipo de propiedad
     if (filtroTipo) {
