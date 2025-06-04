@@ -1,4 +1,68 @@
 document.addEventListener("DOMContentLoaded", () => {
+  fetch("../bd/propiedades.json")
+  .then(res => res.json())
+  .then(data => {
+    propiedades = data;
+    renderizarPropiedades(propiedades);
+
+  // 🔧 Agregar estas líneas para evitar errores:
+  const filtroTipo = document.getElementById("filtroTipo");
+  const aplicarPrecio = document.getElementById("aplicarPrecio");
+  const precioDesde = document.getElementById("precioDesde");
+  const precioHasta = document.getElementById("precioHasta");
+  const btnPrecio = document.getElementById("btnPrecio");
+  const popover = document.getElementById("precioPopover");
+
+
+    // Filtro tipo de propiedad
+    if (filtroTipo) {
+      filtroTipo.addEventListener("change", () => {
+        aplicarFiltrosCombinados();
+      });
+    }
+
+    // Filtro precio
+    if (aplicarPrecio) {
+      aplicarPrecio.addEventListener("click", () => {
+        popover.style.display = "none";
+        aplicarFiltrosCombinados();
+      });
+    }
+
+    function aplicarFiltrosCombinados() {
+      const tipo = filtroTipo?.value;
+      const desde = parseFloat(precioDesde.value);
+      const hasta = parseFloat(precioHasta.value);
+
+      let resultado = propiedades;
+
+      if (tipo && tipo !== "Tipo de propiedad") {
+        resultado = resultado.filter(p => p.tipo === tipo);
+      }
+
+      if (!isNaN(desde)) {
+        resultado = resultado.filter(p => p.precio >= desde);
+      }
+
+      if (!isNaN(hasta)) {
+        resultado = resultado.filter(p => p.precio <= hasta);
+      }
+
+      renderizarPropiedades(resultado);
+
+      // Actualizar texto del botón
+      if (!isNaN(desde) || !isNaN(hasta)) {
+        let texto = "USD:";
+        if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
+        texto += " -";
+        if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
+        btnPrecio.textContent = texto;
+      } else {
+        btnPrecio.textContent = "Precio";
+      }
+    }
+  });
+
   // Mostrar/Ocultar contraseña
   const toggleIcons = document.querySelectorAll(".toggle-password");
   toggleIcons.forEach(icon => {
@@ -332,59 +396,3 @@ function bloquearNegativos(input) {
 
 bloquearNegativos(precioDesde);
 bloquearNegativos(precioHasta);
-
-fetch("../bd/propiedades.json")
-  .then(res => res.json())
-  .then(data => {
-    console.log("Propiedades cargadas:", data);
-    renderizarPropiedades(data);
-  });
-
-    // Filtro tipo de propiedad
-    if (filtroTipo) {
-      filtroTipo.addEventListener("change", () => {
-        aplicarFiltrosCombinados();
-      });
-    }
-
-    // Filtro precio
-    if (aplicarPrecio) {
-      aplicarPrecio.addEventListener("click", () => {
-        popover.style.display = "none";
-        aplicarFiltrosCombinados();
-      });
-    }
-
-    function aplicarFiltrosCombinados() {
-      const tipo = filtroTipo?.value;
-      const desde = parseFloat(precioDesde.value);
-      const hasta = parseFloat(precioHasta.value);
-
-      let resultado = propiedades;
-
-      if (tipo && tipo !== "Tipo de propiedad") {
-        resultado = resultado.filter(p => p.tipo === tipo);
-      }
-
-      if (!isNaN(desde)) {
-        resultado = resultado.filter(p => p.precio >= desde);
-      }
-
-      if (!isNaN(hasta)) {
-        resultado = resultado.filter(p => p.precio <= hasta);
-      }
-
-      renderizarPropiedades(resultado);
-
-      // Actualizar texto del botón
-      if (!isNaN(desde) || !isNaN(hasta)) {
-        let texto = "USD:";
-        if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
-        texto += " -";
-        if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
-        btnPrecio.textContent = texto;
-      } else {
-        btnPrecio.textContent = "Precio";
-      }
-    }
-  });
