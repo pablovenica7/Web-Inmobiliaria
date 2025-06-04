@@ -238,6 +238,65 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === "Escape") cerrarModal();
     });
   }
+
+  // Lógica de filtro por ambientes (desde el modal)
+const botonesAmbientes = document.querySelectorAll('#filtroAmbientes button');
+let ambientesSeleccionados = null;
+
+botonesAmbientes.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    // Quitar clase activa de todos y aplicar solo al seleccionado
+    botonesAmbientes.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const valor = btn.getAttribute('data-ambientes');
+    ambientesSeleccionados = valor === '6' ? 6 : parseInt(valor);
+    aplicarFiltros();
+  });
+});
+
+function aplicarFiltros() {
+  fetch('../bd/propiedades.json')
+    .then(response => response.json())
+    .then(data => {
+      let propiedadesFiltradas = [...data];
+
+      if (ambientesSeleccionados !== null) {
+        propiedadesFiltradas = propiedadesFiltradas.filter(p => {
+          return ambientesSeleccionados === 6 ? p.ambientes >= 6 : p.ambientes === ambientesSeleccionados;
+        });
+      }
+
+      renderizarPropiedades(propiedadesFiltradas);
+    });
+}
+
+function renderizarPropiedades(propiedades) {
+  const contenedor = document.getElementById('contenedor-propiedades');
+  contenedor.innerHTML = '';
+
+  if (propiedades.length === 0) {
+    contenedor.innerHTML = '<p class="text-center text-muted">No se encontraron propiedades con esos filtros.</p>';
+    return;
+  }
+
+  propiedades.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'col-md-4 mb-4';
+    card.innerHTML = `
+      <div class="card h-100 shadow">
+        <img src="${p.imagen}" class="card-img-top" alt="${p.tipo}">
+        <div class="card-body">
+          <h5 class="card-title">${p.tipo} - ${p.direccion}</h5>
+          <p class="card-text">$${p.precio.toLocaleString()}</p>
+          <p class="card-text"><small>${p.m2_totales}m² - ${p.ambientes} ambientes - ${p.baños} baño(s)</small></p>
+          <p class="card-text"><small>Asesor: ${p.asesor}</small></p>
+        </div>
+      </div>
+    `;
+    contenedor.appendChild(card);
+    });
+  }
 });
 
 // Variable global donde se guardan todas las propiedades del JSON
