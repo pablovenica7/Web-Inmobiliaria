@@ -238,49 +238,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === "Escape") cerrarModal();
     });
   }
-
-function aplicarFiltros() {
-  fetch('../bd/propiedades.json')
-    .then(response => response.json())
-    .then(data => {
-      let propiedadesFiltradas = [...data];
-
-      if (ambientesSeleccionados !== null) {
-        propiedadesFiltradas = propiedadesFiltradas.filter(p => {
-          return ambientesSeleccionados === 6 ? p.ambientes >= 6 : p.ambientes === ambientesSeleccionados;
-        });
-      }
-
-      renderizarPropiedades(propiedadesFiltradas);
-    });
-}
-
-function renderizarPropiedades(propiedades) {
-  const contenedor = document.getElementById('contenedor-propiedades');
-  contenedor.innerHTML = '';
-
-  if (propiedades.length === 0) {
-    contenedor.innerHTML = '<p class="text-center text-muted">No se encontraron propiedades con esos filtros.</p>';
-    return;
-  }
-
-  propiedades.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'col-md-4 mb-4';
-    card.innerHTML = `
-      <div class="card h-100 shadow">
-        <img src="${p.imagen}" class="card-img-top" alt="${p.tipo}">
-        <div class="card-body">
-          <h5 class="card-title">${p.tipo} - ${p.direccion}</h5>
-          <p class="card-text">$${p.precio.toLocaleString()}</p>
-          <p class="card-text"><small>${p.m2_totales}m² - ${p.ambientes} ambientes - ${p.baños} baño(s)</small></p>
-          <p class="card-text"><small>Asesor: ${p.asesor}</small></p>
-        </div>
-      </div>
-    `;
-    contenedor.appendChild(card);
-    });
-  }
 });
 
 // Variable global donde se guardan todas las propiedades del JSON
@@ -364,6 +321,17 @@ if (aplicarPrecio) {
     }
   });
 }
+
+function bloquearNegativos(input) {
+  input.addEventListener("input", () => {
+    if (parseFloat(input.value) < 0) {
+      input.value = "";
+    }
+  });
+}
+
+bloquearNegativos(precioDesde);
+bloquearNegativos(precioHasta);
 
 fetch("../bd/propiedades.json")
   .then(res => res.json())
