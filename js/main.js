@@ -373,8 +373,8 @@ function bloquearNegativos(input) {
   });
 }
 
-bloquearNegativos(precioDesde);
-bloquearNegativos(precioHasta);
+if (precioDesde) bloquearNegativos(precioDesde);
+if (precioHasta) bloquearNegativos(precioHasta);
 
 fetch("../bd/propiedades.json")
   .then(res => res.json())
