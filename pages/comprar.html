@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script defer src="../js/main.js"></script>
+  <script src="../js/main.js"></script>
 </head>
 <body>
   <header>
@@ -127,40 +127,17 @@
           </div>
           <div class="modal-body">
             <div class="filtro-bloque">
-              <label class="form-label fw-bold">Operación</label>
-              <div class="btn-group w-100 flex-wrap" role="group">
-                <button type="button" class="btn btn-outline-primary active">Comprar</button>
-                <button type="button" class="btn btn-outline-primary">Alquilar</button>
-                <button type="button" class="btn btn-outline-primary">Alquiler temporal</button>
-              </div>
-            </div>
-            <div class="filtro-bloque">
-              <label class="form-label fw-bold">Ubicación</label>
-              <input type="text" class="form-control" placeholder="¿Dónde querés mudarte?">
-            </div>
-            <div class="filtro-bloque">
-              <label class="form-label fw-bold">Tipo de propiedad</label>
-              <select class="form-select">
-                <option selected>Tipo de propiedad</option>
-                <option>Casa</option>
-                <option>Departamento</option>
-                <option>PH</option>
-                <option>Terreno</option>
-                <option>Oficina</option>
-                <option>Local</option>
-                <option>Galpón</option>
-                <option>Campo</option>
-              </select>
-            </div>
-            <div class="filtro-bloque">
               <label class="form-label fw-bold">Ambientes</label>
-              <div class="d-flex gap-2 flex-wrap">
-                <button class="btn btn-outline-secondary">1</button>
-                <button class="btn btn-outline-secondary">2</button>
-                <button class="btn btn-outline-secondary">3</button>
-                <button class="btn btn-outline-secondary">4</button>
-                <button class="btn btn-outline-secondary">5</button>
-                <button class="btn btn-outline-secondary">+6</button>
+              <div class="filtro-bloque">
+                <label class="form-label fw-bold">Ambientes</label>
+                <div class="d-flex gap-2 flex-wrap" id="filtroAmbientes">
+                  <button class="btn btn-outline-secondary" data-ambientes="1">1</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="2">2</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="3">3</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="4">4</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="5">5</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="6">+6</button>
+                </div>
               </div>
             </div>
             <div class="filtro-bloque">
