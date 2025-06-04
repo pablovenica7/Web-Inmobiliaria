@@ -338,9 +338,6 @@ fetch("../bd/propiedades.json")
   .then(data => {
     console.log("Propiedades cargadas:", data);
     renderizarPropiedades(data);
-  })
-  .catch(error => {
-    console.error("Error al cargar propiedades:", error);
   });
 
     // Filtro tipo de propiedad
