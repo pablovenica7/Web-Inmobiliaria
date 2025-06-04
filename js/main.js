@@ -365,17 +365,6 @@ if (aplicarPrecio) {
   });
 }
 
-function bloquearNegativos(input) {
-  input.addEventListener("input", () => {
-    if (parseFloat(input.value) < 0) {
-      input.value = "";
-    }
-  });
-}
-
-if (precioDesde) bloquearNegativos(precioDesde);
-if (precioHasta) bloquearNegativos(precioHasta);
-
 fetch("../bd/propiedades.json")
   .then(res => res.json())
   .then(data => {
