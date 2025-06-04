@@ -1,448 +1,276 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Mostrar/Ocultar contraseña
-  const toggleIcons = document.querySelectorAll(".toggle-password");
-  toggleIcons.forEach(icon => {
-    icon.addEventListener("click", () => {
-      const inputId = icon.dataset.target;
-      const input = document.getElementById(inputId);
-      if (input) {
-        const isPassword = input.type === "password";
-        input.type = isPassword ? "text" : "password";
-        icon.src = isPassword
-          ? "../assets/imagenes/icono_ojo_cerrado.svg"
-          : "../assets/imagenes/icono_ojo.svg";
-      }
-    });
-  });
-
-  // Sweetalert Contacto
-  const formContacto = document.getElementById("form-contacto");
-  if (formContacto) {
-    formContacto.addEventListener("submit", (e) => {
-      if (!formContacto.checkValidity()) {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'error',
-          title: 'Formulario incompleto',
-          text: 'Por favor completá todos los campos correctamente antes de enviar.',
-          confirmButtonColor: 'orange'
-        });
-      } else {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'success',
-          title: 'Mensaje enviado',
-          text: 'Gracias por contactarnos. Te responderemos a la brevedad.',
-          confirmButtonColor: 'green'
-        }).then(() => {
-          formContacto.reset();
-        });
-      }
-    });
-  }
-
-  // Sweetalert Vender
-  const formVender = document.getElementById("form-vender");
-  if (formVender) {
-    formVender.addEventListener("submit", (e) => {
-      if (!formVender.checkValidity()) {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'error',
-          title: 'Formulario incompleto',
-          text: 'Por favor completá todos los campos correctamente antes de enviar.',
-          confirmButtonColor: 'orange'
-        });
-      } else {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'success',
-          title: 'Solicitud enviada',
-          text: 'Gracias por confiar en VEYOR. Te contactaremos pronto.',
-          confirmButtonColor: 'green'
-        }).then(() => {
-          formVender.reset();
-        });
-      }
-    });
-  }
-
-  // Simulación de registro
-  const formSignup = document.getElementById("form-signup");
-  if (formSignup) {
-    formSignup.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const nombre = document.getElementById("signup-nombre").value.trim();
-      const email = document.getElementById("signup-email").value.trim();
-      const pass1 = document.getElementById("signup-password").value;
-      const pass2 = document.getElementById("signup-confirm").value;
-      const checkbox = document.getElementById("acepta-terminos");
-
-      if (
-        nombre === "" ||
-        email === "" ||
-        pass1 === "" ||
-        pass2 === "" ||
-        !checkbox.checked ||
-        pass1 !== pass2
-      ) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error en el registro',
-          text: 'Por favor completá todos los campos correctamente antes de registrarte.',
-          confirmButtonColor: 'orange'
-        });
-        return;
-      }
-
-      const nuevoUsuario = {
-        id: Date.now(),
-        nombre,
-        email,
-        password: pass1,
-        favoritos: []
-      };
-
-      localStorage.setItem("usuarioActivo", JSON.stringify(nuevoUsuario));
-      actualizarNavbar();
-
-      Swal.fire({
-        icon: "success",
-        title: "Registro exitoso",
-        text: `Bienvenido, ${nombre.split(" ")[0]}`,
-        confirmButtonColor: "orange",
-      }).then(() => {
-        window.location.href = "../index.html";
-      });
-    });
-  }
-
-  // Simulación login con usuario falso
-  const formLogin = document.getElementById("form-login");
-  if (formLogin) {
-    formLogin.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById("login-email").value.trim();
-      const password = document.getElementById("login-password").value;
-
-      if (!email || !password) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Formulario incompleto',
-          text: 'Por favor completá todos los campos correctamente antes de iniciar sesión.',
-          confirmButtonColor: 'orange'
-        });
-        return;
-      }
-
-      if (
-        email === "pablo.venica@example.com" &&
-        password === "123456"
-      ) {
-        const usuarioFalso = {
-          id: 1,
-          nombre: "Pablo Venica",
-          email,
-          password,
-          favoritos: []
-        };
-
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioFalso));
-        actualizarNavbar();
-        Swal.fire({
-          icon: 'success',
-          title: 'Inicio de sesión exitoso',
-          text: 'Bienvenido a VEYOR.',
-          confirmButtonColor: 'green'
-        }).then(() => {
-          window.location.href = "../index.html";
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Credenciales incorrectas',
-          text: 'El email o la contraseña no coinciden con el usuario válido.',
-          confirmButtonColor: 'orange'
-        });
-      }
-    });
-  }
-
-  // Navbar dinámico
-  actualizarNavbar();
-
-  function actualizarNavbar() {
-    const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
-    const userBtn = document.querySelector(".btn.dropdown-toggle");
-    const dropdown = document.querySelector(".dropdown-menu");
-
-    if (userData) {
-      if (userBtn) {
-        userBtn.innerHTML = `<img src="./assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
-      }
-
-      if (dropdown) {
-        dropdown.innerHTML = `
-          <li><a class="dropdown-item" href="../pages/favoritos.html">Favoritos</a></li>
-          <li><a class="dropdown-item" href="#" id="signoutBtn">Sign Out</a></li>
-        `;
-        document.getElementById("signoutBtn").addEventListener("click", () => {
-          localStorage.removeItem("usuarioActivo");
-          location.reload();
-        });
-      }
-
-      const btnLogin = document.querySelector("#btn-login");
-      const btnSignup = document.querySelector("#btn-signup");
-      if (btnLogin) btnLogin.style.display = "none";
-      if (btnSignup) btnSignup.style.display = "none";
-    }
-  }
-
-  // Contador de caracteres en textarea de contacto
-  const textareaVender = document.getElementById("comentario-vender");
-  const contadorVender = document.getElementById("contador-comentario-vender");
-  if (textareaVender && contadorVender) {
-    textareaVender.addEventListener("input", () => {
-      contadorVender.textContent = `${textareaVender.value.length}/500`;
-    });
-  }
-
-  // Modal filtros
-  const abrirBtn = document.getElementById("abrirFiltros");
-  const modal = document.getElementById("modalFiltros");
-  const cerrarBtn1 = document.getElementById("cerrarFiltros");
-  const cerrarBtn2 = document.getElementById("cerrarFiltros2");
-
-  if (abrirBtn && modal && cerrarBtn1 && cerrarBtn2) {
-    abrirBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    });
-
-    const cerrarModal = () => {
-      modal.style.display = "none";
-      document.body.style.overflow = "";
-    };
-
-    cerrarBtn1.addEventListener("click", cerrarModal);
-    cerrarBtn2.addEventListener("click", cerrarModal);
-
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) cerrarModal();
-    });
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") cerrarModal();
-    });
-  }
-
-  // Lógica de filtro por ambientes (desde el modal)
-const botonesAmbientes = document.querySelectorAll('#filtroAmbientes button');
-let ambientesSeleccionados = null;
-
-botonesAmbientes.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    // Quitar clase activa de todos y aplicar solo al seleccionado
-    botonesAmbientes.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const valor = btn.getAttribute('data-ambientes');
-    ambientesSeleccionados = valor === '6' ? 6 : parseInt(valor);
-    aplicarFiltros();
-  });
-});
-
-function aplicarFiltros() {
-  fetch('../bd/propiedades.json')
-    .then(response => response.json())
-    .then(data => {
-      let propiedadesFiltradas = [...data];
-
-      if (ambientesSeleccionados !== null) {
-        propiedadesFiltradas = propiedadesFiltradas.filter(p => {
-          return ambientesSeleccionados === 6 ? p.ambientes >= 6 : p.ambientes === ambientesSeleccionados;
-        });
-      }
-
-      renderizarPropiedades(propiedadesFiltradas);
-    });
-}
-
-function renderizarPropiedades(propiedades) {
-  const contenedor = document.getElementById('contenedor-propiedades');
-  contenedor.innerHTML = '';
-
-  if (propiedades.length === 0) {
-    contenedor.innerHTML = '<p class="text-center text-muted">No se encontraron propiedades con esos filtros.</p>';
-    return;
-  }
-
-  propiedades.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'col-md-4 mb-4';
-    card.innerHTML = `
-      <div class="card h-100 shadow">
-        <img src="${p.imagen}" class="card-img-top" alt="${p.tipo}">
-        <div class="card-body">
-          <h5 class="card-title">${p.tipo} - ${p.direccion}</h5>
-          <p class="card-text">$${p.precio.toLocaleString()}</p>
-          <p class="card-text"><small>${p.m2_totales}m² - ${p.ambientes} ambientes - ${p.baños} baño(s)</small></p>
-          <p class="card-text"><small>Asesor: ${p.asesor}</small></p>
-        </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprar - VEYOR</title>
+  <link rel="icon" href="../assets/imagenes/logo_veyor.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/main.js"></script>
+</head>
+<body>
+  <header>
+    <!-- NAVBAR BOOTSTRAP -->
+    <nav class="navbar navbar-dark bg-transparent blur-navbar fixed-top" aria-label="Navbar con blur">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/imagenes/logo_navbar.png" alt="Logo VEYOR" width="140" height="80">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       </div>
-    `;
-    contenedor.appendChild(card);
-    });
-  }
-});
-
-// Variable global donde se guardan todas las propiedades del JSON
-let propiedades = [];
-
-//Función que recibe una lista de propiedades y las renderiza dinámicamente dentro del contenedor principal del catálogo
-function renderizarPropiedades(lista) {
-  const contenedor = document.getElementById("contenedor-propiedades");
-  contenedor.innerHTML = "";
-
-  lista.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "col-12 bg-white rounded-4 shadow p-3 d-flex flex-column flex-md-row align-items-start gap-4 catalogo-card";
-
-    div.innerHTML = `
-      <div class="imagen-propiedad">
-        <img src="${p.imagen}" alt="Imagen propiedad" class="img-fluid rounded-3" style="width: 400px;">
+    </nav>
+    <div class="offcanvas offcanvas-end bg-black text-white" tabindex="-1" id="offcanvasNavbarDark"
+      aria-labelledby="offcanvasNavbarDarkLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarDarkLabel">Menú</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
       </div>
-      <div class="info-propiedad text-dark flex-grow-1">
-        <h3 class="fw-bold mb-1">$${p.precio.toLocaleString()} USD</h3>
-        <p class="mb-1">${p.direccion}</p>
-        <ul class="list-inline mb-3 text-dark d-flex flex-wrap gap-3">
-          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_regla.png" width="20" class="me-1"> ${p.m2_totales} m² totales</li>
-          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_casa.png" width="20" class="me-1"> ${p.m2_cubiertos} m² cubiertos</li>
-          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_cama.png" width="20" class="me-1"> ${p.ambientes} ambientes</li>
-          <li class="list-inline-item d-flex align-items-center"><img src="../assets/imagenes/icono_toilette.png" width="20" class="me-1"> ${p.baños} baño/s</li>
+      <div class="offcanvas-body d-flex flex-column">
+        <ul class="navbar-nav pe-3">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="../index.html">
+              <img src="../assets/imagenes/icono_home.svg" width="20" class="me-2" alt="Inicio">Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">
+              <img src="../assets/imagenes/icono_comprar.svg" width="20" class="me-2" alt="Comprar">Comprar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="../pages/vender.html">
+              <img src="../assets/imagenes/icono_vender.svg" width="20" class="me-2" alt="Vender">Vender
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="../pages/alquilar.html">
+              <img src="../assets/imagenes/icono_alquilar.svg" width="20" class="me-2" alt="Alquilar">Alquilar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="../pages/contacto.html">
+              <img src="../assets/imagenes/icono_contacto.svg" width="20" class="me-2" alt="Contacto">Contacto
+            </a>
+          </li>
         </ul>
-        <p class="mb-2 fw-medium">${p.tipo.toUpperCase()} EN ${p.direccion}</p>
-        <p class="text-muted small">Corredores responsables: <span class="text-decoration-underline">Pablo Venica CPI 777</span></p>
-        <div class="d-flex align-items-center mt-3">
-          <img src="../assets/imagenes/icono_user.svg" alt="Asesor" class="rounded-circle me-2" width="45">
-          <div><strong class="d-block">${p.asesor}</strong><small class="text-muted">VEYOR Inmobiliaria</small></div>
+        <div class="mt-auto pt-4 d-flex justify-content-start align-items-center">
+          <div class="dropdown">
+            <button class="btn btn-outline-light d-flex align-items-center dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../assets/imagenes/icono_user.png" alt="User" width="24" class="me-2">
+              Usuario
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="../pages/login.html">Login</a></li>
+              <li><a class="dropdown-item" href="../pages/signup.html">Sign Up</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-    `;
-
-    contenedor.appendChild(div);
-  });
-}
-
-// Controla el filtro de precio: abre/cierra el popover, aplica el rango seleccionado, actualiza el botón y bloquea números negativos.
-const btnPrecio = document.getElementById("btnPrecio");
-const popover = document.getElementById("precioPopover");
-const aplicarPrecio = document.getElementById("aplicarPrecio");
-const precioDesde = document.getElementById("precioDesde");
-const precioHasta = document.getElementById("precioHasta");
-
-if (btnPrecio && popover) {
-  btnPrecio.addEventListener("click", () => {
-    popover.style.display = popover.style.display === "block" ? "none" : "block";
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!popover.contains(e.target) && e.target !== btnPrecio) {
-      popover.style.display = "none";
-    }
-  });
-}
-
-if (aplicarPrecio) {
-  aplicarPrecio.addEventListener("click", () => {
-    const desde = parseFloat(precioDesde.value);
-    const hasta = parseFloat(precioHasta.value);
-
-    let resultado = propiedades;
-
-    if (!isNaN(desde)) resultado = resultado.filter(p => p.precio >= desde);
-    if (!isNaN(hasta)) resultado = resultado.filter(p => p.precio <= hasta);
-
-    renderizarPropiedades(resultado);
-    popover.style.display = "none";
-
-    if (!isNaN(desde) || !isNaN(hasta)) {
-      let texto = "USD:";
-      if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
-      texto += " -";
-      if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
-      btnPrecio.textContent = texto;
-    } else {
-      btnPrecio.textContent = "Precio";
-    }
-  });
-}
-
-function bloquearNegativos(input) {
-  input.addEventListener("input", () => {
-    if (parseFloat(input.value) < 0) {
-      input.value = "";
-    }
-  });
-}
-
-bloquearNegativos(precioDesde);
-bloquearNegativos(precioHasta);
-
-fetch("../bd/propiedades.json")
-  .then(res => res.json())
-  .then(data => {
-    propiedades = data;
-    renderizarPropiedades(propiedades);
-
-    // Filtro tipo de propiedad
-    if (filtroTipo) {
-      filtroTipo.addEventListener("change", () => {
-        aplicarFiltrosCombinados();
-      });
-    }
-
-    // Filtro precio
-    if (aplicarPrecio) {
-      aplicarPrecio.addEventListener("click", () => {
-        popover.style.display = "none";
-        aplicarFiltrosCombinados();
-      });
-    }
-
-    function aplicarFiltrosCombinados() {
-      const tipo = filtroTipo?.value;
-      const desde = parseFloat(precioDesde.value);
-      const hasta = parseFloat(precioHasta.value);
-
-      let resultado = propiedades;
-
-      if (tipo && tipo !== "Tipo de propiedad") {
-        resultado = resultado.filter(p => p.tipo === tipo);
-      }
-
-      if (!isNaN(desde)) {
-        resultado = resultado.filter(p => p.precio >= desde);
-      }
-
-      if (!isNaN(hasta)) {
-        resultado = resultado.filter(p => p.precio <= hasta);
-      }
-
-      renderizarPropiedades(resultado);
-
-      // Actualizar texto del botón
-      if (!isNaN(desde) || !isNaN(hasta)) {
-        let texto = "USD:";
-        if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
-        texto += " -";
-        if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
-        btnPrecio.textContent = texto;
-      } else {
-        btnPrecio.textContent = "Precio";
-      }
-    }
-  });
+    </div>
+  </header>
+  <main class="comprar-main">
+    <div class="container py-5 mt-5">
+      <div class="busqueda-card mb-5">
+        <div class="grid-busqueda">
+          <input type="text" placeholder="¿Dónde querés mudarte?" class="input-busqueda">
+          <select class="input-busqueda" id="filtroTipo">
+            <option disabled selected>Tipo de propiedad</option>
+            <option>Casa</option>
+            <option>Departamento</option>
+            <option>PH</option>
+            <option>Terrenos y lotes</option>
+            <option>Cochera</option>
+            <option>Local</option>
+            <option>Oficina</option>
+            <option>Galpón</option>
+            <option>Deposito</option>
+            <option>Campo</option>
+          </select>
+          <select class="input-busqueda">
+            <option>Comprar</option>
+            <option>Alquilar</option>
+          </select>
+          <div class="filtro-precio-wrapper position-relative d-inline-block">
+            <div id="btnPrecio" class="filtro-precio input-busqueda">Precio</div>
+            <div id="precioPopover" class="precio-popover shadow p-3">
+              <div class="mb-3">
+                <label class="form-label fw-bold d-block text-center mb-2">Precio</label>
+                <div class="d-flex justify-content-between mb-2">
+                  <label class="form-label small">Desde</label>
+                  <label class="form-label small">Hasta</label>
+                </div>
+                <div class="d-flex gap-2 mb-3">
+                  <input type="number" id="precioDesde" class="form-control" placeholder="USD" min="0">
+                  <input type="number" id="precioHasta" class="form-control" placeholder="USD" min="0">
+                </div>
+              </div>
+              <button id="aplicarPrecio" class="btn btn-primary btn-sm w-100 fw-bold">Aplicar filtro</button>
+            </div>
+          </div>
+          <button id="abrirFiltros" class="btn btn-outline-dark filtro-btn">
+            <img src="../assets/imagenes/icono_filtrar.png" alt="Filtros" width="18" class="me-1">
+            <strong>Filtros (0)</strong>
+          </button>
+        </div>
+      </div>
+      <div id="modalFiltros" class="modal-filtros">
+        <div class="modal-contenido">
+          <div class="modal-header">
+            <h5 class="modal-title">Filtros</h5>
+            <button id="cerrarFiltros" class="btn-close" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Ambientes</label>
+              <div class="filtro-bloque">
+                <label class="form-label fw-bold">Ambientes</label>
+                <div class="d-flex gap-2 flex-wrap" id="filtroAmbientes">
+                  <button class="btn btn-outline-secondary" data-ambientes="1">1</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="2">2</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="3">3</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="4">4</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="5">5</button>
+                  <button class="btn btn-outline-secondary" data-ambientes="6">+6</button>
+                </div>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Dormitorios</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">1</button>
+                <button class="btn btn-outline-secondary">2</button>
+                <button class="btn btn-outline-secondary">3</button>
+                <button class="btn btn-outline-secondary">4</button>
+                <button class="btn btn-outline-secondary">+5</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Baños</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">1</button>
+                <button class="btn btn-outline-secondary">2</button>
+                <button class="btn btn-outline-secondary">3</button>
+                <button class="btn btn-outline-secondary">+4</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Cocheras</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">1</button>
+                <button class="btn btn-outline-secondary">2</button>
+                <button class="btn btn-outline-secondary">3</button>
+                <button class="btn btn-outline-secondary">+4</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Superficie total (m²)</label>
+              <div class="d-flex gap-2">
+                <input type="number" class="form-control" placeholder="Desde">
+                <input type="number" class="form-control" placeholder="Hasta">
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Superficie cubierta (m²)</label>
+              <div class="d-flex gap-2">
+                <input type="number" class="form-control" placeholder="Desde">
+                <input type="number" class="form-control" placeholder="Hasta">
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Expensas</label>
+              <div class="d-flex gap-2 align-items-center">
+                <select class="form-select" style="width: 90px;">
+                  <option>ARS</option>
+                  <option>USD</option>
+                </select>
+                <input type="number" class="form-control" placeholder="Desde">
+                <input type="number" class="form-control" placeholder="Hasta">
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Antigüedad</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary">Hasta 5 años</button>
+                <button class="btn btn-outline-secondary">5 - 10 años</button>
+                <button class="btn btn-outline-secondary">10 - 20 años</button>
+                <button class="btn btn-outline-secondary">20 - 50 años</button>
+                <button class="btn btn-outline-secondary">+50 años</button>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Apto crédito</label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="aptoCreditoSwitch">
+                <label class="form-check-label" for="aptoCreditoSwitch">Sí</label>
+              </div>
+            </div>
+            <div class="filtro-bloque">
+              <label class="form-label fw-bold">Etiquetas destacadas</label>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-primary">A estrenar</button>
+                <button class="btn btn-outline-primary">En pozo</button>
+                <button class="btn btn-outline-primary">Reciclado</button>
+                <button class="btn btn-outline-primary">Oportunidad</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary" id="cerrarFiltros2">Cancelar</button>
+            <button class="btn btn-primary">Aplicar filtros</button>
+          </div>
+        </div>
+      </div>
+      <div id="contenedor-propiedades" class="row justify-content-center">
+      </div>
+    </div>
+  </main>
+  <div class="container">
+    <!-- FOOTER BOOTSTRAP -->
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Categorías</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="../index.html" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Comprar</a></li>
+            <li class="nav-item mb-2"><a href="../pages/vender.html" class="nav-link p-0 text-body-secondary">Vender</a></li>
+            <li class="nav-item mb-2"><a href="../pages/alquilar.html" class="nav-link p-0 text-body-secondary">Alquilar</a></li>
+            <li class="nav-item mb-2"><a href="../pages/contacto.html" class="nav-link p-0 text-body-secondary">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Contacto</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Dirección: Av. Colón 1234, Córdoba, Argentina</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Teléfono: +54 351 123 4567</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Email: contacto@veyor.com</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Horarios: Lun a Vie de 9 a 18 hs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+        <p>© 2025 VEYOR. Todos los derechos reservados.</p>
+        <ul class="list-unstyled d-flex">
+          <li class="ms-3">
+            <a class="link-body-emphasis" href="https://www.instagram.com" aria-label="Instagram" target="_blank">
+              <img src="../assets/imagenes/logo_instagram.svg" alt="Instagram" width="24">
+            </a>
+          </li>
+          <li class="ms-3">
+            <a class="link-body-emphasis" href="https://www.facebook.com" aria-label="Facebook" target="_blank">
+              <img src="../assets/imagenes/logo_facebook.svg" alt="Facebook" width="24">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
