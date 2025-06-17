@@ -5,9 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const aplicarPrecio = document.getElementById("aplicarPrecio");
   const precioDesde = document.getElementById("precioDesde");
   const precioHasta = document.getElementById("precioHasta");
+  const btnAplicarFiltros = document.getElementById("btnAplicarFiltros");
 
   let propiedades = [];
   let filtroAmbientes = null;
+  let ambienteSeleccionado = null;
 
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -16,17 +18,30 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarPropiedades(propiedades);
     });
 
-  // Filtro de ambientes
+  // Filtro de ambientes (solo activa visualmente)
   document.querySelectorAll(".btn-ambiente").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".btn-ambiente").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
 
       const valor = parseInt(btn.dataset.ambientes);
-      filtroAmbientes = isNaN(valor) ? null : valor;
-      aplicarFiltrosCombinados();
+      ambienteSeleccionado = isNaN(valor) ? null : valor;
     });
   });
+
+  // Aplicar filtros al hacer clic en "Aplicar filtros"
+  if (btnAplicarFiltros) {
+    btnAplicarFiltros.addEventListener("click", () => {
+      filtroAmbientes = ambienteSeleccionado;
+      aplicarFiltrosCombinados();
+
+      const modal = document.getElementById("modalFiltros");
+      if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    });
+  }
 
   // Filtros tipo y precio
   if (filtroTipo) {
@@ -67,22 +82,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isNaN(hasta)) resultado = resultado.filter(p => p.precio <= hasta);
 
     if (filtroAmbientes !== null) {
-      if (filtroAmbientes === 6) {
-        resultado = resultado.filter(p => p.ambientes >= 6);
-      } else {
-        resultado = resultado.filter(p => p.ambientes === filtroAmbientes);
-      }
+      resultado = resultado.filter(p =>
+        filtroAmbientes === 6 ? p.ambientes >= 6 : p.ambientes === filtroAmbientes
+      );
     }
 
     renderizarPropiedades(resultado);
 
-    // Actualiza texto del botón de precio
     btnPrecio.textContent = (!isNaN(desde) || !isNaN(hasta))
       ? `USD:${!isNaN(desde) ? " " + desde.toLocaleString() : ""} -${!isNaN(hasta) ? " " + hasta.toLocaleString() : ""}`
       : "Precio";
   }
 
-  // Bloquear negativos
   [precioDesde, precioHasta].forEach(input => {
     if (input) {
       input.addEventListener("input", () => {
@@ -91,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Mostrar/Ocultar contraseña
   document.querySelectorAll(".toggle-password").forEach(icon => {
     icon.addEventListener("click", () => {
       const input = document.getElementById(icon.dataset.target);
@@ -105,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Validaciones con SweetAlert
   validarFormulario("form-contacto", "Mensaje enviado", "Gracias por contactarnos. Te responderemos a la brevedad.");
   validarFormulario("form-vender", "Solicitud enviada", "Gracias por confiar en VEYOR. Te contactaremos pronto.");
 
@@ -131,162 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     }
-  }
-
-  // Registro simulado
-  const formSignup = document.getElementById("form-signup");
-  if (formSignup) {
-    formSignup.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nombre = document.getElementById("signup-nombre").value.trim();
-      const email = document.getElementById("signup-email").value.trim();
-      const pass1 = document.getElementById("signup-password").value;
-      const pass2 = document.getElementById("signup-confirm").value;
-      const checkbox = document.getElementById("acepta-terminos");
-
-      if (!nombre || !email || !pass1 || !pass2 || !checkbox.checked || pass1 !== pass2) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error en el registro',
-          text: 'Por favor completá todos los campos correctamente antes de registrarte.',
-          confirmButtonColor: 'orange'
-        });
-        return;
-      }
-
-      const nuevoUsuario = {
-        id: Date.now(),
-        nombre,
-        email,
-        password: pass1,
-        favoritos: []
-      };
-
-      localStorage.setItem("usuarioActivo", JSON.stringify(nuevoUsuario));
-      actualizarNavbar();
-
-      Swal.fire({
-        icon: "success",
-        title: "Registro exitoso",
-        text: `Bienvenido, ${nombre.split(" ")[0]}`,
-        confirmButtonColor: "orange"
-      }).then(() => window.location.href = "../index.html");
-    });
-  }
-
-  // Login simulado
-  const formLogin = document.getElementById("form-login");
-  if (formLogin) {
-    formLogin.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById("login-email").value.trim();
-      const password = document.getElementById("login-password").value;
-
-      if (!email || !password) {
-        return Swal.fire({
-          icon: 'error',
-          title: 'Formulario incompleto',
-          text: 'Por favor completá todos los campos correctamente antes de iniciar sesión.',
-          confirmButtonColor: 'orange'
-        });
-      }
-
-      if (email === "pablo.venica@example.com" && password === "123456") {
-        const usuarioFalso = {
-          id: 1,
-          nombre: "Pablo Venica",
-          email,
-          password,
-          favoritos: []
-        };
-        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioFalso));
-        actualizarNavbar();
-        Swal.fire({
-          icon: 'success',
-          title: 'Inicio de sesión exitoso',
-          text: 'Bienvenido a VEYOR.',
-          confirmButtonColor: 'green'
-        }).then(() => window.location.href = "../index.html");
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Credenciales incorrectas',
-          text: 'El email o la contraseña no coinciden con el usuario válido.',
-          confirmButtonColor: 'orange'
-        });
-      }
-    });
-  }
-
-  // Navbar dinámico
-  function actualizarNavbar() {
-    const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
-    const userBtn = document.querySelector(".btn.dropdown-toggle");
-    const dropdown = document.querySelector(".dropdown-menu");
-
-    if (userData) {
-      if (userBtn) userBtn.innerHTML = `<img src="./assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
-      if (dropdown) {
-        dropdown.innerHTML = `
-          <li><a class="dropdown-item" href="../pages/favoritos.html">Favoritos</a></li>
-          <li><a class="dropdown-item" href="#" id="signoutBtn">Sign Out</a></li>
-        `;
-        document.getElementById("signoutBtn").addEventListener("click", () => {
-          localStorage.removeItem("usuarioActivo");
-          location.reload();
-        });
-      }
-      document.getElementById("btn-login")?.style.setProperty("display", "none");
-      document.getElementById("btn-signup")?.style.setProperty("display", "none");
-    }
-  }
-  actualizarNavbar();
-
-  // Contador comentarios
-  const textareaVender = document.getElementById("comentario-vender");
-  const contadorVender = document.getElementById("contador-comentario-vender");
-  if (textareaVender && contadorVender) {
-    textareaVender.addEventListener("input", () => {
-      contadorVender.textContent = `${textareaVender.value.length}/500`;
-    });
-  }
-
-  const textareaContacto = document.getElementById("comentario-contacto");
-  const contadorContacto = document.getElementById("contador-comentario-contacto");
-  if (textareaContacto && contadorContacto) {
-    textareaContacto.addEventListener("input", () => {
-      contadorContacto.textContent = `${textareaContacto.value.length}/500`;
-    });
-  }
-
-  // Modal filtros
-  const modal = document.getElementById("modalFiltros");
-  const abrirBtn = document.getElementById("abrirFiltros");
-  const cerrarBtn1 = document.getElementById("cerrarFiltros");
-  const cerrarBtn2 = document.getElementById("cerrarFiltros2");
-
-  if (modal && abrirBtn && cerrarBtn1 && cerrarBtn2) {
-    const cerrarModal = () => {
-      modal.style.display = "none";
-      document.body.style.overflow = "";
-    };
-
-    abrirBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    });
-
-    cerrarBtn1.addEventListener("click", cerrarModal);
-    cerrarBtn2.addEventListener("click", cerrarModal);
-
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) cerrarModal();
-    });
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") cerrarModal();
-    });
   }
 });
 
