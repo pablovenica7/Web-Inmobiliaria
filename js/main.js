@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const precioHasta = document.getElementById("precioHasta");
 
   let propiedades = [];
+  let filtroAmbientes = null;
 
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -15,7 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarPropiedades(propiedades);
     });
 
-  // 🏷️ Filtros
+  // Filtro de ambientes
+  document.querySelectorAll(".btn-ambiente").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".btn-ambiente").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const valor = parseInt(btn.dataset.ambientes);
+      filtroAmbientes = isNaN(valor) ? null : valor;
+      aplicarFiltrosCombinados();
+    });
+  });
+
+  // Filtros tipo y precio
   if (filtroTipo) {
     filtroTipo.addEventListener("change", aplicarFiltrosCombinados);
   }
@@ -53,15 +66,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isNaN(desde)) resultado = resultado.filter(p => p.precio >= desde);
     if (!isNaN(hasta)) resultado = resultado.filter(p => p.precio <= hasta);
 
+    if (filtroAmbientes !== null) {
+      if (filtroAmbientes === 6) {
+        resultado = resultado.filter(p => p.ambientes >= 6);
+      } else {
+        resultado = resultado.filter(p => p.ambientes === filtroAmbientes);
+      }
+    }
+
     renderizarPropiedades(resultado);
 
-    // Texto botón precio
+    // Actualiza texto del botón de precio
     btnPrecio.textContent = (!isNaN(desde) || !isNaN(hasta))
       ? `USD:${!isNaN(desde) ? " " + desde.toLocaleString() : ""} -${!isNaN(hasta) ? " " + hasta.toLocaleString() : ""}`
       : "Precio";
   }
 
-  // ⛔ Bloquear negativos
+  // Bloquear negativos
   [precioDesde, precioHasta].forEach(input => {
     if (input) {
       input.addEventListener("input", () => {
@@ -70,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 👁️ Mostrar/Ocultar contraseña
+  // Mostrar/Ocultar contraseña
   document.querySelectorAll(".toggle-password").forEach(icon => {
     icon.addEventListener("click", () => {
       const input = document.getElementById(icon.dataset.target);
@@ -84,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 📨 Validaciones con SweetAlert
+  // Validaciones con SweetAlert
   validarFormulario("form-contacto", "Mensaje enviado", "Gracias por contactarnos. Te responderemos a la brevedad.");
   validarFormulario("form-vender", "Solicitud enviada", "Gracias por confiar en VEYOR. Te contactaremos pronto.");
 
@@ -112,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 🆕 Registro simulado
+  // Registro simulado
   const formSignup = document.getElementById("form-signup");
   if (formSignup) {
     formSignup.addEventListener("submit", (e) => {
@@ -153,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🔐 Login simulado
+  // Login simulado
   const formLogin = document.getElementById("form-login");
   if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
@@ -198,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 👤 Navbar dinámico
+  // Navbar dinámico
   function actualizarNavbar() {
     const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
     const userBtn = document.querySelector(".btn.dropdown-toggle");
@@ -222,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   actualizarNavbar();
 
-  // 🧮 Contador comentario
+  // Contador comentarios
   const textareaVender = document.getElementById("comentario-vender");
   const contadorVender = document.getElementById("contador-comentario-vender");
   if (textareaVender && contadorVender) {
@@ -233,14 +254,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const textareaContacto = document.getElementById("comentario-contacto");
   const contadorContacto = document.getElementById("contador-comentario-contacto");
-
   if (textareaContacto && contadorContacto) {
     textareaContacto.addEventListener("input", () => {
       contadorContacto.textContent = `${textareaContacto.value.length}/500`;
     });
   }
 
-  // 🧩 Modal filtros
+  // Modal filtros
   const modal = document.getElementById("modalFiltros");
   const abrirBtn = document.getElementById("abrirFiltros");
   const cerrarBtn1 = document.getElementById("cerrarFiltros");
@@ -270,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// 🎨 Renderizado de propiedades
+// Renderizado de propiedades
 function renderizarPropiedades(lista) {
   const contenedor = document.getElementById("contenedor-propiedades");
   contenedor.innerHTML = "";
