@@ -231,6 +231,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const textareaContacto = document.getElementById("comentario-contacto");
+  const contadorContacto = document.getElementById("contador-comentario-contacto");
+
+  if (textareaContacto && contadorContacto) {
+    textareaContacto.addEventListener("input", () => {
+      contadorContacto.textContent = `${textareaContacto.value.length}/500`;
+    });
+  }
+
   // 🧩 Modal filtros
   const modal = document.getElementById("modalFiltros");
   const abrirBtn = document.getElementById("abrirFiltros");
