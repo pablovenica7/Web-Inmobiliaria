@@ -1,5 +1,3 @@
-// ✅ JS COMPLETO Y UNIFICADO CON FILTROS, REGISTRO, LOGIN Y MODAL FUNCIONAL
-
 document.addEventListener("DOMContentLoaded", () => {
   const filtroTipo = document.getElementById("filtroTipo");
   const btnPrecio = document.getElementById("btnPrecio");
@@ -8,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const precioDesde = document.getElementById("precioDesde");
   const precioHasta = document.getElementById("precioHasta");
   const btnAplicarFiltros = document.getElementById("btnAplicarFiltros");
-
   let propiedades = [];
   let filtroAmbientes = null;
   let ambienteSeleccionado = null;
@@ -20,23 +17,20 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarPropiedades(propiedades);
     });
 
-  // Filtro de ambientes visual, sin aplicar aún
+  // Filtro de ambientes (visual y lógica aplicada al confirmar)
   document.querySelectorAll(".btn-ambiente").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".btn-ambiente").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-
       const valor = parseInt(btn.dataset.ambientes);
       ambienteSeleccionado = isNaN(valor) ? null : valor;
     });
   });
 
-  // Aplicar filtros desde botón del modal
   if (btnAplicarFiltros) {
     btnAplicarFiltros.addEventListener("click", () => {
       filtroAmbientes = ambienteSeleccionado;
       aplicarFiltrosCombinados();
-
       const modal = document.getElementById("modalFiltros");
       if (modal) {
         modal.style.display = "none";
@@ -45,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Filtros tipo y precio
+  // 🏷️ Filtros
   if (filtroTipo) {
     filtroTipo.addEventListener("change", aplicarFiltrosCombinados);
   }
@@ -84,9 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isNaN(hasta)) resultado = resultado.filter(p => p.precio <= hasta);
 
     if (filtroAmbientes !== null) {
-      resultado = resultado.filter(p =>
-        filtroAmbientes === 6 ? p.ambientes >= 6 : p.ambientes === filtroAmbientes
-      );
+      resultado = resultado.filter(p => filtroAmbientes === 6 ? p.ambientes >= 6 : p.ambientes === filtroAmbientes);
     }
 
     renderizarPropiedades(resultado);
@@ -96,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : "Precio";
   }
 
+  // ⛔ Bloquear negativos
   [precioDesde, precioHasta].forEach(input => {
     if (input) {
       input.addEventListener("input", () => {
@@ -104,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // 👁️ Mostrar/Ocultar contraseña
   document.querySelectorAll(".toggle-password").forEach(icon => {
     icon.addEventListener("click", () => {
       const input = document.getElementById(icon.dataset.target);
@@ -117,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // 📨 Validaciones con SweetAlert
   validarFormulario("form-contacto", "Mensaje enviado", "Gracias por contactarnos. Te responderemos a la brevedad.");
   validarFormulario("form-vender", "Solicitud enviada", "Gracias por confiar en VEYOR. Te contactaremos pronto.");
 
@@ -144,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // 🆕 Registro simulado
   const formSignup = document.getElementById("form-signup");
   if (formSignup) {
     formSignup.addEventListener("submit", (e) => {
@@ -184,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 🔐 Login simulado
   const formLogin = document.getElementById("form-login");
   if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
@@ -213,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarNavbar();
         Swal.fire({
           icon: 'success',
-          title: 'Inicio de sesi\u00f3n exitoso',
+          title: 'Inicio de sesión exitoso',
           text: 'Bienvenido a VEYOR.',
           confirmButtonColor: 'green'
         }).then(() => window.location.href = "../index.html");
@@ -221,13 +218,14 @@ document.addEventListener("DOMContentLoaded", () => {
         Swal.fire({
           icon: 'error',
           title: 'Credenciales incorrectas',
-          text: 'El email o la contrase\u00f1a no coinciden con el usuario v\u00e1lido.',
+          text: 'El email o la contraseña no coinciden con el usuario válido.',
           confirmButtonColor: 'orange'
         });
       }
     });
   }
 
+  // 👤 Navbar dinámico
   function actualizarNavbar() {
     const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
     const userBtn = document.querySelector(".btn.dropdown-toggle");
@@ -251,6 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   actualizarNavbar();
 
+  // 🧮 Contador comentario
   const textareaVender = document.getElementById("comentario-vender");
   const contadorVender = document.getElementById("contador-comentario-vender");
   if (textareaVender && contadorVender) {
@@ -261,12 +260,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const textareaContacto = document.getElementById("comentario-contacto");
   const contadorContacto = document.getElementById("contador-comentario-contacto");
+
   if (textareaContacto && contadorContacto) {
     textareaContacto.addEventListener("input", () => {
       contadorContacto.textContent = `${textareaContacto.value.length}/500`;
     });
   }
 
+  // 🧩 Modal filtros
   const modal = document.getElementById("modalFiltros");
   const abrirBtn = document.getElementById("abrirFiltros");
   const cerrarBtn1 = document.getElementById("cerrarFiltros");
@@ -296,6 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// 🎨 Renderizado de propiedades
 function renderizarPropiedades(lista) {
   const contenedor = document.getElementById("contenedor-propiedades");
   contenedor.innerHTML = "";
