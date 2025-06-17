@@ -1,74 +1,79 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("../bd/propiedades.json")
-  .then(res => res.json())
-  .then(data => {
-    propiedades = data;
-    renderizarPropiedades(propiedades);
-
-  // 🔧 Agregar estas líneas para evitar errores:
   const filtroTipo = document.getElementById("filtroTipo");
+  const btnPrecio = document.getElementById("btnPrecio");
+  const popover = document.getElementById("precioPopover");
   const aplicarPrecio = document.getElementById("aplicarPrecio");
   const precioDesde = document.getElementById("precioDesde");
   const precioHasta = document.getElementById("precioHasta");
-  const btnPrecio = document.getElementById("btnPrecio");
-  const popover = document.getElementById("precioPopover");
 
+  let propiedades = [];
 
-    // Filtro tipo de propiedad
-    if (filtroTipo) {
-      filtroTipo.addEventListener("change", () => {
-        aplicarFiltrosCombinados();
-      });
-    }
+  fetch("../bd/propiedades.json")
+    .then(res => res.json())
+    .then(data => {
+      propiedades = data;
+      renderizarPropiedades(propiedades);
+    });
 
-    // Filtro precio
-    if (aplicarPrecio) {
-      aplicarPrecio.addEventListener("click", () => {
+  // 🏷️ Filtros
+  if (filtroTipo) {
+    filtroTipo.addEventListener("change", aplicarFiltrosCombinados);
+  }
+
+  if (aplicarPrecio) {
+    aplicarPrecio.addEventListener("click", () => {
+      popover.style.display = "none";
+      aplicarFiltrosCombinados();
+    });
+  }
+
+  if (btnPrecio && popover) {
+    btnPrecio.addEventListener("click", () => {
+      popover.style.display = popover.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!popover.contains(e.target) && e.target !== btnPrecio) {
         popover.style.display = "none";
-        aplicarFiltrosCombinados();
-      });
+      }
+    });
+  }
+
+  function aplicarFiltrosCombinados() {
+    const tipo = filtroTipo?.value;
+    const desde = parseFloat(precioDesde.value);
+    const hasta = parseFloat(precioHasta.value);
+
+    let resultado = propiedades;
+
+    if (tipo && tipo !== "Tipo de propiedad") {
+      resultado = resultado.filter(p => p.tipo === tipo);
     }
 
-    function aplicarFiltrosCombinados() {
-      const tipo = filtroTipo?.value;
-      const desde = parseFloat(precioDesde.value);
-      const hasta = parseFloat(precioHasta.value);
+    if (!isNaN(desde)) resultado = resultado.filter(p => p.precio >= desde);
+    if (!isNaN(hasta)) resultado = resultado.filter(p => p.precio <= hasta);
 
-      let resultado = propiedades;
+    renderizarPropiedades(resultado);
 
-      if (tipo && tipo !== "Tipo de propiedad") {
-        resultado = resultado.filter(p => p.tipo === tipo);
-      }
+    // Texto botón precio
+    btnPrecio.textContent = (!isNaN(desde) || !isNaN(hasta))
+      ? `USD:${!isNaN(desde) ? " " + desde.toLocaleString() : ""} -${!isNaN(hasta) ? " " + hasta.toLocaleString() : ""}`
+      : "Precio";
+  }
 
-      if (!isNaN(desde)) {
-        resultado = resultado.filter(p => p.precio >= desde);
-      }
-
-      if (!isNaN(hasta)) {
-        resultado = resultado.filter(p => p.precio <= hasta);
-      }
-
-      renderizarPropiedades(resultado);
-
-      // Actualizar texto del botón
-      if (!isNaN(desde) || !isNaN(hasta)) {
-        let texto = "USD:";
-        if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
-        texto += " -";
-        if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
-        btnPrecio.textContent = texto;
-      } else {
-        btnPrecio.textContent = "Precio";
-      }
+  // ⛔ Bloquear negativos
+  [precioDesde, precioHasta].forEach(input => {
+    if (input) {
+      input.addEventListener("input", () => {
+        if (parseFloat(input.value) < 0) input.value = "";
+      });
     }
   });
 
-  // Mostrar/Ocultar contraseña
-  const toggleIcons = document.querySelectorAll(".toggle-password");
-  toggleIcons.forEach(icon => {
+  // 👁️ Mostrar/Ocultar contraseña
+  document.querySelectorAll(".toggle-password").forEach(icon => {
     icon.addEventListener("click", () => {
-      const inputId = icon.dataset.target;
-      const input = document.getElementById(inputId);
+      const input = document.getElementById(icon.dataset.target);
       if (input) {
         const isPassword = input.type === "password";
         input.type = isPassword ? "text" : "password";
@@ -79,78 +84,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Sweetalert Contacto
-  const formContacto = document.getElementById("form-contacto");
-  if (formContacto) {
-    formContacto.addEventListener("submit", (e) => {
-      if (!formContacto.checkValidity()) {
+  // 📨 Validaciones con SweetAlert
+  validarFormulario("form-contacto", "Mensaje enviado", "Gracias por contactarnos. Te responderemos a la brevedad.");
+  validarFormulario("form-vender", "Solicitud enviada", "Gracias por confiar en VEYOR. Te contactaremos pronto.");
+
+  function validarFormulario(id, tituloExito, textoExito) {
+    const form = document.getElementById(id);
+    if (form) {
+      form.addEventListener("submit", (e) => {
         e.preventDefault();
-        Swal.fire({
-          icon: 'error',
-          title: 'Formulario incompleto',
-          text: 'Por favor completá todos los campos correctamente antes de enviar.',
-          confirmButtonColor: 'orange'
-        });
-      } else {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'success',
-          title: 'Mensaje enviado',
-          text: 'Gracias por contactarnos. Te responderemos a la brevedad.',
-          confirmButtonColor: 'green'
-        }).then(() => {
-          formContacto.reset();
-        });
-      }
-    });
+        if (!form.checkValidity()) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Formulario incompleto',
+            text: 'Por favor completá todos los campos correctamente antes de enviar.',
+            confirmButtonColor: 'orange'
+          });
+        } else {
+          Swal.fire({
+            icon: 'success',
+            title: tituloExito,
+            text: textoExito,
+            confirmButtonColor: 'green'
+          }).then(() => form.reset());
+        }
+      });
+    }
   }
 
-  // Sweetalert Vender
-  const formVender = document.getElementById("form-vender");
-  if (formVender) {
-    formVender.addEventListener("submit", (e) => {
-      if (!formVender.checkValidity()) {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'error',
-          title: 'Formulario incompleto',
-          text: 'Por favor completá todos los campos correctamente antes de enviar.',
-          confirmButtonColor: 'orange'
-        });
-      } else {
-        e.preventDefault();
-        Swal.fire({
-          icon: 'success',
-          title: 'Solicitud enviada',
-          text: 'Gracias por confiar en VEYOR. Te contactaremos pronto.',
-          confirmButtonColor: 'green'
-        }).then(() => {
-          formVender.reset();
-        });
-      }
-    });
-  }
-
-  // Simulación de registro
+  // 🆕 Registro simulado
   const formSignup = document.getElementById("form-signup");
   if (formSignup) {
     formSignup.addEventListener("submit", (e) => {
       e.preventDefault();
-
       const nombre = document.getElementById("signup-nombre").value.trim();
       const email = document.getElementById("signup-email").value.trim();
       const pass1 = document.getElementById("signup-password").value;
       const pass2 = document.getElementById("signup-confirm").value;
       const checkbox = document.getElementById("acepta-terminos");
 
-      if (
-        nombre === "" ||
-        email === "" ||
-        pass1 === "" ||
-        pass2 === "" ||
-        !checkbox.checked ||
-        pass1 !== pass2
-      ) {
+      if (!nombre || !email || !pass1 || !pass2 || !checkbox.checked || pass1 !== pass2) {
         Swal.fire({
           icon: 'error',
           title: 'Error en el registro',
@@ -175,14 +148,12 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "success",
         title: "Registro exitoso",
         text: `Bienvenido, ${nombre.split(" ")[0]}`,
-        confirmButtonColor: "orange",
-      }).then(() => {
-        window.location.href = "../index.html";
-      });
+        confirmButtonColor: "orange"
+      }).then(() => window.location.href = "../index.html");
     });
   }
 
-  // Simulación login con usuario falso
+  // 🔐 Login simulado
   const formLogin = document.getElementById("form-login");
   if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
@@ -192,19 +163,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("login-password").value;
 
       if (!email || !password) {
-        Swal.fire({
+        return Swal.fire({
           icon: 'error',
           title: 'Formulario incompleto',
           text: 'Por favor completá todos los campos correctamente antes de iniciar sesión.',
           confirmButtonColor: 'orange'
         });
-        return;
       }
 
-      if (
-        email === "pablo.venica@example.com" &&
-        password === "123456"
-      ) {
+      if (email === "pablo.venica@example.com" && password === "123456") {
         const usuarioFalso = {
           id: 1,
           nombre: "Pablo Venica",
@@ -212,7 +179,6 @@ document.addEventListener("DOMContentLoaded", () => {
           password,
           favoritos: []
         };
-
         localStorage.setItem("usuarioActivo", JSON.stringify(usuarioFalso));
         actualizarNavbar();
         Swal.fire({
@@ -220,9 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
           title: 'Inicio de sesión exitoso',
           text: 'Bienvenido a VEYOR.',
           confirmButtonColor: 'green'
-        }).then(() => {
-          window.location.href = "../index.html";
-        });
+        }).then(() => window.location.href = "../index.html");
       } else {
         Swal.fire({
           icon: 'error',
@@ -234,19 +198,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Navbar dinámico
-  actualizarNavbar();
-
+  // 👤 Navbar dinámico
   function actualizarNavbar() {
     const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
     const userBtn = document.querySelector(".btn.dropdown-toggle");
     const dropdown = document.querySelector(".dropdown-menu");
 
     if (userData) {
-      if (userBtn) {
-        userBtn.innerHTML = `<img src="./assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
-      }
-
+      if (userBtn) userBtn.innerHTML = `<img src="./assets/imagenes/icono_user.png" alt="User" width="24" class="me-2"> ${userData.nombre.split(" ")[0]}`;
       if (dropdown) {
         dropdown.innerHTML = `
           <li><a class="dropdown-item" href="../pages/favoritos.html">Favoritos</a></li>
@@ -257,15 +216,13 @@ document.addEventListener("DOMContentLoaded", () => {
           location.reload();
         });
       }
-
-      const btnLogin = document.querySelector("#btn-login");
-      const btnSignup = document.querySelector("#btn-signup");
-      if (btnLogin) btnLogin.style.display = "none";
-      if (btnSignup) btnSignup.style.display = "none";
+      document.getElementById("btn-login")?.style.setProperty("display", "none");
+      document.getElementById("btn-signup")?.style.setProperty("display", "none");
     }
   }
+  actualizarNavbar();
 
-  // Contador de caracteres en textarea de contacto
+  // 🧮 Contador comentario
   const textareaVender = document.getElementById("comentario-vender");
   const contadorVender = document.getElementById("contador-comentario-vender");
   if (textareaVender && contadorVender) {
@@ -274,22 +231,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Modal filtros
-  const abrirBtn = document.getElementById("abrirFiltros");
+  // 🧩 Modal filtros
   const modal = document.getElementById("modalFiltros");
+  const abrirBtn = document.getElementById("abrirFiltros");
   const cerrarBtn1 = document.getElementById("cerrarFiltros");
   const cerrarBtn2 = document.getElementById("cerrarFiltros2");
 
-  if (abrirBtn && modal && cerrarBtn1 && cerrarBtn2) {
-    abrirBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    });
-
+  if (modal && abrirBtn && cerrarBtn1 && cerrarBtn2) {
     const cerrarModal = () => {
       modal.style.display = "none";
       document.body.style.overflow = "";
     };
+
+    abrirBtn.addEventListener("click", () => {
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
 
     cerrarBtn1.addEventListener("click", cerrarModal);
     cerrarBtn2.addEventListener("click", cerrarModal);
@@ -304,10 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Variable global donde se guardan todas las propiedades del JSON
-let propiedades = [];
-
-//Función que recibe una lista de propiedades y las renderiza dinámicamente dentro del contenedor principal del catálogo
+// 🎨 Renderizado de propiedades
 function renderizarPropiedades(lista) {
   const contenedor = document.getElementById("contenedor-propiedades");
   contenedor.innerHTML = "";
@@ -337,62 +291,6 @@ function renderizarPropiedades(lista) {
         </div>
       </div>
     `;
-
     contenedor.appendChild(div);
   });
 }
-
-// Controla el filtro de precio: abre/cierra el popover, aplica el rango seleccionado, actualiza el botón y bloquea números negativos.
-const btnPrecio = document.getElementById("btnPrecio");
-const popover = document.getElementById("precioPopover");
-const aplicarPrecio = document.getElementById("aplicarPrecio");
-const precioDesde = document.getElementById("precioDesde");
-const precioHasta = document.getElementById("precioHasta");
-
-if (btnPrecio && popover) {
-  btnPrecio.addEventListener("click", () => {
-    popover.style.display = popover.style.display === "block" ? "none" : "block";
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!popover.contains(e.target) && e.target !== btnPrecio) {
-      popover.style.display = "none";
-    }
-  });
-}
-
-if (aplicarPrecio) {
-  aplicarPrecio.addEventListener("click", () => {
-    const desde = parseFloat(precioDesde.value);
-    const hasta = parseFloat(precioHasta.value);
-
-    let resultado = propiedades;
-
-    if (!isNaN(desde)) resultado = resultado.filter(p => p.precio >= desde);
-    if (!isNaN(hasta)) resultado = resultado.filter(p => p.precio <= hasta);
-
-    renderizarPropiedades(resultado);
-    popover.style.display = "none";
-
-    if (!isNaN(desde) || !isNaN(hasta)) {
-      let texto = "USD:";
-      if (!isNaN(desde)) texto += ` ${desde.toLocaleString()}`;
-      texto += " -";
-      if (!isNaN(hasta)) texto += ` ${hasta.toLocaleString()}`;
-      btnPrecio.textContent = texto;
-    } else {
-      btnPrecio.textContent = "Precio";
-    }
-  });
-}
-
-function bloquearNegativos(input) {
-  input.addEventListener("input", () => {
-    if (parseFloat(input.value) < 0) {
-      input.value = "";
-    }
-  });
-}
-
-bloquearNegativos(precioDesde);
-bloquearNegativos(precioHasta);
