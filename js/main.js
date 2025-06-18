@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const precioDesde = document.getElementById("precioDesde");
   const precioHasta = document.getElementById("precioHasta");
   const btnAplicarFiltros = document.getElementById("btnAplicarFiltros");
+  const superficieDesde = document.getElementById("superficieDesde");
+  const superficieHasta = document.getElementById("superficieHasta");
   let propiedades = [];
   let filtroAmbientes = null;
   let ambienteSeleccionado = null;
@@ -66,6 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Filtro de superficie total
+  const supDesde = parseFloat(superficieDesde?.value);
+  const supHasta = parseFloat(superficieHasta?.value);
+
+  if (!isNaN(supDesde)) {
+    resultado = resultado.filter(p => p.m2_totales >= supDesde);
+  }
+  if (!isNaN(supHasta)) {
+    resultado = resultado.filter(p => p.m2_totales <= supHasta);
+  }
 
   if (btnAplicarFiltros) {
     btnAplicarFiltros.addEventListener("click", () => {
@@ -157,6 +169,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ⛔ Bloquear negativos
   [precioDesde, precioHasta].forEach(input => {
+    if (input) {
+      input.addEventListener("input", () => {
+        if (parseFloat(input.value) < 0) input.value = "";
+      });
+    }
+  });
+
+  [superficieDesde, superficieHasta].forEach(input => {
     if (input) {
       input.addEventListener("input", () => {
         if (parseFloat(input.value) < 0) input.value = "";
