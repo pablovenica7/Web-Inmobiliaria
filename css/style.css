@@ -197,7 +197,8 @@ body {
 .btn-ambiente.active,
 .btn-dormitorio.active,
 .btn-baño.active,
-.btn-cochera.active {
+.btn-cochera.active,
+.btn-antiguedad.active {
   background-color: #0d6efd;
   color: white;
   border-color: #0d6efd;
