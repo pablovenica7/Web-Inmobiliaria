@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let dormitoriosSeleccionado = null;
   let filtroBaños = null;
   let bañosSeleccionado = null;
+  let filtroCocheras = null;
+  let cocheraSeleccionada = null;
 
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -42,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Filtro de baños
   document.querySelectorAll(".btn-baño").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".btn-baño").forEach(b => b.classList.remove("active"));
@@ -52,11 +55,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Filtro de cocheras
+  document.querySelectorAll(".btn-cochera").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".btn-cochera").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const valor = parseInt(btn.dataset.cocheras);
+      cocheraSeleccionada = isNaN(valor) ? null : valor;
+    });
+  });
+
+
   if (btnAplicarFiltros) {
     btnAplicarFiltros.addEventListener("click", () => {
       filtroAmbientes = ambienteSeleccionado;
       filtroDormitorios = dormitoriosSeleccionado;
       filtroBaños = bañosSeleccionado;
+      filtroCocheras = cocheraSeleccionada;
       aplicarFiltrosCombinados();
       const modal = document.getElementById("modalFiltros");
       if (modal) {
@@ -121,6 +137,14 @@ document.addEventListener("DOMContentLoaded", () => {
         resultado = resultado.filter(p => p.baños >= 4);
       } else {
         resultado = resultado.filter(p => p.baños === filtroBaños);
+      }
+    }
+
+    if (filtroCocheras !== null) {
+      if (filtroCocheras === 3) {
+        resultado = resultado.filter(p => p.cocheras >= 3);
+      } else {
+        resultado = resultado.filter(p => p.cocheras === filtroCocheras);
       }
     }
 
