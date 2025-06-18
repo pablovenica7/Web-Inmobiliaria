@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let ambienteSeleccionado = null;
   let filtroDormitorios = null;
   let dormitoriosSeleccionado = null;
+  let filtroBaños = null;
+  let bañosSeleccionado = null;
 
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -40,10 +42,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  document.querySelectorAll(".btn-baño").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".btn-baño").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const valor = parseInt(btn.dataset.baños);
+      bañosSeleccionado = isNaN(valor) ? null : valor;
+    });
+  });
+
   if (btnAplicarFiltros) {
     btnAplicarFiltros.addEventListener("click", () => {
       filtroAmbientes = ambienteSeleccionado;
       filtroDormitorios = dormitoriosSeleccionado;
+      filtroBaños = bañosSeleccionado;
       aplicarFiltrosCombinados();
       const modal = document.getElementById("modalFiltros");
       if (modal) {
@@ -100,6 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
         resultado = resultado.filter(p => p.dormitorios >= 4);
       } else {
         resultado = resultado.filter(p => p.dormitorios === filtroDormitorios);
+      }
+    }
+
+    if (filtroBaños !== null) {
+      if (filtroBaños === 4) {
+        resultado = resultado.filter(p => p.baños >= 4);
+      } else {
+        resultado = resultado.filter(p => p.baños === filtroBaños);
       }
     }
 
