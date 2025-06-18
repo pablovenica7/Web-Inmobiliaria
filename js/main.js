@@ -127,6 +127,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Botón para eliminar filtros
+  const btnEliminarFiltros = document.getElementById("btnEliminarFiltros");
+
+  if (btnEliminarFiltros) {
+    btnEliminarFiltros.addEventListener("click", () => {
+      // Reiniciar selects y valores numéricos
+      filtroTipo.selectedIndex = 0;
+      [precioDesde, precioHasta, superficieDesde, superficieHasta, cubiertaDesde, cubiertaHasta].forEach(input => {
+        if (input) input.value = "";
+      });
+
+      // Desactivar botones activos
+      document.querySelectorAll(".btn-ambiente.active, .btn-dormitorio.active, .btn-baño.active, .btn-cochera.active, .btn-antiguedad.active, .btn-etiqueta.active")
+        .forEach(btn => btn.classList.remove("active"));
+
+      // Desmarcar switch apto crédito
+      const switchCredito = document.getElementById("aptoCreditoSwitch");
+      if (switchCredito) switchCredito.checked = false;
+
+      // Reset variables de filtros
+      filtroAmbientes = null;
+      ambienteSeleccionado = null;
+      filtroDormitorios = null;
+      dormitoriosSeleccionado = null;
+      filtroBaños = null;
+      bañosSeleccionado = null;
+      filtroCocheras = null;
+      cocheraSeleccionada = null;
+      filtroAntiguedad = null;
+      filtroAptoCredito = null;
+      etiquetasSeleccionadas = [];
+
+      aplicarFiltrosCombinados();
+    });
+  }
+
   // 🏷️ Filtros
   if (filtroTipo) {
     filtroTipo.addEventListener("change", aplicarFiltrosCombinados);
