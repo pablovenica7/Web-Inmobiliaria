@@ -7,6 +7,7 @@
     "m2_totales": 78,
     "m2_cubiertos": 75,
     "ambientes": 4,
+    "dormitorios": 2,
     "baños": 1,
     "asesor": "Gonzalo Fernández",
     "imagen": "../assets/imagenes/img_propiedad2.png"
@@ -19,6 +20,7 @@
     "m2_totales": 78,
     "m2_cubiertos": 75,
     "ambientes": 4,
+    "dormitorios": 2,
     "baños": 1,
     "asesor": "Lucas Romero",
     "imagen": "../assets/imagenes/img_propiedad2.png"
@@ -31,6 +33,7 @@
     "m2_totales": 120,
     "m2_cubiertos": 100,
     "ambientes": 5,
+    "dormitorios": 3,
     "baños": 2,
     "asesor": "María Belén López",
     "imagen": "../assets/imagenes/img_propiedad1.png"
@@ -43,6 +46,7 @@
     "m2_totales": 110,
     "m2_cubiertos": 95,
     "ambientes": 4,
+    "dormitorios": 3,
     "baños": 2,
     "asesor": "Sofía García",
     "imagen": "../assets/imagenes/img_propiedad1.png"
@@ -55,6 +59,7 @@
     "m2_totales": 80,
     "m2_cubiertos": 75,
     "ambientes": 3,
+    "dormitorios": 2,
     "baños": 1,
     "asesor": "Matías Herrera",
     "imagen": "../assets/imagenes/img_propiedad2.png"
@@ -67,6 +72,7 @@
     "m2_totales": 130,
     "m2_cubiertos": 110,
     "ambientes": 5,
+    "dormitorios": 4,
     "baños": 2,
     "asesor": "Camila Torres",
     "imagen": "../assets/imagenes/img_propiedad1.png"
@@ -79,6 +85,7 @@
     "m2_totales": 76,
     "m2_cubiertos": 72,
     "ambientes": 3,
+    "dormitorios": 1,
     "baños": 1,
     "asesor": "Facundo Díaz",
     "imagen": "../assets/imagenes/img_propiedad2.png"
