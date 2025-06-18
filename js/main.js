@@ -166,17 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ? `USD:${!isNaN(desde) ? " " + desde.toLocaleString() : ""} -${!isNaN(hasta) ? " " + hasta.toLocaleString() : ""}`
       : "Precio";
   }
-
+  
   // ⛔ Bloquear negativos
-  [precioDesde, precioHasta].forEach(input => {
-    if (input) {
-      input.addEventListener("input", () => {
-        if (parseFloat(input.value) < 0) input.value = "";
-      });
-    }
-  });
-
-  [superficieDesde, superficieHasta].forEach(input => {
+  [precioDesde, precioHasta, superficieDesde, superficieHasta].forEach(input => {
     if (input) {
       input.addEventListener("input", () => {
         if (parseFloat(input.value) < 0) input.value = "";
