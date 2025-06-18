@@ -10,6 +10,7 @@
     "dormitorios": 2,
     "baños": 1,
     "cocheras": 1,
+    "antiguedad": 8,
     "asesor": "Gonzalo Fernández",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   },
@@ -24,6 +25,7 @@
     "dormitorios": 2,
     "baños": 1,
     "cocheras": 0,
+    "antiguedad": 5,
     "asesor": "Lucas Romero",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   },
@@ -38,6 +40,7 @@
     "dormitorios": 3,
     "baños": 2,
     "cocheras": 2,
+    "antiguedad": 12,
     "asesor": "María Belén López",
     "imagen": "../assets/imagenes/img_propiedad1.png"
   },
@@ -52,6 +55,7 @@
     "dormitorios": 3,
     "baños": 2,
     "cocheras": 1,
+    "antiguedad": 10,
     "asesor": "Sofía García",
     "imagen": "../assets/imagenes/img_propiedad1.png"
   },
@@ -66,6 +70,7 @@
     "dormitorios": 2,
     "baños": 1,
     "cocheras": 0,
+    "antiguedad": 3,
     "asesor": "Matías Herrera",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   },
@@ -80,6 +85,7 @@
     "dormitorios": 4,
     "baños": 2,
     "cocheras": 3,
+    "antiguedad": 15,
     "asesor": "Camila Torres",
     "imagen": "../assets/imagenes/img_propiedad1.png"
   },
@@ -94,6 +100,7 @@
     "dormitorios": 1,
     "baños": 1,
     "cocheras": 1,
+    "antiguedad": 7,
     "asesor": "Facundo Díaz",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   }
