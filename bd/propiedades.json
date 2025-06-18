@@ -12,6 +12,7 @@
     "cocheras": 1,
     "antiguedad": 8,
     "apto_credito": true,
+    "etiquetas": ["A estrenar", "Oportunidad"],
     "asesor": "Gonzalo Fernández",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   },
@@ -28,6 +29,7 @@
     "cocheras": 0,
     "antiguedad": 5,
     "apto_credito": false,
+    "etiquetas": ["Reciclado"],
     "asesor": "Lucas Romero",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   },
@@ -44,6 +46,7 @@
     "cocheras": 2,
     "antiguedad": 12,
     "apto_credito": true,
+    "etiquetas": ["Oportunidad"],
     "asesor": "María Belén López",
     "imagen": "../assets/imagenes/img_propiedad1.png"
   },
@@ -60,6 +63,7 @@
     "cocheras": 1,
     "antiguedad": 10,
     "apto_credito": false,
+    "etiquetas": ["Reciclado", "Oportunidad"],
     "asesor": "Sofía García",
     "imagen": "../assets/imagenes/img_propiedad1.png"
   },
@@ -76,6 +80,7 @@
     "cocheras": 0,
     "antiguedad": 3,
     "apto_credito": true,
+    "etiquetas": ["A estrenar"],
     "asesor": "Matías Herrera",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   },
@@ -92,6 +97,7 @@
     "cocheras": 3,
     "antiguedad": 15,
     "apto_credito": false,
+    "etiquetas": ["En pozo"],
     "asesor": "Camila Torres",
     "imagen": "../assets/imagenes/img_propiedad1.png"
   },
@@ -108,6 +114,7 @@
     "cocheras": 1,
     "antiguedad": 7,
     "apto_credito": true,
+    "etiquetas": ["A estrenar", "En pozo"],
     "asesor": "Facundo Díaz",
     "imagen": "../assets/imagenes/img_propiedad2.png"
   }
