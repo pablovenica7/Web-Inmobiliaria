@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let bañosSeleccionado = null;
   let filtroCocheras = null;
   let cocheraSeleccionada = null;
+  let filtroAntiguedad = null
 
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -67,6 +68,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const valor = parseInt(btn.dataset.cocheras);
       cocheraSeleccionada = isNaN(valor) ? null : valor;
+    });
+  });
+
+  // Filtro de antigüedad
+  document.querySelectorAll(".btn-antiguedad").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".btn-antiguedad").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const texto = btn.textContent.trim();
+
+      if (texto.includes("Hasta 5")) {
+        filtroAntiguedad = { min: 0, max: 5 };
+      } else if (texto.includes("5 - 10")) {
+        filtroAntiguedad = { min: 5, max: 10 };
+      } else if (texto.includes("10 - 20")) {
+        filtroAntiguedad = { min: 10, max: 20 };
+      } else if (texto.includes("20 - 50")) {
+        filtroAntiguedad = { min: 20, max: 50 };
+      } else if (texto.includes("+50")) {
+        filtroAntiguedad = { min: 51, max: Infinity };
+      } else {
+        filtroAntiguedad = null;
+      }
     });
   });
 
@@ -171,6 +196,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (!isNaN(cubHasta)) {
       resultado = resultado.filter(p => p.m2_cubiertos <= cubHasta);
+    }
+
+    if (filtroAntiguedad !== null) {
+      resultado = resultado.filter(p =>
+        p.antiguedad >= filtroAntiguedad.min && p.antiguedad <= filtroAntiguedad.max
+      );
     }
 
     renderizarPropiedades(resultado);
