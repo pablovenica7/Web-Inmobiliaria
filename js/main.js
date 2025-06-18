@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let filtroCocheras = null;
   let cocheraSeleccionada = null;
   let filtroAntiguedad = null
+  let etiquetasSeleccionadas = [];
 
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -92,6 +93,21 @@ document.addEventListener("DOMContentLoaded", () => {
         filtroAntiguedad = { min: 51, max: Infinity };
       } else {
         filtroAntiguedad = null;
+      }
+    });
+  });
+
+  // Filtro de etiquetas
+  document.querySelectorAll(".btn-etiqueta").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const etiqueta = btn.dataset.etiqueta;
+
+      btn.classList.toggle("active");
+
+      if (etiquetasSeleccionadas.includes(etiqueta)) {
+        etiquetasSeleccionadas = etiquetasSeleccionadas.filter(e => e !== etiqueta);
+      } else {
+        etiquetasSeleccionadas.push(etiqueta);
       }
     });
   });
@@ -209,6 +225,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Filtro de apto crédito
     if (switchAptoCredito?.checked) {
       resultado = resultado.filter(p => p.apto_credito === true);
+    }
+
+    // Filtro de etiquetas
+    if (etiquetasSeleccionadas.length > 0) {
+      resultado = resultado.filter(p =>
+        p.etiquetas && etiquetasSeleccionadas.every(et => p.etiquetas.includes(et))
+      );
     }
 
     renderizarPropiedades(resultado);
