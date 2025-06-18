@@ -68,17 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Filtro de superficie total
-  const supDesde = parseFloat(superficieDesde?.value);
-  const supHasta = parseFloat(superficieHasta?.value);
-
-  if (!isNaN(supDesde)) {
-    resultado = resultado.filter(p => p.m2_totales >= supDesde);
-  }
-  if (!isNaN(supHasta)) {
-    resultado = resultado.filter(p => p.m2_totales <= supHasta);
-  }
-
   if (btnAplicarFiltros) {
     btnAplicarFiltros.addEventListener("click", () => {
       filtroAmbientes = ambienteSeleccionado;
@@ -160,13 +149,24 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Filtro de superficie total
+    const supDesde = parseFloat(superficieDesde?.value);
+    const supHasta = parseFloat(superficieHasta?.value);
+
+    if (!isNaN(supDesde)) {
+      resultado = resultado.filter(p => p.m2_totales >= supDesde);
+    }
+    if (!isNaN(supHasta)) {
+      resultado = resultado.filter(p => p.m2_totales <= supHasta);
+    }
+
     renderizarPropiedades(resultado);
 
     btnPrecio.textContent = (!isNaN(desde) || !isNaN(hasta))
       ? `USD:${!isNaN(desde) ? " " + desde.toLocaleString() : ""} -${!isNaN(hasta) ? " " + hasta.toLocaleString() : ""}`
       : "Precio";
   }
-  
+
   // ⛔ Bloquear negativos
   [precioDesde, precioHasta, superficieDesde, superficieHasta].forEach(input => {
     if (input) {
