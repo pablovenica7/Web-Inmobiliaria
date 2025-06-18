@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let propiedades = [];
   let filtroAmbientes = null;
   let ambienteSeleccionado = null;
+  let filtroDormitorios = null;
+  let dormitoriosSeleccionado = null;
 
   fetch("../bd/propiedades.json")
     .then(res => res.json())
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarPropiedades(propiedades);
     });
 
-  // Filtro de ambientes (visual y lógica aplicada al confirmar)
+  // Filtro de ambientes
   document.querySelectorAll(".btn-ambiente").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".btn-ambiente").forEach(b => b.classList.remove("active"));
@@ -27,9 +29,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Filtro de dormitorios
+  document.querySelectorAll(".btn-dormitorio").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".btn-dormitorio").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const valor = parseInt(btn.dataset.dormitorios);
+      dormitoriosSeleccionado = isNaN(valor) ? null : valor;
+    });
+  });
+
   if (btnAplicarFiltros) {
     btnAplicarFiltros.addEventListener("click", () => {
       filtroAmbientes = ambienteSeleccionado;
+      filtroDormitorios = dormitoriosSeleccionado;
       aplicarFiltrosCombinados();
       const modal = document.getElementById("modalFiltros");
       if (modal) {
@@ -79,6 +93,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (filtroAmbientes !== null) {
       resultado = resultado.filter(p => filtroAmbientes === 6 ? p.ambientes >= 6 : p.ambientes === filtroAmbientes);
+    }
+
+    if (filtroDormitorios !== null) {
+      if (filtroDormitorios === 4) {
+        resultado = resultado.filter(p => p.dormitorios >= 4);
+      } else {
+        resultado = resultado.filter(p => p.dormitorios === filtroDormitorios);
+      }
     }
 
     renderizarPropiedades(resultado);
