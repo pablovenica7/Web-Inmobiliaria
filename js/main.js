@@ -160,6 +160,13 @@ document.addEventListener("DOMContentLoaded", () => {
       etiquetasSeleccionadas = [];
 
       aplicarFiltrosCombinados();
+
+      // Cerrar el modal
+      const modal = document.getElementById("modalFiltros");
+      if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
     });
   }
 
