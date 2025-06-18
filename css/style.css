@@ -205,6 +205,17 @@ body {
   border-color: #0d6efd;
 }
 
+#btnEliminarFiltros {
+  background-color: red;
+  border-color: red;
+  color: white;
+}
+
+#btnEliminarFiltros:hover {
+  background-color: darkred;
+  border-color: darkred;
+}
+
 /* COMPRAR */
 .comprar-main {
   background-color: #333;
