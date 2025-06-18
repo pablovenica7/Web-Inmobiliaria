@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const superficieHasta = document.getElementById("superficieHasta");
   const cubiertaDesde = document.getElementById("cubiertaDesde");
   const cubiertaHasta = document.getElementById("cubiertaHasta");
+  const switchAptoCredito = document.getElementById("aptoCreditoSwitch");
   let propiedades = [];
   let filtroAmbientes = null;
   let ambienteSeleccionado = null;
@@ -198,10 +199,16 @@ document.addEventListener("DOMContentLoaded", () => {
       resultado = resultado.filter(p => p.m2_cubiertos <= cubHasta);
     }
 
+    // Filtro de antigüedad
     if (filtroAntiguedad !== null) {
       resultado = resultado.filter(p =>
         p.antiguedad >= filtroAntiguedad.min && p.antiguedad <= filtroAntiguedad.max
       );
+    }
+
+    // Filtro de apto crédito
+    if (switchAptoCredito?.checked) {
+      resultado = resultado.filter(p => p.apto_credito === true);
     }
 
     renderizarPropiedades(resultado);
