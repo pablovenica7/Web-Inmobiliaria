@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const cubiertaDesde = document.getElementById("cubiertaDesde");
   const cubiertaHasta = document.getElementById("cubiertaHasta");
   const switchAptoCredito = document.getElementById("aptoCreditoSwitch");
+  const btnAbrirFiltros = document.getElementById("abrirFiltros");
+  const textoFiltros = btnAbrirFiltros?.querySelector("strong");
   let propiedades = [];
   let filtroAmbientes = null;
   let ambienteSeleccionado = null;
@@ -23,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let filtroAntiguedad = null
   let etiquetasSeleccionadas = [];
 
+  // Cargar propiedades desde el JSON
   fetch("../bd/propiedades.json")
     .then(res => res.json())
     .then(data => {
@@ -112,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Botón para aplicar filtros
   if (btnAplicarFiltros) {
     btnAplicarFiltros.addEventListener("click", () => {
       filtroAmbientes = ambienteSeleccionado;
@@ -119,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
       filtroBaños = bañosSeleccionado;
       filtroCocheras = cocheraSeleccionada;
       aplicarFiltrosCombinados();
+      actualizarTextoFiltro();
       const modal = document.getElementById("modalFiltros");
       if (modal) {
         modal.style.display = "none";
@@ -160,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
       etiquetasSeleccionadas = [];
 
       aplicarFiltrosCombinados();
+      actualizarTextoFiltro();
 
       // Cerrar el modal
       const modal = document.getElementById("modalFiltros");
@@ -170,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🏷️ Filtros
+  // Filtros
   if (filtroTipo) {
     filtroTipo.addEventListener("change", aplicarFiltrosCombinados);
   }
@@ -284,7 +290,37 @@ document.addEventListener("DOMContentLoaded", () => {
       : "Precio";
   }
 
-  // ⛔ Bloquear negativos
+  // Contar filtros aplicados
+  function contarFiltrosAplicados() {
+    let contador = 0;
+
+    if (filtroTipo?.value && filtroTipo.value !== "Tipo de propiedad") contador++;
+    if (!isNaN(parseFloat(precioDesde?.value))) contador++;
+    if (!isNaN(parseFloat(precioHasta?.value))) contador++;
+    if (!isNaN(parseFloat(superficieDesde?.value))) contador++;
+    if (!isNaN(parseFloat(superficieHasta?.value))) contador++;
+    if (!isNaN(parseFloat(cubiertaDesde?.value))) contador++;
+    if (!isNaN(parseFloat(cubiertaHasta?.value))) contador++;
+    if (filtroAmbientes !== null) contador++;
+    if (filtroDormitorios !== null) contador++;
+    if (filtroBaños !== null) contador++;
+    if (filtroCocheras !== null) contador++;
+    if (filtroAntiguedad !== null) contador++;
+    if (switchAptoCredito?.checked) contador++;
+    if (etiquetasSeleccionadas.length > 0) contador++;
+
+    return contador;
+  }
+
+  // Actualizar texto de filtros aplicados
+  function actualizarTextoFiltro() {
+    const cantidad = contarFiltrosAplicados();
+    if (textoFiltros) {
+      textoFiltros.textContent = `Filtros (${cantidad})`;
+    }
+  }
+
+  //Bloquear negativos
   [precioDesde, precioHasta, superficieDesde, superficieHasta, cubiertaDesde, cubiertaHasta].forEach(input => {
     if (input) {
       input.addEventListener("input", () => {
@@ -293,7 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 👁️ Mostrar/Ocultar contraseña
+  //Mostrar/Ocultar contraseña
   document.querySelectorAll(".toggle-password").forEach(icon => {
     icon.addEventListener("click", () => {
       const input = document.getElementById(icon.dataset.target);
@@ -307,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 📨 Validaciones con SweetAlert
+  //Validaciones con SweetAlert
   validarFormulario("form-contacto", "Mensaje enviado", "Gracias por contactarnos. Te responderemos a la brevedad.");
   validarFormulario("form-vender", "Solicitud enviada", "Gracias por confiar en VEYOR. Te contactaremos pronto.");
 
@@ -335,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 🆕 Registro simulado
+  //Registro simulado
   const formSignup = document.getElementById("form-signup");
   if (formSignup) {
     formSignup.addEventListener("submit", (e) => {
@@ -376,7 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🔐 Login simulado
+  //Login simulado
   const formLogin = document.getElementById("form-login");
   if (formLogin) {
     formLogin.addEventListener("submit", (e) => {
@@ -421,7 +457,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 👤 Navbar dinámico
+  //Navbar dinámico
   function actualizarNavbar() {
     const userData = JSON.parse(localStorage.getItem("usuarioActivo"));
     const userBtn = document.querySelector(".btn.dropdown-toggle");
@@ -445,7 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   actualizarNavbar();
 
-  // 🧮 Contador comentario
+  //Contador comentario
   const textareaVender = document.getElementById("comentario-vender");
   const contadorVender = document.getElementById("contador-comentario-vender");
   if (textareaVender && contadorVender) {
@@ -463,7 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🧩 Modal filtros
+  //Modal filtros
   const modal = document.getElementById("modalFiltros");
   const abrirBtn = document.getElementById("abrirFiltros");
   const cerrarBtn1 = document.getElementById("cerrarFiltros");
@@ -493,7 +529,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// 🎨 Renderizado de propiedades
+//Renderizado de propiedades
 function renderizarPropiedades(lista) {
   const contenedor = document.getElementById("contenedor-propiedades");
   contenedor.innerHTML = "";
