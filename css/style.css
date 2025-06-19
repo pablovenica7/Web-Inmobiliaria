@@ -82,6 +82,22 @@ body {
   cursor: pointer;
 }
 
+.opciones .btn-opcion {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: #333;
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.opciones .btn-opcion:hover {
+  background-color: #e0e0e0;
+}
+
 /* FILTROS (REVISAR)*/ 
 #modalFiltros {
   position: fixed;
