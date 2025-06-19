@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  //Validaciones con SweetAlert
+  // Validaciones con SweetAlert
   validarFormulario("form-contacto", "Mensaje enviado", "Gracias por contactarnos. Te responderemos a la brevedad.");
   validarFormulario("form-vender", "Solicitud enviada", "Gracias por confiar en VEYOR. Te contactaremos pronto.");
 
@@ -365,7 +365,18 @@ document.addEventListener("DOMContentLoaded", () => {
             title: tituloExito,
             text: textoExito,
             confirmButtonColor: 'green'
-          }).then(() => form.reset());
+          }).then(() => {
+            form.reset();
+
+            //Reset contador si aplica
+            if (id === "form-vender") {
+              const contadorVender = document.getElementById("contador-comentario-vender");
+              if (contadorVender) contadorVender.textContent = "0/500";
+            } else if (id === "form-contacto") {
+              const contadorContacto = document.getElementById("contador-comentario-contacto");
+              if (contadorContacto) contadorContacto.textContent = "0/500";
+            }
+          });
         }
       });
     }
